@@ -1,22 +1,26 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
+import userRoutes from "./routes/users";
+import authRoutes from "./routes/auth";
 
-mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string);
+async function main() {
+  await mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string);
+  console.log("CONNECTED DATABASE SUCCESSFUL!");
+}
+main().catch((err) => console.log(err));
 
 const app = express();
 
 // parse incoming JSON req
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 // allow req from another port
 app.use(cors());
 
-app.get("/api/test", async (req: Request, res: Response) => {
-  res.json({ message: "Hello from express" });
-});
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
 
 app.listen(8080, () => {
   console.log(`Server running on http://localhost:${8080}`);

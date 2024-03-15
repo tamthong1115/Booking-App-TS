@@ -1,8 +1,6 @@
 import Joi, { ObjectSchema } from "joi";
 
-const PASSWORD_REGEX = new RegExp(
-  "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!.@#$%^&*])(?=.{6,})"
-);
+const PASSWORD_REGEX = new RegExp("^(?=.*[0-9])(?=.*[!@#$%^&*]).{6,}$");
 
 const authRegister = Joi.object({
   firstName: Joi.string().alphanum().min(3).max(30).required(),

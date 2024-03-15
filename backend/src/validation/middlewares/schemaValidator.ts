@@ -9,11 +9,6 @@ const validationOptions = {
   stripUnknown: false,
 };
 
-// interface CustomError {
-//   status: string;
-//   error: string;
-// }
-
 const schemaValidator: RequestHandler = (req, res, next) => {
   const path = req.route.path;
   const method = req.method.toLowerCase();
@@ -28,15 +23,9 @@ const schemaValidator: RequestHandler = (req, res, next) => {
       const { error, value } = schema.validate(req.body, validationOptions);
 
       if (error) {
-        // const customError: CustomError = {
-        //   status: "failed",
-        //   error: "Invalid request. Please review request and try again.",
-        // };
-
         const joiError = {
           status: "failed",
           error: {
-            original: error._original,
             details: error.details.map(({ message, type }) => ({
               // message: message.replace(/['"]/g, ""),
               message: message,

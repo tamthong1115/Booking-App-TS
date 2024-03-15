@@ -1,9 +1,9 @@
-import express from "express";
-import * as userControllers from "../controllers/user";
-import validateRequest from "../validation/middlewares/schemaValidator";
-const router = express.Router();
+// import express from "express";
+// import * as authControllers from "../controllers/auth";
+// import validateRequest from "../validation/middlewares/schemaValidator";
+// const router = express.Router();
 
-// /api/users/register
-router.post("/register", validateRequest, userControllers.postRegister);
+// // /api/users/register
+// router.post("/register", validateRequest, authControllers.postRegister);
 
-export default router;
+// export default router;

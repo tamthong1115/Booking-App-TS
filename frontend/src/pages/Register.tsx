@@ -21,17 +21,22 @@ const Register = () => {
     watch,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterFormData>();
+  } = useForm<RegisterFormData>({
+    mode: "onBlur", // trigger the validation when un-focus the input
+  });
 
   const mutation = useMutation(apiClient.register, {
     onSuccess: async () => {
-      showToast({ message: "Registration Success!", type: "SUCCESS" });
+      showToast({ message: "Registration Successful!", type: "SUCCESS" });
       await queryClient.invalidateQueries("validateToken"); // from isError AppContext
 
       navigate("/");
     },
     onError: (error: Error) => {
-      showToast({ message: error.message, type: "ERROR" });
+      showToast({
+        message: error.message ? error.message : "Register failed!",
+        type: "ERROR",
+      });
     },
   });
 
@@ -48,7 +53,13 @@ const Register = () => {
           First Name
           <input
             className="w-full rounded border px-2 py-1 font-normal"
-            {...register("firstName", { required: "First name is required" })}
+            {...register("firstName", {
+              required: "First name is required",
+              minLength: {
+                value: 3,
+                message: "The first name must be at least 3 character.",
+              },
+            })}
           />
           {errors.firstName && (
             <span className="text-red-600">{errors.firstName.message}</span>
@@ -58,7 +69,13 @@ const Register = () => {
           Last Name
           <input
             className="w-full rounded border px-2 py-1 font-normal"
-            {...register("lastName", { required: "Last name is required" })}
+            {...register("lastName", {
+              required: "Last name is required",
+              minLength: {
+                value: 3,
+                message: "The last name must be at least 3 character.",
+              },
+            })}
           />
           {errors.lastName && (
             <span className="text-red-600">{errors.lastName.message}</span>

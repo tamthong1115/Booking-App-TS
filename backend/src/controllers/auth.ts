@@ -16,6 +16,7 @@ export const postRegister = async (req: Request, res: Response) => {
     }
 
     user = new User(req.body);
+    console.log(req.body)
     await user.save();
 
     const token = jwt.sign(

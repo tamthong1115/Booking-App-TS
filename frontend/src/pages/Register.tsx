@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
-import * as apiClient from "../apt-client";
+import * as apiClient from "../api-client";
 import { useAppContext } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
 
@@ -25,7 +25,7 @@ const Register = () => {
     mode: "onBlur", // trigger the validation when un-focus the input
   });
 
-  const mutation = useMutation(apiClient.register, {
+  const { mutate } = useMutation(apiClient.register, {
     onSuccess: async () => {
       showToast({ message: "Registration Successful!", type: "SUCCESS" });
       await queryClient.invalidateQueries("validateToken"); // from isError AppContext
@@ -42,7 +42,7 @@ const Register = () => {
 
   const onSubmit = handleSubmit((data) => {
     // mutate make the post request
-    mutation.mutate(data);
+    mutate(data);
   });
 
   return (

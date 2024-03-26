@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
-import * as apiClient from "../apt-client";
+import * as apiClient from "../api-client";
 import { useAppContext } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +16,9 @@ const SignIn = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignInFormData>();
+  } = useForm<SignInFormData>({
+    mode: "onBlur",
+  });
 
   const mutation = useMutation(apiClient.signIn, {
     onSuccess: async () => {
@@ -36,7 +38,7 @@ const SignIn = () => {
 
   return (
     <div className=" flex flex-col items-center justify-center px-3 py-4 lg:py-0">
-      <div className="dark:border-gray-7000 w-full rounded-lg bg-white shadow sm:max-w-md md:mt-0 xl:p-0 dark:border dark:bg-gray-700">
+      <div className="dark:border-gray-7000 w-full rounded-lg shadow sm:max-w-md md:mt-0 xl:p-0 dark:border dark:bg-gray-700">
         <div className="space-y-4 p-6 sm:p-8 md:space-y-6">
           <h1 className="text-2xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white ">
             Sign In

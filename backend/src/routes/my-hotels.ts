@@ -1,5 +1,5 @@
 import express from "express";
-import { getHotels, postNewHotel } from "../controllers/my-hotels";
+import { editHotel, getHotels, getOneHotel, postNewHotel } from "../controllers/my-hotels";
 import multer from "multer";
 import verifyToken from "../middlewares/auth";
 import { body } from "express-validator";
@@ -20,24 +20,28 @@ router.post(
   "/",
   verifyToken,
   [
-      body("name").notEmpty().withMessage("Name is required"),
-      body("city").notEmpty().withMessage("City is required"),
-      body("country").notEmpty().withMessage("Country is required"),
-      body("description").notEmpty().withMessage("Description is required"),
-      body("type").notEmpty().withMessage("Hotel type is required"),
-      body("pricePerNight")
-        .notEmpty()
-        .isNumeric()
-        .withMessage("Price per night is required and must be a number"),
-      body("facilities")
-        .notEmpty()
-        .isArray()
-        .withMessage("Facilities are required"),
-    ],
+    body("name").notEmpty().withMessage("Name is required"),
+    body("city").notEmpty().withMessage("City is required"),
+    body("country").notEmpty().withMessage("Country is required"),
+    body("description").notEmpty().withMessage("Description is required"),
+    body("type").notEmpty().withMessage("Hotel type is required"),
+    body("pricePerNight")
+      .notEmpty()
+      .isNumeric()
+      .withMessage("Price per night is required and must be a number"),
+    body("facilities")
+      .notEmpty()
+      .isArray()
+      .withMessage("Facilities are required"),
+  ],
   upload.array("imageFiles", MAX_IMG),
   postNewHotel
 );
 
-router.get('/',verifyToken,getHotels)
+router.get("/", verifyToken, getHotels);
+
+router.get("/:hotelId", verifyToken, getOneHotel);
+
+router.put("/:hotelId", verifyToken,upload.array("imageFiles"), editHotel);
 
 export default router;

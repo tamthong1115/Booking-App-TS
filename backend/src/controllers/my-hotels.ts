@@ -20,30 +20,7 @@ export const postNewHotel: RequestHandler = async (req, res, next) => {
     });
     const imageUrls = await Promise.all(uploadPromises);
     */
-    const uploadPromises = imageFiles.map(async (image) => {
-      const uploadResult = await new Promise<UploadApiResponse | undefined>(
-        (resolve, reject) => {
-          cloudinary.v2.uploader
-            .upload_stream(
-              { resource_type: "image", folder: "/hotels" },
-              (error, uploadResult) => {
-                if (error) {
-                  reject(error);
-                }
-                return resolve(uploadResult);
-              }
-            )
-            .end(image.buffer);
-        }
-      );
-      if (uploadResult) {
-        return uploadResult.url;
-      } else {
-        throw new Error("Upload failed!");
-      }
-    });
-
-    const imageUrls = await Promise.all(uploadPromises);
+    const imageUrls = await uploadImages(imageFiles);
     // add urls image to hotel
     newHotel.imageUrls = imageUrls;
     newHotel.lastUpdated = new Date();
@@ -72,3 +49,75 @@ export const getHotels: RequestHandler = async (req, res, next) => {
     next(new ExpressError(`Error creating hotel: ${error}`, 500));
   }
 };
+
+export const getOneHotel: RequestHandler = async (req, res) => {
+  const hotelId = req.params.hotelId.toString();
+  try {
+    const hotel = await Hotel.findOne({
+      _id: hotelId,
+      userId: req.userId,
+    });
+    res.json(hotel);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching hotels" });
+  }
+};
+
+export const editHotel: RequestHandler = async (req, res) => {
+  try {
+    const updatedHotel: HotelType = req.body;
+    updatedHotel.lastUpdated = new Date();
+
+    const hotel = await Hotel.findOneAndUpdate(
+      {
+        _id: req.params.hotelId,
+        userId: req.userId,
+      },
+      updatedHotel,
+      { new: true }
+    );
+
+    if (!hotel) {
+      return res.status(200).json({ message: "Hotel not found" });
+    }
+
+    //add new file from user
+    const files = req.files as Express.Multer.File[];
+    const updatedImageUrls = await uploadImages(files);
+
+    hotel.imageUrls = [...updatedImageUrls, ...(updatedHotel.imageUrls || [])];
+
+    await hotel.save();
+    res.status(201).json(hotel);
+  } catch (error) {
+    res.status(500).json({ message: "Edit hotel failed" });
+  }
+};
+
+async function uploadImages(imageFiles: Express.Multer.File[]) {
+  const uploadPromises = imageFiles.map(async (image) => {
+    const uploadResult = await new Promise<UploadApiResponse | undefined>(
+      (resolve, reject) => {
+        cloudinary.v2.uploader
+          .upload_stream(
+            { resource_type: "image", folder: "/hotels" },
+            (error, uploadResult) => {
+              if (error) {
+                reject(error);
+              }
+              return resolve(uploadResult);
+            }
+          )
+          .end(image.buffer);
+      }
+    );
+    if (uploadResult) {
+      return uploadResult.url;
+    } else {
+      throw new Error("Upload failed!");
+    }
+  });
+
+  const imageUrls = await Promise.all(uploadPromises);
+  return imageUrls;
+}

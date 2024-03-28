@@ -1,7 +1,8 @@
 import { RequestHandler } from "express";
 import cloudinary, { UploadApiResponse } from "cloudinary";
 import ExpressError from "../utils/ExpressError";
-import Hotel, { HotelType } from "../models/hotel";
+import Hotel from "../models/hotel";
+import { HotelType } from "../../shared/types";
 
 export const postNewHotel: RequestHandler = async (req, res, next) => {
   try {
@@ -59,5 +60,15 @@ export const postNewHotel: RequestHandler = async (req, res, next) => {
   } catch (e) {
     console.log(e);
     next(new ExpressError(`Error creating hotel: ${e}`, 400));
+  }
+};
+
+export const getHotels: RequestHandler = async (req, res, next) => {
+  try {
+    const hotels = await Hotel.find({ userId: req.userId });
+    res.json(hotels);
+  } catch (error) {
+    console.log(error);
+    next(new ExpressError(`Error creating hotel: ${error}`, 500));
   }
 };

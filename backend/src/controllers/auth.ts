@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import User from "../models/user";
-import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import generateToken from "../utils/generateToken";
 import "dotenv/config";
 
 // /api/users/register
@@ -16,21 +16,11 @@ export const postRegister = async (req: Request, res: Response) => {
     }
 
     user = new User(req.body);
-    console.log(req.body)
+    console.log(req.body);
     await user.save();
 
-    const token = jwt.sign(
-      { userId: user.id },
-      process.env.JWT_SECRET_KEY as string,
-      { expiresIn: "1d" }
-    );
+    generateToken(res, user.id);
 
-    //this send automatically
-    res.cookie("auth_token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 86400000, //1d
-    });
     return res.status(200).send({ message: "User registered OK" });
   } catch (error) {
     console.log(error);
@@ -52,19 +42,7 @@ export const postLogin = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Invalid Credentials" });
     }
 
-    const token = jwt.sign(
-      { userId: user.id },
-      process.env.JWT_SECRET_KEY as string,
-      {
-        expiresIn: "1d",
-      }
-    );
-
-    res.cookie("auth_token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 86400000,
-    });
+    generateToken(res, user.id);
 
     res.status(200).json({ userId: user._id });
   } catch (error) {

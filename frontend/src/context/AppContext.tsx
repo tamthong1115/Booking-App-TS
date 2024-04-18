@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import Toast from "../components/Toast";
+import Toast from "../components/Toast/Toast.tsx";
 import { useQuery } from "react-query";
 import * as apiClient from "../api-client";
 

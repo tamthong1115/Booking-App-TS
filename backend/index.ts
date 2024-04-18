@@ -3,11 +3,12 @@ import path from "path";
 import cors from "cors";
 import "dotenv/config";
 // import userRoutes from "./routes/users";
-import authRoutes from "./routes/auth";
-import myHotelRoutes from "./routes/my-hotels";
+import authRoutes from "./src/routes/auth";
+import myHotelRoutes from "./src/routes/my-hotels";
 import cookieParser from "cookie-parser";
-import connectToDatabase from "./utils/connectToDatabase";
+import connectToDatabase from "./src/utils/connectToDatabase";
 import { v2 as cloudinary } from "cloudinary";
+import hotelRoutes from "./src/routes/hotels"
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -36,6 +37,7 @@ app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 app.use("/api/auth", authRoutes);
 // app.use("/api/users", userRoutes);
 app.use("/api/my-hotels", myHotelRoutes);
+app.use('/api/hotels', hotelRoutes)
 
 // pass req not in routes to frontend
 app.get("*", (req: Request, res: Response) => {

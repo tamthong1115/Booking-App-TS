@@ -27,3 +27,18 @@ test("should allow user to search for hotels", async ({ page }) => {
   await expect(page.getByText("Hotels found in Dublin")).toBeVisible();
   await expect(page.getByRole("link",{name: "Dublin Getaways"}).first()).toBeVisible();
 });
+
+
+
+test("should show hotel detail", async ({ page }) => {
+  await page.goto(UI_URL);
+
+  await page.getByPlaceholder("Where are you going?").fill("Dublin");
+  await page.getByRole("button", { name: "Search" }).click();
+
+  await page.getByRole("link", { name: "Dublin Getaways" }).first().click();
+
+  await expect(page).toHaveURL(/detail/)
+  await expect(page.getByRole("button", { name: "Book Now" })).toBeVisible();
+
+})

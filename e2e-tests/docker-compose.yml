@@ -1,0 +1,10 @@
+version: '3'
+services:
+  playwright:
+    image: mcr.microsoft.com/playwright:v1.43.0-jammy
+    volumes:
+      - .:/home/playwright
+    command: /bin/bash
+    stdin_open: true
+    tty: true
+    ipc: host

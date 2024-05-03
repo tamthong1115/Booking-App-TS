@@ -4,6 +4,7 @@ import SignOutButton from "../Button/SignOutButton.tsx";
 
 const Header = () => {
   const { isLoggedIn } = useAppContext();
+  const { isAdmin } = useAppContext();
   return (
     <div className="bg-blue-800 py-6">
       <div className="container mx-auto flex justify-between">
@@ -11,22 +12,25 @@ const Header = () => {
           <Link to="/">BookingAppTS.com</Link>
         </span>
         <span className="flex space-x-2">
-          {isLoggedIn ? (
+          {isAdmin && (
             <>
               <Link
                 to="/my-bookings"
-                className="flex items-center  px-3 font-bold text-white hover:bg-blue-500"
+                className="flex items-center px-3 font-bold text-white hover:bg-blue-500"
               >
                 My Bookings
               </Link>
               <Link
                 to="/my-hotels"
-                className="flex items-center  px-3 font-bold text-white hover:bg-blue-500"
+                className="flex items-center px-3 font-bold text-white hover:bg-blue-500"
               >
                 My Hotels
               </Link>
-              <SignOutButton />
             </>
+          )}
+
+          {isLoggedIn ? (
+            <SignOutButton />
           ) : (
             <Link
               to="/sign-in"

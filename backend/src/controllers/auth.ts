@@ -16,10 +16,10 @@ export const postRegister = async (req: Request, res: Response) => {
     }
 
     user = new User(req.body);
-    console.log(req.body);
+    // console.log(req.body);
     await user.save();
 
-    generateToken(res, user.id);
+    generateToken(res, user.id, user.isAdmin);
 
     return res.status(200).send({ message: "User registered OK" });
   } catch (error) {
@@ -42,9 +42,9 @@ export const postLogin = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Invalid Credentials" });
     }
 
-    generateToken(res, user.id);
+    generateToken(res, user.id, user.isAdmin);
 
-    res.status(200).json({ userId: user._id });
+    res.status(200).json({ userId: user._id, isAdmin: user.isAdmin });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Something went wrong" });
@@ -52,14 +52,15 @@ export const postLogin = async (req: Request, res: Response) => {
 };
 
 export const getValidateToken = (req: Request, res: Response) => {
-  res.status(200).send({ userId: req.userId });
+  res.status(200).send({ userId: req.userId});
 };
 
 export const postLogout = (req: Request, res: Response) => {
   try {
     res.cookie("auth_token", "", { expires: new Date(0) });
-    res.send(200).json({ message: "Logout Success!" });
+
+    res.status(200).json({ message: "Logout OK" });
   } catch (err) {
-    res.send(400).json({ message: "Logout Error!" });
+    res.status(500).json({ message: "Something went wrong" });
   }
 };

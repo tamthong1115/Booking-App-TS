@@ -1,9 +1,9 @@
-// import express from "express";
-// import * as authControllers from "../controllers/auth";
-// import validateRequest from "../validation/middlewares/schemaValidator";
-// const router = express.Router();
+import express from "express";
+import { verifyTokenUser } from "../middlewares/auth";
+import { getCurrentUser } from "../controllers/user";
 
-// // /api/users/register
-// router.post("/register", validateRequest, authControllers.postRegister);
+const router = express.Router();
 
-// export default router;
+router.get("/me", verifyTokenUser, getCurrentUser);
+
+export default router;

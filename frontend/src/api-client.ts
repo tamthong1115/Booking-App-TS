@@ -1,9 +1,23 @@
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
-import { HotelSearchResponse, HotelType } from "../../backend/shared/types";
+import {
+  HotelSearchResponse,
+  HotelType,
+  UserType,
+} from "../../backend/shared/types";
 
 // if the backend and frontend bundles just use the same server to fetch
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+
+export const fetchCurrentUser = async (): Promise<UserType> => {
+  const response = await fetch(`${API_BASE_URL}/api/users/me`, {
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("Error fetching user");
+  }
+  return response.json();
+};
 
 export const register = async (formData: RegisterFormData) => {
   const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
@@ -36,7 +50,7 @@ export const signIn = async (formData: SignInFormData) => {
   }
 };
 
-export const validateToken = async () => {
+export const validateTokenUser = async () => {
   const response = await fetch(`${API_BASE_URL}/api/auth/validate-token`, {
     credentials: "include", // send any cookies along with req
   });
@@ -46,6 +60,17 @@ export const validateToken = async () => {
   }
   return response.json();
 };
+
+export const validateTokenAdmin = async () => {
+  const response = await fetch(`${API_BASE_URL}/api/auth/validate-token-admin`, {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Token Invalid");
+  }
+  return response.json();
+}
 
 export const signOut = async () => {
   const response = await fetch(`${API_BASE_URL}/api/auth/logout`, {
@@ -161,12 +186,11 @@ export const searchHotels = async (
   return response.json();
 };
 
-
-export const fetchHotelById = async(hotelId:string) =>{
-  const response = await fetch(`${API_BASE_URL}/api/hotels/${hotelId}`)
-  if(!response.ok){
-    throw new Error("Error fetching hotel")
+export const fetchHotelById = async (hotelId: string) => {
+  const response = await fetch(`${API_BASE_URL}/api/hotels/${hotelId}`);
+  if (!response.ok) {
+    throw new Error("Error fetching hotel");
   }
 
-  return response.json()
-}
+  return response.json();
+};

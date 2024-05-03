@@ -3,6 +3,7 @@ import { fetchHotelById } from "../api-client";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import GuestInfoForm from "../forms/GuestInfoForm/GuestInfoForm";
+import LoadingComponent from "../components/Loading/Loading";
 
 const Detail = () => {
   const { hotelId } = useParams();
@@ -16,7 +17,9 @@ const Detail = () => {
   );
 
   if (!hotel) {
-    return <div>Loading...</div>;
+    return (
+      LoadingComponent({ isLoading: true })
+    )
   }
 
   return (
@@ -51,7 +54,7 @@ const Detail = () => {
       <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr]">
         <div className="whitespace-pre-line">{hotel.description}</div>
         <div className="h-fit">
-          <GuestInfoForm pricePerNight={hotel.pricePerNight} hotelId={hotelId || ""} />
+          <GuestInfoForm pricePerNight={hotel.pricePerNight} hotelId={hotel._id} />
         </div>
       </div>
     </div>

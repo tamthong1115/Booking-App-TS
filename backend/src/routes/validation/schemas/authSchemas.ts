@@ -1,5 +1,4 @@
 import Joi, { ObjectSchema } from "joi";
-import { UserType } from "../../../models/user";
 import schemaValidator from "../middlewares/schemaValidator";
 
 const PASSWORD_REGEX = new RegExp("^(?=.*[0-9])(?=.*[!@#$%^&*]).{6,}$");

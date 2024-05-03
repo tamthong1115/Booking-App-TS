@@ -8,6 +8,7 @@ import StarRatingFilter from "../components/Search/StarRatingFilter.tsx";
 import HotelTypesFilter from "../components/Search/HotelTypesFilter.tsx";
 import FacilitiesFilter from "../components/Search/FacilitiesFilter.tsx";
 import PriceFilter from "../components/Search/PriceFilter.tsx";
+import LoadingComponent from "../components/Loading/Loading.tsx";
 
 const Search = () => {
   const search = useSearchContext();
@@ -32,7 +33,7 @@ const Search = () => {
     sortOption,
   };
 
-  const { data: hotelData } = useQuery(["searchHotels", searchParams], () => {
+  const { data: hotelData, isLoading } = useQuery(["searchHotels", searchParams], () => {
     return apiClient.searchHotels(searchParams);
   });
 
@@ -69,6 +70,12 @@ const Search = () => {
         : prevFacilities.filter((facility) => facility !== hotelFacility); //unchecked
     });
   };
+
+  if(isLoading){
+    return(
+      LoadingComponent({isLoading: true})
+    )
+  }
 
   return (
     <div className="grid grid-cols-1 gap-5 lg:grid-cols-[250px_1fr]">

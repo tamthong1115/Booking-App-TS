@@ -1,7 +1,12 @@
 import express from "express";
-import { editHotel, getHotels, getOneHotel, postNewHotel } from "../controllers/my-hotels";
+import {
+  editHotel,
+  getHotels,
+  getOneHotel,
+  postNewHotel,
+} from "../controllers/my-hotels";
 import multer from "multer";
-import verifyToken from "../middlewares/auth";
+import { authenticationAdmin } from "../middlewares/auth";
 import { body } from "express-validator";
 // import { hotelValidator } from "./validation/schemas/hotelSchems";
 
@@ -18,7 +23,7 @@ const upload = multer({
 const MAX_IMG = 6;
 router.post(
   "/",
-  verifyToken,
+  authenticationAdmin,
   [
     body("name").notEmpty().withMessage("Name is required"),
     body("city").notEmpty().withMessage("City is required"),
@@ -38,10 +43,15 @@ router.post(
   postNewHotel
 );
 
-router.get("/", verifyToken, getHotels);
+router.get("/", authenticationAdmin, getHotels);
 
-router.get("/:hotelId", verifyToken, getOneHotel);
+router.get("/:hotelId", authenticationAdmin, getOneHotel);
 
-router.put("/:hotelId", verifyToken,upload.array("imageFiles"), editHotel);
+router.put(
+  "/:hotelId",
+  authenticationAdmin,
+  upload.array("imageFiles"),
+  editHotel
+);
 
 export default router;

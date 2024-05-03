@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import path from "path";
 import cors from "cors";
 import "dotenv/config";
-// import userRoutes from "./routes/users";
+import userRoutes from "./src/routes/users";
 import authRoutes from "./src/routes/auth";
 import myHotelRoutes from "./src/routes/my-hotels";
 import cookieParser from "cookie-parser";
@@ -35,7 +35,7 @@ app.use(
 app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
 app.use("/api/auth", authRoutes);
-// app.use("/api/users", userRoutes);
+app.use("/api/users", userRoutes);
 app.use("/api/my-hotels", myHotelRoutes);
 app.use('/api/hotels', hotelRoutes)
 

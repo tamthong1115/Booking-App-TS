@@ -20,9 +20,12 @@ export const postNewHotel: RequestHandler = async (req, res, next) => {
     });
     const imageUrls = await Promise.all(uploadPromises);
     */
-    const imageUrls = await uploadImages(imageFiles);
+    const imageUploadResults = await uploadImages(imageFiles, newHotel.name);
     // add urls image to hotel
-    newHotel.imageUrls = imageUrls;
+    newHotel.imageUrls = imageUploadResults.map((result) => result.secure_url);
+    newHotel.imagePublicIds = imageUploadResults.map(
+      (result) => result.publicId
+    );
     newHotel.lastUpdated = new Date();
     /*
      take id from req.userId (not req.body) b.c the 
@@ -63,14 +66,14 @@ export const getOneHotel: RequestHandler = async (req, res) => {
   }
 };
 
-export const editHotel: RequestHandler = async (req, res) => {
+export const editHotel: RequestHandler = async (req, res, next) => {
   try {
     const updatedHotel: HotelType = req.body;
     updatedHotel.lastUpdated = new Date();
-
+    // console.log(updatedHotel);
     const hotel = await Hotel.findOneAndUpdate(
       {
-        _id: req.params.hotelId,
+        _id: req.params.hotelId.toString(),
         userId: req.userId,
       },
       updatedHotel,
@@ -83,24 +86,82 @@ export const editHotel: RequestHandler = async (req, res) => {
 
     //add new file from user
     const files = req.files as Express.Multer.File[];
-    const updatedImageUrls = await uploadImages(files);
+    const imageUploadResults = await uploadImages(files, hotel.name);
+
+    const updatedImageUrls = imageUploadResults.map(
+      (result) => result.secure_url
+    );
+    const updatedImagePublicIds = imageUploadResults.map(
+      (result) => result.publicId
+    );
+
+    const deletedImages = hotel.imagePublicIds.filter(
+      (publicId) => !updatedImagePublicIds.includes(publicId)
+    );
+
+    console.log(hotel.imagePublicIds);
+    console.log(updatedImagePublicIds);
+    console.log(updatedImageUrls);
+    console.log(deletedImages);
+
+    deletedImages.forEach((publicId) => {
+      cloudinary.v2.uploader.destroy(publicId, function (error, result) {
+        if (error) {
+          console.error("Error deleting image:", error);
+        } else {
+          console.log("Image deleted:", result);
+        }
+      });
+    });
 
     hotel.imageUrls = [...updatedImageUrls, ...(updatedHotel.imageUrls || [])];
 
     await hotel.save();
     res.status(201).json(hotel);
   } catch (error) {
-    res.status(500).json({ message: "Edit hotel failed" });
+    next(new ExpressError(`Error updating hotel: ${error}`, 500));
   }
 };
 
-async function uploadImages(imageFiles: Express.Multer.File[]) {
+export const deleteHotel: RequestHandler = async (req, res) => {
+  try {
+    const hotel = await Hotel.findOneAndDelete({
+      _id: req.params.hotelId,
+      userId: req.userId,
+    });
+
+    if (!hotel) {
+      return res.status(404).json({ message: "Hotel not found" });
+    }
+
+    // Delete images from Cloudinary
+    cloudinary.v2.api.delete_resources(
+      hotel.imagePublicIds,
+      function (error, result) {
+        if (error) {
+          console.error("Error deleting images:", error);
+        } else {
+          console.log("Images deleted:", result);
+        }
+      }
+    );
+
+    res.status(200).json({ message: "Hotel deleted" });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting hotel" });
+  }
+};
+
+async function uploadImages(
+  imageFiles: Express.Multer.File[],
+  hotelName?: string
+) {
   const uploadPromises = imageFiles.map(async (image) => {
     const uploadResult = await new Promise<UploadApiResponse | undefined>(
       (resolve, reject) => {
         cloudinary.v2.uploader
           .upload_stream(
-            { resource_type: "image", folder: "/hotels" },
+            { resource_type: "image", folder: `/hotels/${hotelName}` },
             (error, uploadResult) => {
               if (error) {
                 reject(error);
@@ -112,12 +173,15 @@ async function uploadImages(imageFiles: Express.Multer.File[]) {
       }
     );
     if (uploadResult) {
-      return uploadResult.url;
+      return {
+        secure_url: uploadResult.secure_url,
+        publicId: uploadResult.public_id,
+      };
     } else {
       throw new Error("Upload failed!");
     }
   });
 
-  const imageUrls = await Promise.all(uploadPromises);
-  return imageUrls;
+  const imageUploadResults = await Promise.all(uploadPromises);
+  return imageUploadResults;
 }

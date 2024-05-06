@@ -4,10 +4,12 @@ import { useQuery } from "react-query";
 import { useAppContext } from "../context/AppContext";
 import { BsBuilding, BsMap } from "react-icons/bs";
 import { BiHotel, BiMoney, BiStar } from "react-icons/bi";
+import DeleteHotelButton from "../components/Button/DeleteHotelButton";
+import LoadingComponent from "../components/Loading/Loading";
 
 const MyHotels = () => {
   const { showToast } = useAppContext();
-  const { data: hotelData } = useQuery(
+  const { data: hotelData, isLoading } = useQuery(
     "fetchMyHotels",
     apiClient.fetchMyHotels,
     {
@@ -20,8 +22,16 @@ const MyHotels = () => {
     },
   );
 
+  if (isLoading) {
+    return LoadingComponent ({ isLoading });
+  }
+
   if (!hotelData) {
-    return <span>No Hotels found</span>;
+    return (
+      <h1 className="text-3xl">
+        No hotels found. <Link to="/add-hotel">Add a hotel</Link>
+      </h1>
+    );
   }
 
   return (
@@ -30,7 +40,7 @@ const MyHotels = () => {
         <h1 className="text-3xl font-bold">My Hotels</h1>
         <Link
           to="/add-hotel"
-          className="flex bg-blue-600 p-2 text-xl font-bold text-white hover:bg-blue-500"
+          className="flex rounded bg-blue-600 p-2 text-xl font-bold text-white hover:bg-blue-500"
         >
           Add Hotel
         </Link>
@@ -39,6 +49,11 @@ const MyHotels = () => {
         {hotelData.map((hotel) => (
           <div className="flex flex-col justify-between gap-5 rounded-lg border border-slate-300 p-8">
             <h2 className="text-2xl font-bold">{hotel.name}</h2>
+            <img
+              src={hotel.imageUrls[0]}
+              alt={hotel.name}
+              className="h-72 w-full rounded-lg object-cover"
+            />
             <div className="whitespace-pre-line">{hotel.description}</div>
             <div className="grid grid-cols-5 gap-2">
               <div className="flex items-center rounded-sm border border-slate-300 p-3">
@@ -61,14 +76,21 @@ const MyHotels = () => {
                 {hotel.starRating} Star Rating
               </div>
             </div>
-            <span className="flex justify-end">
-              <Link
-                to={`/edit-hotel/${hotel._id}`}
-                className="flex bg-blue-600 p-2 text-xl font-bold text-white hover:bg-blue-500"
-              >
-                View Details
-              </Link>
-            </span>
+
+            <div className="flex justify-end gap-4">
+              <span>
+                <Link
+                  to={`/edit-hotel/${hotel._id}`}
+                  className="flex rounded bg-blue-600 p-2 text-xl font-bold text-white hover:bg-blue-500"
+                >
+                  View Details
+                </Link>
+              </span>
+
+              <span>
+                <DeleteHotelButton hotelId={hotel._id} />
+              </span>
+            </div>
           </div>
         ))}
       </div>

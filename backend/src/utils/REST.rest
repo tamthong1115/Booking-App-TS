@@ -8,7 +8,7 @@ Content-Type: application/json
   "password": "Password!1",
   "confirmPassword": "Password!1",
   "firstName": "chris",
-  "lastName":"TEST"
+  "lastName": "TEST"
 }
 
 ### 
@@ -19,4 +19,7 @@ Content-Type: application/json
   "password": "Password!1"
 }
 
+
+###
+GET http://localhost:8080/api/profile
 

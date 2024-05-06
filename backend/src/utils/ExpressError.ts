@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 export default class CustomError extends Error {
   statusCode: number;
 

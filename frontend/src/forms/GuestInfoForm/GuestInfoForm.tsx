@@ -18,10 +18,11 @@ type GuestInfoFormData = {
 
 const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
   const search = useSearchContext();
+  console.log(search.checkOut.toISOString())
+
   const { isLoggedIn } = useAppContext();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const location = useLocation();
-  
 
   const {
     watch,
@@ -42,6 +43,7 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
   const checkOut = watch("checkOut");
 
   const minDate = new Date();
+  const minDateTomorrow = new Date(minDate.getTime() + 24 * 60 * 60 * 1000);
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
 
@@ -70,9 +72,7 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
   return (
     <div className="flex flex-col gap-4 bg-blue-200 p-4">
       <h3 className="text-md font-bold">${pricePerNight}</h3>
-      <form 
-        onSubmit={handleSubmit(isLoggedIn ? onSubmit : onSignInClick)}
-      >
+      <form onSubmit={handleSubmit(isLoggedIn ? onSubmit : onSignInClick)}>
         <div className="grid grid-cols-1 items-start gap-4">
           <div>
             <DatePicker
@@ -80,7 +80,6 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
               selected={checkIn}
               onChange={(date) => setValue("checkIn", date as Date)}
               selectsStart
-              startDate={checkIn}
               endDate={checkOut}
               minDate={minDate}
               maxDate={maxDate}
@@ -104,7 +103,7 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
               selectsStart
               startDate={checkIn}
               endDate={checkOut}
-              minDate={minDate}
+              minDate={minDateTomorrow}
               maxDate={maxDate}
               placeholderText="Check-out Date"
               className="min-w-full rounded-sm bg-white p-2 focus:outline-none"

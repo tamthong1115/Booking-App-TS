@@ -17,6 +17,7 @@ export type HotelFormData = {
   starRating: number;
   facilities: string[];
   imageFiles: FileList;
+  imagePublicIds: string[];
   imageUrls: string[];
   adultCount: number;
   childCount: number;
@@ -65,10 +66,17 @@ const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
       });
     }
 
+    if (formDataJson.imagePublicIds) {
+      formDataJson.imagePublicIds.forEach((publicId, index) => {
+        formData.append(`imagePublicIds[${index}]`, publicId);
+      });
+    }
+
     Array.from(formDataJson.imageFiles).forEach((imageFile) => {
       formData.append("imageFiles", imageFile);
     });
 
+    // call the onSave function passed from the parent component
     onSave(formData);
   });
   // child component can access FormProvider

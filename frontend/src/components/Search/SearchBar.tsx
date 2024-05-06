@@ -29,6 +29,7 @@ const SearchBar = () => {
   };
 
   const minDate = new Date();
+  const minDateTomorrow = new Date(minDate.getTime() + 24 * 60 * 60 * 1000);
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
 
@@ -95,9 +96,9 @@ const SearchBar = () => {
           selectsStart
           startDate={checkIn}
           endDate={checkOut}
-          minDate={minDate}
+          minDate={minDateTomorrow}
           maxDate={maxDate}
-          placeholderText="Check-in Date"
+          placeholderText="Check-out Date"
           className="min-w-full rounded-sm bg-white p-2 focus:outline-none"
           wrapperClassName="min-w-full"
         />

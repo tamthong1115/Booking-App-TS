@@ -12,14 +12,16 @@ const Header = () => {
           <Link to="/">BookingAppTS.com</Link>
         </span>
         <span className="flex space-x-2">
+          {isLoggedIn && (
+            <Link
+              to="/my-bookings"
+              className="flex items-center px-3 font-bold text-white hover:bg-blue-500"
+            >
+              My Bookings
+            </Link>
+          )}
           {isAdmin && (
             <>
-              <Link
-                to="/my-bookings"
-                className="flex items-center px-3 font-bold text-white hover:bg-blue-500"
-              >
-                My Bookings
-              </Link>
               <Link
                 to="/my-hotels"
                 className="flex items-center px-3 font-bold text-white hover:bg-blue-500"

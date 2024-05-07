@@ -72,6 +72,16 @@ export const searchHotels: RequestHandler = async (req, res) => {
     }
 };
 
+export const getHotels: RequestHandler = async (req, res, next) => {
+    try {
+        const hotels = await Hotel.find().sort("-lastUpdated");
+        res.json(hotels);
+    } catch (error) {
+        console.log(error);
+        next(new CustomError("Failed to get hotels", 500));
+    }
+};
+
 export const postCreatePaymentIntent: RequestHandler = async (req, res) => {
     const {numberOfNights} = req.body;
     const hotelId = req.params.hotelId.toString();
@@ -82,14 +92,14 @@ export const postCreatePaymentIntent: RequestHandler = async (req, res) => {
         throw new CustomError("Hotel not found", 404);
     }
 
-    const totalCostIn = hotel.pricePerNight * parseInt(numberOfNights);
+    const totalCost = hotel.pricePerNight * parseInt(numberOfNights);
     /*
     PaymentIntent is a Stripe object that represents your
     intent to collect payment from a customer, tracking the
     lifecycle of the payment process.
     */
     const paymentIntent = await stripe.paymentIntents.create({
-        amount: totalCostIn * 100, // amount in cents
+        amount: totalCost * 100, // amount in cents
         currency: "usd",
         metadata: {
             hotelId,
@@ -105,7 +115,7 @@ export const postCreatePaymentIntent: RequestHandler = async (req, res) => {
     const response = {
         paymentIntentId: paymentIntent.id,
         clientSecret: paymentIntent.client_secret,
-        totalCost: totalCostIn,
+        totalCost: totalCost,
     };
 
     res.send(response);

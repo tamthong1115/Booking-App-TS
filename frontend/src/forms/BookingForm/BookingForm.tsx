@@ -9,7 +9,7 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import { useSearchContext } from "../../context/SearchContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useMutation } from "react-query";
 import * as apiClient from "../../api-client";
 import { useAppContext } from "../../context/AppContext.tsx";
@@ -31,6 +31,9 @@ export type BookingFormData = {
   totalCost: number;
   paymentIntentId: string;
 };
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+
 const BookingForm = ({ currentUser, paymentIntent }: Props) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -39,6 +42,8 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
   const { hotelId } = useParams();
 
   const { showToast } = useAppContext();
+
+  const navigate = useNavigate();
 
   const { mutate: bookRoom, isLoading } = useMutation(
     apiClient.createRoomBooking,
@@ -74,21 +79,19 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
       return;
     }
 
-    // const result = await stripe.confirmCardPayment(paymentIntent.clientSecret, {
-    //   payment_method: {
-    //     card: elements.getElement(CardNumberElement) as StripeCardNumberElement,
-    //   },
-    // });
-
     const result = await stripe.confirmPayment({
       elements,
       redirect: "if_required",
+      confirmParams: {
+        return_url: `${API_BASE_URL}/my-bookings`,
+      },
     });
 
     console.log(result);
 
     if (result.paymentIntent?.status === "succeeded") {
       bookRoom({ ...formData, paymentIntentId: result.paymentIntent.id });
+      navigate("/my-bookings");
     }
   };
 
@@ -132,48 +135,9 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
           />
         </label>
       </div>
-      {/*<div className="space-y-2">*/}
-      {/*  <h2 className="text-xl font-semibold">Your Price Summary</h2>*/}
 
-      {/*  <div className="rounded-md bg-blue-200 p-4">*/}
-      {/*    <div className="text-lg font-semibold">*/}
-      {/*      Total Cost: ${paymentIntent.totalCost.toFixed(2)}*/}
-      {/*    </div>*/}
-
-      {/*    <div className="text-xs">Includes taxes and charges</div>*/}
-      {/*  </div>*/}
-      {/*</div>*/}
       <div className="space-y-2">
         <h3 className="text-xl font-semibold">Payment Details</h3>
-
-        {/*<div>*/}
-        {/*  <label className="text-sm font-bold text-gray-700">Card Number</label>*/}
-        {/*  <CardNumberElement*/}
-        {/*    id="card-number-element"*/}
-        {/*    className="rounded-md border p-2 text-sm"*/}
-        {/*  />*/}
-        {/*</div>*/}
-
-        {/*<div className={"grid grid-cols-2 gap-3"}>*/}
-        {/*  <div>*/}
-        {/*    <label className="text-sm font-bold text-gray-700">*/}
-        {/*      Card Expiry*/}
-        {/*    </label>*/}
-        {/*    <CardExpiryElement*/}
-        {/*      id="card-expiry-element"*/}
-        {/*      className="rounded-md border p-2 text-sm"*/}
-        {/*    />*/}
-        {/*  </div>*/}
-
-        {/*  <div>*/}
-        {/*    <label className="text-sm font-bold text-gray-700">CVC</label>*/}
-        {/*    <CardCvcElement*/}
-        {/*      id="card-cvc-element"*/}
-        {/*      className="rounded-md border p-2 text-sm"*/}
-        {/*    />*/}
-        {/*  </div>*/}
-        {/*</div>*/}
-
         <PaymentElement
           id="payment-element"
           className="rounded-md border p-2 text-sm"

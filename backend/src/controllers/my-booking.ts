@@ -16,6 +16,9 @@ export const getBookings: RequestHandler = async (req, res, next) => {
         const result = hotels.map((hotel) => {
             const userBookings = hotel.bookings.filter((booking) => booking.userId === req.userId);
 
+            // Sort the bookings by check-out date in descending order
+            userBookings.sort((a,b) => new Date(a.checkOut).getTime() - new Date(b.checkOut).getTime());
+
             const hotelWithUserBookings: HotelType = {
                 ...hotel.toObject(),
                 bookings: userBookings // Only return the bookings that match the user ID

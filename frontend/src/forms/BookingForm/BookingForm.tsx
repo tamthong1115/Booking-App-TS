@@ -45,11 +45,12 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
 
   const navigate = useNavigate();
 
-  const { mutate: bookRoom, isLoading } = useMutation(
+  const { mutate, isLoading } = useMutation(
     apiClient.createRoomBooking,
     {
       onSuccess: () => {
         showToast({ message: "Booking Saved!", type: "SUCCESS" });
+        navigate("/my-bookings");
       },
       onError: (error) => {
         console.error(error);
@@ -87,11 +88,8 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
       },
     });
 
-    console.log(result);
-
     if (result.paymentIntent?.status === "succeeded") {
-      bookRoom({ ...formData, paymentIntentId: result.paymentIntent.id });
-      navigate("/my-bookings");
+      mutate({ ...formData, paymentIntentId: result.paymentIntent.id });
     }
   };
 

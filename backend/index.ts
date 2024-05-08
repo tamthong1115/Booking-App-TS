@@ -36,7 +36,7 @@ app.use(
   })
 );
 
-app.use(express.static(path.join(__dirname, "../frontend/dist")));
+app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
@@ -46,7 +46,7 @@ app.use("/api/my-bookings", bookingRoutes);
 app.use("/api/hotels/:hotelId/reviews", reviewRoutes);
 
 app.get("*", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+  res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
 });
 
 // Error handling middleware

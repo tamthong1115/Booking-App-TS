@@ -18,16 +18,16 @@ const Detail = () => {
       enabled: !!hotelId, // This is to prevent the query from running when the hotelId is not available
     },
   );
+  
+  const { data: currentUser } = useQuery(
+    "fetchCurrentUser",
+    apiClient.fetchCurrentUser,
+  );
 
   if (!hotel) {
     return LoadingComponent({ isLoading: true });
   }
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { data: currentUser } = useQuery(
-    "fetchCurrentUser",
-    apiClient.fetchCurrentUser,
-  );
 
   return (
     <div className="space-y-6">

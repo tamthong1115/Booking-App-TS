@@ -1,15 +1,18 @@
 import * as apiClient from "../api-client";
 import { useQuery } from "react-query";
 import LoadingComponent from "../components/Loading/Loading.tsx";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const MyBookings = () => {
+  useEffect(() => {}, []);
   const { data: hotels, isLoading } = useQuery(
     "fetchMyHotelsBookings",
     apiClient.fetchMyBookings,
   );
 
   if (isLoading) {
-    return LoadingComponent({ isLoading: true });
+    return LoadingComponent({ isLoading });
   }
 
   if (!hotels || hotels.length === 0) {
@@ -22,11 +25,13 @@ const MyBookings = () => {
       {hotels.map((hotel) => (
         <div className="lg:gird-cols-[1fr_3fr] grid grid-cols-1 gap-4 rounded-lg border border-slate-300 p-8">
           <div className="lg:h-[250px] lg:w-full">
-            <img
-              src={hotel.imageUrls[0]}
-              className="h-full w-full object-cover object-center"
-              alt="hotel"
-            />
+            <Link to={`/detail/${hotel._id}`}>
+              <img
+                src={hotel.imageUrls[0]}
+                className="h-full w-full object-cover object-center"
+                alt="hotel"
+              />
+            </Link>
           </div>
 
           <div className={"flex max-h-[300px] flex-col gap-4 overflow-y-auto"}>

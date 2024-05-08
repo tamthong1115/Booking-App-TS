@@ -13,6 +13,10 @@ export type HotelType = {
   name: string;
   city: string;
   country: string;
+  location: {
+    type: string;
+    coordinates: number[];
+  };
   description: string;
   type: string;
   adultCount: number;
@@ -24,6 +28,7 @@ export type HotelType = {
   imageUrls: string[];
   lastUpdated: Date;
   bookings: BookingType[];
+  reviews: string[];
 };
 
 export type BookingType = {
@@ -52,4 +57,13 @@ export type PaymentIntentResponse = {
   paymentIntentId: string;
   clientSecret: string;
   totalCost: number;
+};
+
+export type ReviewType = {
+  _id: string;
+  userId: string;
+  userName: string;
+  hotelId: string;
+  rating: number;
+  comment: string;
 };

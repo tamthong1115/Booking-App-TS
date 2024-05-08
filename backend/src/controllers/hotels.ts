@@ -30,7 +30,6 @@ export const searchHotels: RequestHandler = async (req, res) => {
         const query = constructSearchQuery(req.query);
         // console.log(req.query);
         // console.log(query);
-        // console.log("BREAKKKKKKKKKKKKKK");
         let sortOption = {};
         switch (req.query.sortOption) {
             case "starRating":

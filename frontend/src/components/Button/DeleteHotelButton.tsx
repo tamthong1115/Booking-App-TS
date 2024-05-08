@@ -19,6 +19,7 @@ const DeleteHotelButton = ({ hotelId }: Props) => {
       onSuccess: () => {
         showToast({ message: "Hotel Deleted!", type: "SUCCESS" });
         navigate("/my-hotels");
+        // This will refresh the MyHotels page
         queryClient.invalidateQueries("fetchMyHotels"); // from MyHotels.tsx
       },
       onError: (error: Error) => {

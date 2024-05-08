@@ -16,6 +16,7 @@ import Detail from "./pages/Detail";
 import Booking from "./pages/Booking";
 import MyBookings from "./pages/MyBookings.tsx";
 import Home from "./pages/Home.tsx";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 const App = () => {
   const { isLoggedIn } = useAppContext();

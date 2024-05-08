@@ -1,22 +1,34 @@
-import { Response } from "express";
+import {Response} from "express";
 import jwt from "jsonwebtoken";
 
-const generateToken = (res: Response, userId: string, isAdmin: boolean) => {
-  const token = jwt.sign(
-    { userId: userId , isAdmin: isAdmin},
-    process.env.JWT_SECRET_KEY as string,
-    {
-      expiresIn: "1d",
-    }
-  );
 
-  res.cookie("auth_token", token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    maxAge: 86400000,
-  });
+/**
+ * This function generates a JSON Web Token (JWT) for a user and sets it as a cookie in the response object.
+ *
+ * @param {Response} res - The Express response object where the JWT will be set as a cookie.
+ * @param {string} userId - The ID of the user for whom the token is being generated.
+ * @param {boolean} isAdmin - A boolean indicating whether the user is an admin or not.
+ *
+ * @returns {string} - The generated JWT.
+ *
+ * @throws {Error} - Throws an error if the JWT generation fails.
+ */
+const generateToken = (res: Response, userId: string, isAdmin: boolean): string => {
+    const token = jwt.sign(
+        {userId: userId, isAdmin: isAdmin},
+        process.env.JWT_SECRET_KEY as string,
+        {
+            expiresIn: "1d",
+        }
+    );
 
-  return token;
+    res.cookie("auth_token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 86400000,
+    });
+
+    return token;
 };
 
 export default generateToken;

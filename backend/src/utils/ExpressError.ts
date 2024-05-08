@@ -1,13 +1,12 @@
-import chalk from 'chalk';
 export default class CustomError extends Error {
-  statusCode: number;
+    statusCode: number;
 
-  constructor(message: string, statusCode: number) {
-    super();
-    // make sure the new object get the Error prototype
-    Object.setPrototypeOf(this, CustomError.prototype);
-    this.message = message;
-    this.name = this.constructor.name;
-    this.statusCode = statusCode;
-  }
+    constructor(message: string, statusCode: number) {
+        super();
+        // make sure the new object get the Error prototype
+        Object.setPrototypeOf(this, CustomError.prototype);
+        this.message = message;
+        this.name = this.constructor.name;
+        this.statusCode = statusCode;
+    }
 }

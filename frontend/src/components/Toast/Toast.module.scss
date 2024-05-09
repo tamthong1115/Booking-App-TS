@@ -1,0 +1,31 @@
+
+
+.btn--error {
+    position: fixed;
+    color: #fff;
+    min-width: 120px;
+    border-radius: 999px;
+    padding: 8px 16px;
+    top: 10px;
+    left: 20px;
+    border: none;
+    outline: none;
+    text-decoration: none;
+    z-index: 50;
+    background-color: red;
+}
+
+.btn--success {
+    position: fixed;
+    color: #fff;
+    border: none;
+    text-decoration: none;
+    outline: none;
+    min-width: 120px;
+    border-radius: 999px;
+    padding: 8px 16px;
+    top: 10px;
+    left: 20px;
+    z-index: 50;
+    background-color: #71be34;
+}

@@ -1,0 +1,51 @@
+.wrapper {
+    background-color: var(--primary-color);
+    width: 100%;
+    color: white;
+    border-radius: 2px;
+}
+
+.body {
+    padding: 50px 0;
+    display: flex;
+    justify-content: space-around;
+
+    .heading {
+        font-size: 1.8rem;
+        margin-bottom: 12px;
+    }
+
+    .title {
+        font-size: 1.4rem;
+        line-height: 1.6rem;
+        display: flex;
+        flex-direction: column;
+
+        a {
+            color: white;
+            margin: 6px 0;
+        }
+    }
+}
+
+.icon {
+    margin-right: 8px;
+    font-size: 1.8rem;
+}
+
+.brand {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-text {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    justify-content: space-around;
+    border-top: 4px solid white;
+}
+
+.text {
+    font-size: 2rem;
+}

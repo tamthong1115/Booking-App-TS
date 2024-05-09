@@ -105,7 +105,7 @@ const Search = () => {
           />
         </div>
       </div>
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 bg-gray-100 p-8 rounded-lg">
         <div className="flex items-center justify-between">
           <span className="text-xl font-bold">
             {hotelData?.pagination.total} Hotels found
@@ -123,6 +123,8 @@ const Search = () => {
             <option value="pricePerNightDesc">Price Per Night Desc</option>
           </select>
         </div>
+
+        
         {hotelData?.data.map((hotel) => <SearchResultsCard hotel={hotel} />)}
 
         <div>

@@ -28,8 +28,10 @@ export const getHotelById: RequestHandler = async (req, res) => {
 export const searchHotels: RequestHandler = async (req, res) => {
     try {
         const query = constructSearchQuery(req.query);
+        
         // console.log(req.query);
         // console.log(query);
+        
         let sortOption = {};
         switch (req.query.sortOption) {
             case "starRating":

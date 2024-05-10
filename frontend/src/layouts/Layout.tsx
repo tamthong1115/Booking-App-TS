@@ -9,17 +9,22 @@ interface Props {
 }
 
 const Layout = ({ children }: Props) => {
-    return (
-        <div className="flex min-h-screen flex-col">
-            <Header />
-            <Hero />
-            <div className="container mx-auto">
-                <SearchBar />
-            </div>
-            <div className="container mx-auto flex-1 py-10">{children}</div>
-            <Footer />
-        </div>
-    );
+
+  return (
+      <div className="flex min-h-screen flex-col">
+          <div className="bg-indigo-400 pb-12">
+              <div className="py-4">
+                  <Header />
+              </div>
+              <Hero />
+          </div>
+          <div className="container mx-auto">
+              <SearchBar />
+          </div>
+          <div className="container mx-auto flex-1 py-10">{children}</div>
+          <Footer />
+      </div>
+  );
 };
 
 export default Layout;

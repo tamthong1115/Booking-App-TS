@@ -4,6 +4,10 @@ export type UserType = {
   password: string;
   firstName: string;
   lastName: string;
+  phoneNumber?:string;
+  address?:string;
+  gender?:string;
+  birthday?:Date;
   isAdmin: boolean;
 };
 

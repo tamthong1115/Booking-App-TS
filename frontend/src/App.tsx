@@ -12,7 +12,8 @@ import Booking from "./pages/Booking";
 import MyBookings from "./pages/MyBookings.tsx";
 import Home from "./pages/Home/Home.tsx";
 import "mapbox-gl/dist/mapbox-gl.css";
-import Profile from "./pages/Profile.tsx";
+import Profile from "./components/Profile/Profile.tsx";
+import ContactUs from "./components/Contact/ContactUs.tsx";
 
 const App = () => {
     const { isLoggedIn } = useAppContext();
@@ -34,6 +35,15 @@ const App = () => {
                     element={
                         <Layout>
                             <Search />
+                        </Layout>
+                    }
+                />
+
+                <Route
+                    path="/contact-us"
+                    element={
+                        <Layout>
+                            <ContactUs />
                         </Layout>
                     }
                 />

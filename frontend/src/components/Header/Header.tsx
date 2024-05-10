@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { useAppContext } from "../../context/AppContext.tsx";
-import SignOutButton from "../Button/SignOutButton.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 import Tippy from "@tippyjs/react";
+import UserMenu from "../Dropdown/UserMenu.tsx";
 
 const Header = () => {
     const { isLoggedIn } = useAppContext();
@@ -50,7 +50,10 @@ const Header = () => {
                     )}
 
                     {isLoggedIn ? (
-                        <SignOutButton />
+                        <div>
+                            <UserMenu />
+                            {/*<SignOutButton />*/}
+                        </div>
                     ) : (
                         <div className="flex">
                             <Link

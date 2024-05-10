@@ -49,10 +49,10 @@ const SearchBar = () => {
 
     return (
         <form
-            className="-mt-8 grid grid-cols-2 items-center gap-4 rounded bg-orange-400 p-3 shadow-md lg:grid-cols-3 2xl:grid-cols-5"
+            className="-mt-8 grid grid-cols-2 items-center gap-2 rounded-lg bg-yellow-500 p-2 shadow-md lg:grid-cols-3 2xl:grid-cols-5"
             onSubmit={handleSubmit}
         >
-            <div className="flex flex-1 flex-row items-center rounded-sm bg-white p-2">
+            <div className="flex flex-1 flex-row items-center rounded-lg bg-white p-2">
                 <FontAwesomeIcon className="mr-2 text-gray-600" icon={faMagnifyingGlass} />
                 <input
                     ref={inputRef}
@@ -66,7 +66,7 @@ const SearchBar = () => {
                 </button>
             </div>
 
-            <div className="flex items-center gap-2 rounded-sm bg-white px-2 py-1">
+            <div className="flex items-center gap-2 rounded-lg bg-white px-2 py-1">
                 <FontAwesomeIcon className="text-gray-600" icon={faUser} />
 
                 <label className="flex items-center gap-2 rounded-md bg-white px-2 py-1">
@@ -81,7 +81,7 @@ const SearchBar = () => {
                     />
                 </label>
 
-                <label className="flex items-center rounded-sm">
+                <label className="flex items-center rounded-lg">
                     Children:
                     <input
                         className="w-full  p-1 font-bold focus:outline-none "
@@ -106,7 +106,7 @@ const SearchBar = () => {
                     minDate={minDate}
                     maxDate={maxDate}
                     placeholderText="Check-in Date"
-                    className="min-w-full rounded-sm bg-white p-2 focus:outline-none"
+                    className="min-w-full rounded-lg bg-white p-2 focus:outline-none"
                     wrapperClassName="min-w-full"
                 />
             </div>
@@ -123,7 +123,7 @@ const SearchBar = () => {
                     minDate={minDateTomorrow}
                     maxDate={maxDate}
                     placeholderText="Check-out Date"
-                    className="min-w-full rounded-sm bg-white p-2 focus:outline-none"
+                    className="min-w-full rounded-lg bg-white p-2 focus:outline-none"
                     wrapperClassName="min-w-full"
                 />
             </div>
@@ -132,12 +132,12 @@ const SearchBar = () => {
                 {destination === "" ? (
                     <button
                         disabled
-                        className="h-full w-2/3 rounded-sm bg-blue-600 p-2 text-xl font-bold text-white hover:bg-blue-500 "
+                        className="h-full w-2/3 rounded-lg bg-blue-400 p-2 text-xl font-bold text-white hover:bg-blue-600 "
                     >
                         Search
                     </button>
                 ) : (
-                    <button className="h-full w-2/3 rounded-sm bg-blue-600 p-2 text-xl font-bold text-white hover:bg-blue-500 ">
+                    <button className="h-full w-2/3 rounded-lg bg-blue-400 p-2 text-xl font-bold text-white hover:bg-blue-600 ">
                         Search
                     </button>
                 )}

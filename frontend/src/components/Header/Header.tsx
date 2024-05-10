@@ -23,9 +23,11 @@ const Header = () => {
                         </button>
                     </Tippy>
                     <Tippy delay={[400, 50]} placement="bottom" content="Contact customer service">
-                        <button className=" ml-6 flex  h-8 cursor-pointer items-center rounded-md bg-transparent px-4 py-2 text-white hover:bg-blue-700">
-                            <FontAwesomeIcon className="text-lg " icon={faCircleQuestion} />
-                        </button>
+                        <Link to="/contact-us">
+                            <button className=" ml-6 flex  h-8 cursor-pointer items-center rounded-md bg-transparent px-4 py-2 text-white hover:bg-blue-700">
+                                <FontAwesomeIcon className="text-lg " icon={faCircleQuestion} />
+                            </button>
+                        </Link>
                     </Tippy>
                 </div>
 
@@ -50,10 +52,7 @@ const Header = () => {
                     )}
 
                     {isLoggedIn ? (
-                        <div>
-                            <UserMenu />
-                            {/*<SignOutButton />*/}
-                        </div>
+                        <UserMenu />
                     ) : (
                         <div className="flex">
                             <Link

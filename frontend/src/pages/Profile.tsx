@@ -16,6 +16,7 @@ const Profile = () => {
                 <h2 className="text-xl font-semibold">Name: {currentUser.firstName + " " + currentUser.lastName}</h2>
                 <h2 className="text-xl font-semibold">Email: {currentUser.email}</h2>
             </div>
+            <div></div>
         </div>
     );
 };

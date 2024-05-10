@@ -3,7 +3,6 @@ import { useAppContext } from "../../context/AppContext.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
-import Tippy from "@tippyjs/react";
 import UserMenu from "../Dropdown/UserMenu.tsx";
 
 const Header = () => {
@@ -17,18 +16,14 @@ const Header = () => {
                 </span>
 
                 <div className="ml-80 flex">
-                    <Tippy delay={[400, 50]} placement="bottom" content="Notification">
+                    <button className=" ml-6 flex  h-8 cursor-pointer items-center rounded-md bg-transparent px-4 py-2 text-white hover:bg-blue-700">
+                        <FontAwesomeIcon className="text-lg" icon={faBell} />
+                    </button>
+                    <Link to="/contact-us">
                         <button className=" ml-6 flex  h-8 cursor-pointer items-center rounded-md bg-transparent px-4 py-2 text-white hover:bg-blue-700">
-                            <FontAwesomeIcon className="text-lg" icon={faBell} />
+                            <FontAwesomeIcon className="text-lg " icon={faCircleQuestion} />
                         </button>
-                    </Tippy>
-                    <Tippy delay={[400, 50]} placement="bottom" content="Contact customer service">
-                        <Link to="/contact-us">
-                            <button className=" ml-6 flex  h-8 cursor-pointer items-center rounded-md bg-transparent px-4 py-2 text-white hover:bg-blue-700">
-                                <FontAwesomeIcon className="text-lg " icon={faCircleQuestion} />
-                            </button>
-                        </Link>
-                    </Tippy>
+                    </Link>
                 </div>
 
                 <span className="flex space-x-4">

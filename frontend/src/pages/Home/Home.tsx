@@ -1,11 +1,13 @@
 import { useQuery } from "react-query";
 import * as apiClient from "../../api-client.ts";
-import LatestDestinationCard from "../../components/LastestDestinationCard.tsx";
+import LatestDestinationCard from "../../components/LastestDestinationCard/LastestDestinationCard.tsx";
 import classNames from "classnames/bind";
 import styles from "./index.module.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import LatestDestinationCardPre from "../../components/LatestDestinationCardPre.tsx";
 
 const cx = classNames.bind(styles);
 
@@ -31,31 +33,33 @@ const Home = () => {
                     </div>
                     <div>
                         <div>
-                            <FontAwesomeIcon className={cx('inner-icon')} icon={faStar} />
-                            <FontAwesomeIcon className={cx('inner-icon')} icon={faStar} />
-                            <FontAwesomeIcon className={cx('inner-icon')} icon={faStar} />
-                            <FontAwesomeIcon className={cx('inner-icon')} icon={faStar} />
-                            <FontAwesomeIcon className={cx('inner-icon')} icon={faStar} />
+                            <FontAwesomeIcon className={cx("inner-icon")} icon={faStar} />
+                            <FontAwesomeIcon className={cx("inner-icon")} icon={faStar} />
+                            <FontAwesomeIcon className={cx("inner-icon")} icon={faStar} />
+                            <FontAwesomeIcon className={cx("inner-icon")} icon={faStar} />
+                            <FontAwesomeIcon className={cx("inner-icon")} icon={faStar} />
                         </div>
                         <div>
-                            <h1 className={cx('inner-title')}>Experience the experience that matters</h1>
+                            <h1 className={cx("inner-title")}>Experience the experience that matters</h1>
                         </div>
                         <div>
-                            <h1 className={cx('inner-heading')}>TN Hotel</h1>
+                            <h1 className={cx("inner-heading")}>TN Hotel</h1>
                         </div>
                         <div>
-                            <p className={cx('inner-text')}>
+                            <p className={cx("inner-text")}>
                                 Welcome to TN Hotel, the leading hotel in Vietnam! We are proud to be a trusted
-                                destination for everyone when choosing where to stay in your destinations. 
+                                destination for everyone when choosing where to stay in your destinations.
                             </p>
-                            <p className={cx('inner-text')}>
-                                Whether
-                                you're looking for a relaxing beach holiday, a city adventure or a cultural travel
-                                experience, we have everything to suit your needs. Start your journey today with us!
+                            <p className={cx("inner-text")}>
+                                Whether you're looking for a relaxing beach holiday, a city adventure or a cultural
+                                travel experience, we have everything to suit your needs. Start your journey today with
+                                us!
                             </p>
                         </div>
                         <div>
-                            <button className={cx('inner-btn')}>See more</button>
+                            <Link to="/contact-us">
+                                <button className={cx("inner-btn")}>See more</button>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -65,7 +69,7 @@ const Home = () => {
                     <p>Most recent destinations added by our hosts</p>
                     <div className={"grid grid-cols-1 gap-4 md:grid-cols-2"}>
                         {topRowHotels.map((hotel) => (
-                            <LatestDestinationCard hotel={hotel} />
+                            <LatestDestinationCardPre hotel={hotel} />
                         ))}
                     </div>
                 </div>

@@ -1,17 +1,18 @@
-import React, { useEffect, useRef } from "react";
+import React, {useEffect, useRef} from "react";
 import react from "react-dom";
-import { HotelType, RoomType } from "../../../../backend/shared/types";
+import {RoomType} from "../../../../backend/shared/types";
 import GuestInfoForm from "../../forms/GuestInfoForm/GuestInfoForm";
-import { AiFillStar } from "react-icons/ai";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import {AiFillStar} from "react-icons/ai";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faXmark} from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
 import styles from "./Room.module.scss";
+import {HotelTypeFrontend} from "../../types/types.ts";
 
 const cx = classNames.bind(styles);
 
 type Props = {
-    hotel: HotelType;
+    hotel: HotelTypeFrontend;
     room: RoomType;
     isRoomBookingOpen: boolean;
     onClose: () => void;
@@ -39,7 +40,7 @@ const MODAL_STYLE: React.CSSProperties = {
     zIndex: 1001,
 };
 
-const RoomBooking = ({ hotel, room, isRoomBookingOpen, onClose }: Props) => {
+const RoomBooking = ({hotel, room, isRoomBookingOpen, onClose}: Props) => {
     const modalContentRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -85,8 +86,8 @@ const RoomBooking = ({ hotel, room, isRoomBookingOpen, onClose }: Props) => {
                         <div>
                             <h1 className="my-4 text-3xl font-bold">{room.name} room</h1>
                             <span className="flex">
-                                {Array.from({ length: hotel?.starRating }).map(() => (
-                                    <AiFillStar className="fill-yellow-400" />
+                                {Array.from({length: hotel?.starRating}).map(() => (
+                                    <AiFillStar className="fill-yellow-400"/>
                                 ))}
                             </span>
                         </div>
@@ -106,7 +107,7 @@ const RoomBooking = ({ hotel, room, isRoomBookingOpen, onClose }: Props) => {
                         </div>
 
                         <div className="col-span-4">
-                            <GuestInfoForm hotel={hotel} room={room} />
+                            <GuestInfoForm hotel={hotel} room={room}/>
                         </div>
                     </div>
                     <div className={cx("description")}>

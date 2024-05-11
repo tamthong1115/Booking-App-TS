@@ -3,10 +3,11 @@ import DatePicker from "react-datepicker";
 import { useSearchContext } from "../../context/SearchContext";
 import { useAppContext } from "../../context/AppContext";
 import { useLocation, useNavigate } from "react-router-dom";
-import { HotelType, RoomType } from "../../../../backend/shared/types.ts";
+import { RoomType } from "../../../../backend/shared/types.ts";
+import { HotelTypeFrontend } from "../../types/types.ts";
 
 type Props = {
-    hotel: HotelType;
+    hotel: HotelTypeFrontend;
     room: RoomType;
 };
 
@@ -58,7 +59,7 @@ const GuestInfoForm = ({ hotel, room }: Props) => {
     };
 
     return (
-        <div className="box-border flex flex-col mt-8 gap-4 rounded-md bg-blue-200 p-3">
+        <div className="mt-8 box-border flex flex-col gap-4 rounded-md bg-blue-200 p-3">
             <form onSubmit={handleSubmit(isLoggedIn ? onSubmit : onSignInClick)}>
                 <div className="grid grid-cols-1 items-start gap-3 rounded">
                     <div>
@@ -99,7 +100,7 @@ const GuestInfoForm = ({ hotel, room }: Props) => {
                         )}
                     </div>
 
-                    <div className="z bg-white rounded-md px-2 py-1">
+                    <div className="z rounded-md bg-white px-2 py-1">
                         <label className="flex items-center">
                             Adults:
                             <input

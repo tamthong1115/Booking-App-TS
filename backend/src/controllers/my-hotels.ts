@@ -2,7 +2,7 @@ import {RequestHandler} from "express";
 import cloudinary from "cloudinary";
 import ExpressError from "../utils/ExpressError";
 import Hotel from "../models/hotel";
-import {HotelType} from "../../shared/types";
+import {HotelType} from "../../types/typesBackend";
 import mbxGeocoding from "@mapbox/mapbox-sdk/services/geocoding";
 import {uploadImages} from "../utils/upload-images";
 import "dotenv/config";

@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import * as apiClient from "../api-client";
+import * as apiClient from "../../api-client.ts";
 import { useQuery } from "react-query";
-import { useAppContext } from "../context/AppContext";
+import { useAppContext } from "../../context/AppContext.tsx";
 import { BsBuilding, BsMap } from "react-icons/bs";
 import { BiHotel, BiStar } from "react-icons/bi";
-import DeleteHotelButton from "../components/Button/DeleteHotelButton";
-import LoadingComponent from "../components/Loading/Loading";
+import DeleteHotelButton from "../../components/Button/DeleteHotelButton.tsx";
+import LoadingComponent from "../../components/Loading/Loading.tsx";
 
 const MyHotels = () => {
     const { showToast } = useAppContext();

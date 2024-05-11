@@ -10,6 +10,7 @@ import hotelRoutes from "./src/routes/hotels";
 import bookingRoutes from "./src/routes/bookings";
 import reviewRoutes from "./src/routes/reviews";
 import roomRoutes from "./src/routes/rooms";
+import emailRoutes from "./src/routes/email";
 import cookieParser from "cookie-parser";
 import connectToDatabase from "./src/utils/connectToDatabase";
 import {v2 as cloudinary} from "cloudinary";
@@ -46,6 +47,7 @@ app.use("/api/hotels", hotelRoutes);
 app.use("/api/my-bookings", bookingRoutes);
 app.use("/api/hotels/:hotelId/reviews", reviewRoutes);
 app.use("/api/hotels/:hotelId/rooms", roomRoutes);
+app.use('/api/email', emailRoutes);
 
 app.get("*", (req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));

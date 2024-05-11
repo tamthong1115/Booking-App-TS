@@ -1,12 +1,12 @@
 import classNames from "classnames/bind";
-import styles from './Contact.module.scss'
+import styles from "./Contact.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar, faEye, faGem } from "@fortawesome/free-regular-svg-icons";
-import {  faGift, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faGift, faStar } from "@fortawesome/free-solid-svg-icons";
 
 const cx = classNames.bind(styles);
 
-const ContactUs = () => {
+const AboutUs = () => {
     return (
         <div className={cx("introduce-hotel")}>
             <div className={cx("inner")}>
@@ -28,11 +28,11 @@ const ContactUs = () => {
                         <h1 className={cx("inner-title")}>Experience the experience that matters</h1>
                     </div>
                     <div>
-                        <h1 className={cx("inner-heading")}>TN Hotel</h1>
+                        <h1 className={cx("inner-heading")}>BookingTS</h1>
                     </div>
                     <div>
                         <p className={cx("inner-text")}>
-                            Welcome to TN Hotel leading hotel booking in Vietnam! We are proud to be a trusted
+                            Welcome to BookingTS leading hotel booking in Vietnam! We are proud to be a trusted
                             destination for everyone when choosing where to stay in your destinations. With a series of
                             quality hotels and classy services, we are committed to bringing you unforgettable
                             experiences.{" "}
@@ -41,7 +41,6 @@ const ContactUs = () => {
                             Whether you're looking for a relaxing beach holiday, a city adventure or a cultural travel
                             experience, we have everything to suit your needs. Start your journey today with us!{" "}
                         </p>
-                        
                     </div>
                 </div>
             </div>
@@ -121,4 +120,4 @@ const ContactUs = () => {
     );
 };
 
-export default ContactUs;
+export default AboutUs;

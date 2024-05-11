@@ -1,14 +1,14 @@
-import { HotelType } from "../../../../backend/shared/types.ts";
 import { Link } from "react-router-dom";
 import styles from "./LastestDestinationCard.module.scss";
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import { HotelTypeFrontend } from "../../types/types.ts";
 
 const cx = classNames.bind(styles);
 
 type Props = {
-    hotel: HotelType;
+    hotel: HotelTypeFrontend;
 };
 
 const LatestDestinationCard = ({ hotel }: Props) => {
@@ -22,7 +22,7 @@ const LatestDestinationCard = ({ hotel }: Props) => {
                             <h4 className={cx("name")}>{hotel.name}</h4>
                             <p className={cx("description")}>{hotel.description}</p>
                         </div>
-                        <h4 className={cx("place-price")}>$ {hotel.pricePerNight}</h4>
+                        <h4 className={cx("place-price")}>$ {hotel.rooms?.[0]?.pricePerNight ?? "69"}</h4>
                         <div className={cx("place-like")}>
                             <FontAwesomeIcon className={cx("icon")} icon={faHeart} />
                             <div className={cx("rating")}>

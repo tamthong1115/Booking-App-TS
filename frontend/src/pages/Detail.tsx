@@ -1,7 +1,7 @@
 import { AiFillStar } from "react-icons/ai";
 import * as apiClient from "../api-client";
 import { Link, useParams } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import LoadingComponent from "../components/Loading/Loading";
 import MapboxGL from "../components/Map/MapboxGL.tsx";
 import ReviewForm from "../forms/ReviewForm/ReviewForm.tsx";
@@ -14,13 +14,24 @@ const Detail = () => {
     const { isAdmin } = useAppContext();
     const { hotelId } = useParams();
     const [isMapOpen, setIsMapOpen] = useState(false);
+    const queryClient = useQueryClient();
 
-    const { data: hotel } = useQuery("fetchMyHotelById", () => apiClient.fetchHotelById(hotelId as string), {
+    const {
+        data: hotel,
+        isSuccess,
+        isLoading,
+    } = useQuery("fetchMyHotelById", () => apiClient.fetchHotelById(hotelId as string), {
         enabled: !!hotelId, // This is to prevent the query from running when the hotelId is not available
     });
 
     const { data: currentUser } = useQuery("fetchCurrentUser", apiClient.fetchCurrentUser);
 
+    if (isLoading) {
+        return LoadingComponent({ isLoading: true });
+    }
+    if (isSuccess) {
+        queryClient.invalidateQueries("getRooms");
+    }
     if (!hotel) {
         return LoadingComponent({ isLoading: true });
     }
@@ -96,7 +107,7 @@ const Detail = () => {
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-[2fr_1fr]">
                 <div className="whitespace-pre-line">{hotel.description}</div>
             </div>
-w
+
             <div>
                 <Room hotel={hotel} />
             </div>

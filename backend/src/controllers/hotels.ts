@@ -6,6 +6,7 @@ import CustomError from "../utils/ExpressError";
 import Stripe from "stripe";
 import "dotenv/config";
 import Booking from "../models/booking";
+import Room from "../models/room";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
@@ -56,7 +57,7 @@ export const searchHotels: RequestHandler = async (req, res) => {
       .skip(skip)
       .limit(pageSize);
 
-    const total = await Hotel.countDocuments(query);
+    const total = await Hotel.countDocuments(query)
 
     const response: HotelSearchResponse = {
       data: hotels,
@@ -76,7 +77,12 @@ export const searchHotels: RequestHandler = async (req, res) => {
 
 export const getHotels: RequestHandler = async (req, res, next) => {
   try {
-    const hotels = await Hotel.find().sort("-lastUpdated");
+    const hotels = await Hotel.find()
+      .sort("-lastUpdated")
+      .populate<{ rooms: RoomType[] }>("rooms")
+      .populate<{ bookings: BookingType[] }>("bookings")
+      .populate("reviews");
+
     res.json(hotels);
   } catch (error) {
     console.log(error);
@@ -88,15 +94,14 @@ export const postCreatePaymentIntent: RequestHandler = async (req, res) => {
   const { numberOfNights } = req.body;
   const { hotelId, roomId } = req.params;
 
-  const hotel = await Hotel.findById(hotelId).populate<{ rooms: RoomType[] }>(
-    "rooms"
-  );
+ const room = await Room.findById(roomId);
+ console.log(room)
 
-  if (!hotel) {
-    throw new CustomError("Hotel not found", 404);
+  if (!room) {
+    throw new CustomError("Room not found", 404);
   }
 
-  const totalCost = hotel.rooms[0].pricePerNight * parseInt(numberOfNights);
+  const totalCost = room.pricePerNight * parseInt(numberOfNights);
   /*
     PaymentIntent is a Stripe object that represents your
     intent to collect payment from a customer, tracking the
@@ -155,7 +160,7 @@ export const postBooking: RequestHandler = async (req, res, next) => {
       bookings: BookingType[];
     }>("bookings");
 
-    if(!hotel) {
+    if (!hotel) {
       return res.status(404).json({ message: "Hotel not found" });
     }
 
@@ -169,7 +174,6 @@ export const postBooking: RequestHandler = async (req, res, next) => {
     //   { new: true } // return the updated document
     // );
 
-   
     await newBooking.save();
     await hotel.save();
     res.status(201).json(newBooking);
@@ -226,7 +230,7 @@ const constructSearchQuery = (queryParams: any) => {
   }
 
   if (queryParams.maxPrice) {
-    constructedQuery.pricePerNight = {
+    constructedQuery.rooms.pricePerNight = {
       $lte: parseInt(queryParams.maxPrice.toString()),
     };
   }

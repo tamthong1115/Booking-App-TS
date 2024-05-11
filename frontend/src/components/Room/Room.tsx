@@ -4,16 +4,18 @@ import { useQuery } from "react-query";
 import LoadingComponent from "../Loading/Loading";
 import RoomBooking from "./RoomBooking";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 type Props = {
     hotel: HotelType;
 };
 
 const Room = ({ hotel }: Props) => {
-    const hotelId = hotel._id;
+    const { hotelId } = useParams();
     const [isRoomBookingOpen, setIsRoomBookingOpen] = useState(false);
+    const [openRoomId, setOpenRoomId] = useState<string | null>();
 
-    const { data: rooms, isLoading } = useQuery("getRooms", () => apiClient.getRooms(hotelId), {
+    const { data: rooms, isLoading } = useQuery("getRooms", () => apiClient.getRooms(hotelId as string), {
         enabled: !!hotelId,
     });
 
@@ -40,6 +42,7 @@ const Room = ({ hotel }: Props) => {
                         <h3 className="mb-2 text-lg font-semibold">Price: ${room.pricePerNight}</h3>
                         <button
                             onClick={() => {
+                                setOpenRoomId(openRoomId === room._id ? null : room._id);
                                 setIsRoomBookingOpen(!isRoomBookingOpen);
                             }}
                             className="rounded bg-blue-600 p-2 font-semibold text-white"
@@ -48,12 +51,15 @@ const Room = ({ hotel }: Props) => {
                         </button>
                     </div>
 
-                    {isRoomBookingOpen && (
+                    {isRoomBookingOpen && openRoomId === room._id && (
                         <RoomBooking
                             hotel={hotel}
                             room={room}
                             isRoomBookingOpen
-                            onClose={() => setIsRoomBookingOpen(!isRoomBookingOpen)}
+                            onClose={() => {
+                                setOpenRoomId(null);
+                                setIsRoomBookingOpen(!isRoomBookingOpen);
+                            }}
                         />
                     )}
                 </div>

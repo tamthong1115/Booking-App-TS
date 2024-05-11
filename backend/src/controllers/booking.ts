@@ -12,13 +12,12 @@ export const getBookings: RequestHandler = async (req, res, next) => {
       },
     });
 
-   
-
     const result = hotels.map((hotel) => {
-      console.log(hotel.bookings)
       const userBookings = hotel.bookings?.filter(
         (booking) => booking.userId === req.userId
       );
+
+      if (!userBookings || userBookings.length === 0) return null;
 
       // Sort the bookings by check-out date in descending order
       userBookings?.sort(
@@ -34,11 +33,12 @@ export const getBookings: RequestHandler = async (req, res, next) => {
       return hotelWithUserBookings;
     });
 
-    res.status(200).json(result);
+    // remove null from result
+    const filteredResult = result.filter((hotel) => hotel !== null);
+
+    res.status(200).json(filteredResult);
   } catch (err) {
     console.log(err);
     next(new CustomError("Failed to get bookings", 500));
   }
 };
-
-

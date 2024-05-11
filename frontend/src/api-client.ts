@@ -2,8 +2,6 @@ import { RegisterFormData } from "./components/Register/Register";
 import { SignInFormData } from "./components/SignIn/SignIn";
 import {
     BookingType,
-    HotelSearchResponse,
-
     PaymentIntentResponse,
     ReviewType,
     RoomType,
@@ -11,6 +9,7 @@ import {
 } from "../../backend/shared/types";
 import { BookingFormData } from "./forms/BookingForm/BookingForm";
 import { RoomFormData } from "./forms/RoomForm/RoomForm";
+import { HotelSearchResponseFrontEnd, HotelTypeFrontend } from "./types/types";
 
 // if the backend and frontend bundles just use the same server to fetch
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
@@ -152,7 +151,7 @@ export const addMyHotel = async (hotelFormData: FormData) => {
 };
 
 // admin
-export const fetchMyHotels = async (): Promise<HotelType[]> => {
+export const fetchMyHotels = async (): Promise<HotelTypeFrontend[]> => {
     const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
         credentials: "include",
         method: "GET",
@@ -228,7 +227,7 @@ export type SearchParams = {
     sortOption?: string;
 };
 
-export const searchHotels = async (searchParams: SearchParams): Promise<HotelSearchResponse> => {
+export const searchHotels = async (searchParams: SearchParams): Promise<HotelSearchResponseFrontEnd> => {
     const queryParams = new URLSearchParams();
     queryParams.append("destination", searchParams.destination || "");
     queryParams.append("checkIn", searchParams.checkIn || "");
@@ -324,7 +323,7 @@ interface HotelType {
     rooms?: RoomType[];
 }
 
-export const fetchMyBookings = async (): Promise<HotelType[]> => {
+export const fetchMyBookings = async (): Promise<HotelTypeFrontend[]> => {
     const response = await fetch(`${API_BASE_URL}/api/my-bookings`, {
         credentials: "include",
     });

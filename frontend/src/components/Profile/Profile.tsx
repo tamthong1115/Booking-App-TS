@@ -164,7 +164,7 @@ const Profile = () => {
                         />
                     ) : (
                         <p className={cx("description")}>
-                            {new Date(currentUser.birthday).toLocaleDateString("en-GB").toString() ||
+                            {new Date(currentUser.birthday as Date).toLocaleDateString("en-GB").toString() ||
                                 "Add your birthday"}
                         </p>
                     )}

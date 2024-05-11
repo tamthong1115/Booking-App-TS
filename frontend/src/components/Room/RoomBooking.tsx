@@ -5,6 +5,10 @@ import GuestInfoForm from "../../forms/GuestInfoForm/GuestInfoForm";
 import { AiFillStar } from "react-icons/ai";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import classNames from "classnames/bind";
+import styles from "./Room.module.scss";
+
+const cx = classNames.bind(styles);
 
 type Props = {
     hotel: HotelType;
@@ -68,24 +72,29 @@ const RoomBooking = ({ hotel, room, isRoomBookingOpen, onClose }: Props) => {
         <div>
             <div style={OVERLAY_STYLES}></div>
             <div style={MODAL_STYLE} ref={modalContentRef}>
-                <div className="space-y-5">
+                <div className="">
                     <div className="flex justify-end ">
-                        <FontAwesomeIcon className="p-4  hover:bg-gray-100" icon={faXmark} onClick={onClose} />
+                        <FontAwesomeIcon
+                            className="rounded-md px-3 py-2   hover:bg-gray-100"
+                            icon={faXmark}
+                            onClick={onClose}
+                        />
                     </div>
                     <div className="flex justify-between">
                         <div>
+                            <h1 className="my-4 text-3xl font-bold">{room.name} room</h1>
                             <span className="flex">
                                 {Array.from({ length: hotel?.starRating }).map(() => (
                                     <AiFillStar className="fill-yellow-400" />
                                 ))}
                             </span>
-                            <h1 className="text-3xl font-bold">{room.name} room</h1>
                         </div>
                     </div>
+
                     <div className="flex justify-between">
-                        <div className="col-span-8 grid grid-cols-1 gap-4 lg:grid-cols-3">
+                        <div className="lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-0 col-span-8 mt-8 grid gap-4">
                             {hotel.imageUrls.map((url: string, index: number) => (
-                                <div key={index} className="h-[200px]">
+                                <div key={index} className="h-[100px]">
                                     <img
                                         src={url}
                                         alt={hotel.name}
@@ -98,6 +107,9 @@ const RoomBooking = ({ hotel, room, isRoomBookingOpen, onClose }: Props) => {
                         <div className="col-span-4">
                             <GuestInfoForm hotel={hotel} room={room} />
                         </div>
+                    </div>
+                    <div className={cx("description")}>
+                        <p>{hotel.description}</p>
                     </div>
                 </div>
             </div>

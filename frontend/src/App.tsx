@@ -14,6 +14,7 @@ import Home from "./pages/Home/Home.tsx";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Profile from "./components/Profile/Profile.tsx";
 import ContactUs from "./components/Contact/ContactUs.tsx";
+import AddRoom from "./pages/AddRoom.tsx";
 
 const App = () => {
     const { isLoggedIn } = useAppContext();
@@ -87,7 +88,7 @@ const App = () => {
                         />
 
                         <Route
-                            path="/hotel/:hotelId/booking"
+                            path="/hotel/:hotelId/:roomId/booking"
                             element={
                                 <Layout>
                                     <Booking />
@@ -131,6 +132,15 @@ const App = () => {
                             element={
                                 <Layout>
                                     <EditHotel />
+                                </Layout>
+                            }
+                        />
+
+                        <Route
+                            path="/detail/:hotelId/add-room"
+                            element={
+                                <Layout>
+                                    <AddRoom />
                                 </Layout>
                             }
                         />

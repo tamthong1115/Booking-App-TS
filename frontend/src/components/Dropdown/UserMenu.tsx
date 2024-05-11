@@ -7,9 +7,9 @@ import * as apiClient from "../../api-client";
 import SignOutButton from "../Button/SignOutButton.tsx";
 import { Link } from "react-router-dom";
 import classNames from "classnames/bind";
-import styles from './UserMenu.module.scss'
+import styles from "./UserMenu.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {  faKey, faRightFromBracket, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faKey, faRightFromBracket, faUser } from "@fortawesome/free-solid-svg-icons";
 
 const cx = classNames.bind(styles);
 
@@ -29,13 +29,6 @@ export default function UserMenu() {
     return (
         <div>
             <div className={cx("user")}>
-                <div className={cx("user-avatar")}>
-                    <img
-                        className={cx("avatar")}
-                        src="https://th.bing.com/th/id/OIP.AlCmTPXExOup34O4RxOZmAHaEK?w=261&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7"
-                        alt="Avatar"
-                    />
-                </div>
                 <Button
                     id="basic-button"
                     aria-controls={open ? "basic-menu" : undefined}
@@ -43,6 +36,13 @@ export default function UserMenu() {
                     aria-expanded={open ? "true" : undefined}
                     onClick={handleClick}
                 >
+                    <div className={cx("user-avatar")}>
+                        <img
+                            className={cx("avatar")}
+                            src="https://th.bing.com/th/id/OIP.AlCmTPXExOup34O4RxOZmAHaEK?w=261&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+                            alt="Avatar"
+                        />
+                    </div>
                     <p className={cx("user-name")}>{user?.firstName + " " + user?.lastName}</p>
                 </Button>
             </div>

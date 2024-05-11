@@ -12,7 +12,7 @@ import { useAppContext } from "../context/AppContext";
 const Booking = () => {
   const { stripePromise } = useAppContext();
   const search = useSearchContext();
-  const { hotelId } = useParams();
+  const { hotelId ,roomId } = useParams();
 
   const [numberOfNights, setNumberOfNights] = useState<number>(0);
 
@@ -35,6 +35,7 @@ const Booking = () => {
     () =>
       apiClient.createPaymentIntent(
         hotelId as string,
+        roomId as string,
         numberOfNights.toString(),
       ),
     {

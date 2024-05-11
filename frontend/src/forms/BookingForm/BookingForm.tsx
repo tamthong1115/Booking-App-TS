@@ -1,13 +1,6 @@
 import { useForm } from "react-hook-form";
-import {
-  PaymentIntentResponse,
-  UserType,
-} from "../../../../backend/shared/types";
-import {
-  PaymentElement,
-  useElements,
-  useStripe,
-} from "@stripe/react-stripe-js";
+import { PaymentIntentResponse, UserType } from "../../../../backend/shared/types";
+import { PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useSearchContext } from "../../context/SearchContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation } from "react-query";
@@ -15,142 +8,138 @@ import * as apiClient from "../../api-client";
 import { useAppContext } from "../../context/AppContext.tsx";
 
 type Props = {
-  currentUser: UserType;
-  paymentIntent: PaymentIntentResponse;
+    currentUser: UserType;
+    paymentIntent: PaymentIntentResponse;
 };
 
 export type BookingFormData = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  adultCount: number;
-  childCount: number;
-  checkIn: string;
-  checkOut: string;
-  hotelId: string;
-  totalCost: number;
-  paymentIntentId: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    adultCount: number;
+    childCount: number;
+    checkIn: string;
+    checkOut: string;
+    hotelId: string;
+    roomId: string;
+    totalCost: number;
+    paymentIntentId: string;
 };
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 const BookingForm = ({ currentUser, paymentIntent }: Props) => {
-  const stripe = useStripe();
-  const elements = useElements();
+    const stripe = useStripe();
+    const elements = useElements();
 
-  const search = useSearchContext();
-  const { hotelId } = useParams();
+    const search = useSearchContext();
+    const { hotelId, roomId } = useParams();
 
-  const { showToast } = useAppContext();
+    const { showToast } = useAppContext();
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const { mutate, isLoading } = useMutation(
-    apiClient.createRoomBooking,
-    {
-      onSuccess: () => {
-        showToast({ message: "Booking Saved!", type: "SUCCESS" });
-        navigate("/my-bookings");
-      },
-      onError: (error) => {
-        console.error(error);
-        showToast({ message: "Error saving booking", type: "ERROR" });
-      },
-    },
-  );
-
-  const { handleSubmit, register } = useForm<BookingFormData>({
-    defaultValues: {
-      firstName: currentUser.firstName,
-      lastName: currentUser.lastName,
-      email: currentUser.email,
-      adultCount: search.adultCount,
-      childCount: search.childCount,
-      checkIn: search.checkIn.toISOString(),
-      checkOut: search.checkOut.toISOString(),
-      hotelId: hotelId,
-      totalCost: paymentIntent.totalCost,
-      paymentIntentId: paymentIntent.paymentIntentId,
-    },
-  });
-
-  const onSubmit = async (formData: BookingFormData) => {
-    if (!stripe || !elements) {
-      showToast({ message: "Error with payment", type: "ERROR" });
-      return;
-    }
-
-    const result = await stripe.confirmPayment({
-      elements,
-      redirect: "if_required",
-      confirmParams: {
-        return_url: `${API_BASE_URL}/my-bookings`,
-      },
+    const { mutate, isLoading } = useMutation(apiClient.createRoomBooking, {
+        onSuccess: () => {
+            showToast({ message: "Booking Saved!", type: "SUCCESS" });
+            navigate("/my-bookings");
+        },
+        onError: (error) => {
+            console.error(error);
+            showToast({ message: "Error saving booking", type: "ERROR" });
+        },
     });
 
-    if (result.paymentIntent?.status === "succeeded") {
-      mutate({ ...formData, paymentIntentId: result.paymentIntent.id });
-    }
-  };
+    const { handleSubmit, register } = useForm<BookingFormData>({
+        defaultValues: {
+            firstName: currentUser.firstName,
+            lastName: currentUser.lastName,
+            email: currentUser.email,
+            adultCount: search.adultCount,
+            childCount: search.childCount,
+            checkIn: search.checkIn.toISOString(),
+            checkOut: search.checkOut.toISOString(),
+            hotelId: hotelId,
+            roomId: roomId,
+            totalCost: paymentIntent.totalCost,
+            paymentIntentId: paymentIntent.paymentIntentId,
+        },
+    });
 
-  return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="grid grid-cols-1 gap-5 rounded-lg border border-slate-300 p-3"
-    >
-      <span className="text-3xl font-bold">Confirm Your Details</span>
-      <div className="grid grid-cols-2 gap-6">
-        <label className="flex-1 text-sm font-bold text-gray-700">
-          First Name
-          <input
-            className="mt-1 w-full rounded border bg-gray-200 px-3 py-2 font-normal text-gray-700"
-            type="text"
-            readOnly
-            disabled
-            {...register("firstName")}
-          />
-        </label>
+    const onSubmit = async (formData: BookingFormData) => {
+        if (!stripe || !elements) {
+            showToast({ message: "Error with payment", type: "ERROR" });
+            return;
+        }
 
-        <label className="flex-1 text-sm font-bold text-gray-700">
-          Last Name
-          <input
-            className="mt-1 w-full rounded border bg-gray-200 px-3 py-2 font-normal text-gray-700"
-            type="text"
-            readOnly
-            disabled
-            {...register("lastName")}
-          />
-        </label>
+        const result = await stripe.confirmPayment({
+            elements,
+            redirect: "if_required",
+            confirmParams: {
+                return_url: `${API_BASE_URL}/my-bookings`,
+            },
+        });
 
-        <label className="flex-1 text-sm font-bold text-gray-700">
-          Email
-          <input
-            className="mt-1 w-full rounded border bg-gray-200 px-3 py-2 font-normal text-gray-700"
-            type="text"
-            readOnly
-            disabled
-            {...register("email")}
-          />
-        </label>
-      </div>
+        if (result.paymentIntent?.status === "succeeded") {
+            mutate({ ...formData, paymentIntentId: result.paymentIntent.id });
+        }
+    };
 
-      <div className="space-y-2">
-        <h3 className="text-xl font-semibold">Payment Details</h3>
-        <PaymentElement
-          id="payment-element"
-          className="rounded-md border p-2 text-sm"
-        />
-      </div>
+    return (
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="grid grid-cols-1 gap-5 rounded-lg border border-slate-300 p-3"
+        >
+            <span className="text-3xl font-bold">Confirm Your Details</span>
+            <div className="grid grid-cols-2 gap-6">
+                <label className="flex-1 text-sm font-bold text-gray-700">
+                    First Name
+                    <input
+                        className="mt-1 w-full rounded border bg-gray-200 px-3 py-2 font-normal text-gray-700"
+                        type="text"
+                        readOnly
+                        disabled
+                        {...register("firstName")}
+                    />
+                </label>
 
-      <button
-        disabled={isLoading}
-        type="submit"
-        className="text-md h-full rounded bg-blue-600 p-2 font-bold text-white hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
-      >
-        {isLoading ? "Saving..." : `Pay $${paymentIntent.totalCost.toFixed(2)}`}
-      </button>
-    </form>
-  );
+                <label className="flex-1 text-sm font-bold text-gray-700">
+                    Last Name
+                    <input
+                        className="mt-1 w-full rounded border bg-gray-200 px-3 py-2 font-normal text-gray-700"
+                        type="text"
+                        readOnly
+                        disabled
+                        {...register("lastName")}
+                    />
+                </label>
+
+                <label className="flex-1 text-sm font-bold text-gray-700">
+                    Email
+                    <input
+                        className="mt-1 w-full rounded border bg-gray-200 px-3 py-2 font-normal text-gray-700"
+                        type="text"
+                        readOnly
+                        disabled
+                        {...register("email")}
+                    />
+                </label>
+            </div>
+
+            <div className="space-y-2">
+                <h3 className="text-xl font-semibold">Payment Details</h3>
+                <PaymentElement id="payment-element" className="rounded-md border p-2 text-sm" />
+            </div>
+
+            <button
+                disabled={isLoading}
+                type="submit"
+                className="text-md h-full rounded bg-blue-600 p-2 font-bold text-white hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+                {isLoading ? "Saving..." : `Pay $${paymentIntent.totalCost.toFixed(2)}`}
+            </button>
+        </form>
+    );
 };
 
 export default BookingForm;

@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema<UserType>({
     address: {type: String, required: false},
     gender: {type: String, enum: ["male", "female"], required: false},
     birthday: {type: Date, required: false},
+    nationality: {type: String, required: false},
     isAdmin: {type: Boolean, required: true, default: false},
 });
 

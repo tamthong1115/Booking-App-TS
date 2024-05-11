@@ -22,7 +22,7 @@ router.get(
 );
 
 router.post(
-    "/:hotelId/bookings/payment-intent",
+    "/:hotelId/:roomId/bookings/payment-intent",
     verifyTokenUser,
     postCreatePaymentIntent
 );

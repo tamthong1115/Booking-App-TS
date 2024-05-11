@@ -1,6 +1,6 @@
 import express, {RequestHandler} from "express";
 import {verifyTokenUser} from "../middlewares/auth";
-import {getBookings} from "../controllers/my-booking";
+import {getBookings} from "../controllers/booking";
 
 const router = express.Router()
 

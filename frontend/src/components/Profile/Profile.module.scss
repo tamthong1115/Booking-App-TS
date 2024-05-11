@@ -1,60 +1,60 @@
 .info-user {
-    display: flex;
-    justify-content: space-between;
-    padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
 }
 
 .heading {
-    font-size: 2.2rem;
-    font-weight: 700;
+  font-size: 2.2rem;
+  font-weight: 700;
 }
 
 .inner {
-    display: flex;
-    padding: 16px 8px;
-    border-radius: 4px;
-    justify-content: center;
+  display: flex;
+  padding: 16px 8px;
+  border-radius: 4px;
+  justify-content: center;
 
-    &:hover {
-        background-color: #e0d5d5;
-    }
+  &:hover {
+    background-color: #e0d5d5;
+  }
 }
-.user-avatar {
-    margin-right: 8px;
-    height: 60px;
-    width: 60px;
-    border: 2px solid orange;
-    border-radius: 50%;
 
-    align-items: center;
-    justify-content: center;
+.user-avatar {
+  margin-right: 8px;
+  height: 60px;
+  width: 60px;
+  border: 2px solid orange;
+  border-radius: 50%;
+
+  align-items: center;
+  justify-content: center;
 }
 
 .avatar {
-    border-radius: 50%;
-    -o-object-fit: cover;
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
+  border-radius: 50%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .info {
-    display: flex;
-    justify-content: space-between;
-    padding: 16px;
-    border-top: 2px solid #ece7e7;
+  display: grid;
+  grid-template-columns: 2fr 3fr 0.2fr;
+  padding: 16px;
+  border-top: 2px solid #ece7e7;
+
 }
 
 
-
-
 .info-btn {
-    padding: 4px 16px;
-    border-radius: 4px;
-    color: blue;
+  padding: 4px 16px;
+  border-radius: 4px;
+  color: blue;
 
-    &:hover {
-        background-color: #c9c3c3;
-        color: #333;
-    }
+  &:hover {
+    background-color: #c9c3c3;
+    color: #333;
+  }
 }

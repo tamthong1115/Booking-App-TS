@@ -43,11 +43,11 @@ const Home = () => {
                             <h1 className={cx("inner-title")}>Experience the experience that matters</h1>
                         </div>
                         <div>
-                            <h1 className={cx("inner-heading")}>TN Hotel</h1>
+                            <h1 className={cx("inner-heading")}>BookingTS</h1>
                         </div>
                         <div>
                             <p className={cx("inner-text")}>
-                                Welcome to TN Hotel, the leading hotel in Vietnam! We are proud to be a trusted
+                                Welcome to BookingTS, the leading hotel in Vietnam! We are proud to be a trusted
                                 destination for everyone when choosing where to stay in your destinations.
                             </p>
                             <p className={cx("inner-text")}>
@@ -57,7 +57,7 @@ const Home = () => {
                             </p>
                         </div>
                         <div>
-                            <Link to="/contact-us">
+                            <Link to="/about-us">
                                 <button className={cx("inner-btn")}>See more</button>
                             </Link>
                         </div>

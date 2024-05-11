@@ -30,6 +30,7 @@
     "mongodb": "^6.4.0",
     "mongoose": "^8.2.0",
     "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.13",
     "stripe": "^15.5.0"
   },
   "devDependencies": {
@@ -42,6 +43,7 @@
     "@types/mapbox__mapbox-sdk": "^0.14.0",
     "@types/multer": "^1.4.11",
     "@types/node": "^20.11.25",
+    "@types/nodemailer": "^6.4.15",
     "nodemon": "^3.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.2"

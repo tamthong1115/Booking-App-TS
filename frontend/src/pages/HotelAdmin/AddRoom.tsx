@@ -1,12 +1,12 @@
 import { useMutation } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
-import * as apiClient from "../api-client";
-import ManageRoomForm, { RoomFormData } from "../forms/RoomForm/RoomForm";
-import { useAppContext } from "../context/AppContext";
+import * as apiClient from "../../api-client.ts";
+import ManageRoomForm, { RoomFormData } from "../../forms/RoomForm/RoomForm.tsx";
+import { useAppContext } from "../../context/AppContext.tsx";
 
 const AddRoom = () => {
     const { showToast } = useAppContext();
-    const {hotelId} = useParams()
+    const { hotelId } = useParams();
     const navigate = useNavigate();
 
     const { mutate, isLoading } = useMutation(apiClient.addNewRoom, {
@@ -19,7 +19,7 @@ const AddRoom = () => {
         },
     });
 
-    const handleSave = (roomFormData : RoomFormData) => {
+    const handleSave = (roomFormData: RoomFormData) => {
         mutate(roomFormData);
     };
 

@@ -2,10 +2,10 @@ import { Routes, BrowserRouter as Router, Route, Navigate } from "react-router-d
 import Layout from "./layouts/Layout";
 import Register from "./components/Register/Register.tsx";
 import SignIn from "./components/SignIn/SignIn.tsx";
-import AddHotel from "./pages/AddHotel";
+import AddHotel from "./pages/HotelAdmin/AddHotel.tsx";
 import { useAppContext } from "./context/AppContext";
-import MyHotels from "./pages/MyHotels";
-import EditHotel from "./pages/EditHotel";
+import MyHotels from "./pages/HotelAdmin/MyHotels.tsx";
+import EditHotel from "./pages/HotelAdmin/EditHotel.tsx";
 import Search from "./pages/Search";
 import Detail from "./pages/Detail";
 import Booking from "./pages/Booking";
@@ -13,8 +13,9 @@ import MyBookings from "./pages/MyBookings.tsx";
 import Home from "./pages/Home/Home.tsx";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Profile from "./components/Profile/Profile.tsx";
-import ContactUs from "./components/Contact/ContactUs.tsx";
-import AddRoom from "./pages/AddRoom.tsx";
+import AboutUs from "./pages/AboutUs/AboutUs.tsx";
+import AddRoom from "./pages/HotelAdmin/AddRoom.tsx";
+import ContactUs from "./pages/Contact/ContactUs.tsx";
 
 const App = () => {
     const { isLoggedIn } = useAppContext();
@@ -36,6 +37,15 @@ const App = () => {
                     element={
                         <Layout>
                             <Search />
+                        </Layout>
+                    }
+                />
+
+                <Route
+                    path="/about-us"
+                    element={
+                        <Layout>
+                            <AboutUs />
                         </Layout>
                     }
                 />

@@ -47,3 +47,14 @@
     margin: auto;
     animation: growth linear 0.2s;
 }
+
+.description {
+    margin-top: 10px;
+    padding-right: 34%;
+    text-align: justify;
+      display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -58,9 +58,9 @@ const GuestInfoForm = ({ hotel, room }: Props) => {
     };
 
     return (
-        <div className="box-border flex flex-col gap-4 rounded bg-blue-200 p-4">
+        <div className="box-border flex flex-col mt-8 gap-4 rounded-md bg-blue-200 p-3">
             <form onSubmit={handleSubmit(isLoggedIn ? onSubmit : onSignInClick)}>
-                <div className="grid grid-cols-1 items-start gap-4 rounded">
+                <div className="grid grid-cols-1 items-start gap-3 rounded">
                     <div>
                         <DatePicker
                             required
@@ -71,7 +71,7 @@ const GuestInfoForm = ({ hotel, room }: Props) => {
                             minDate={minDate}
                             maxDate={maxDate}
                             placeholderText="Check-in Date"
-                            className="min-w-full rounded-sm bg-white p-2 focus:outline-none"
+                            className="min-w-full rounded-md bg-white p-2 focus:outline-none"
                             wrapperClassName="min-w-full"
                         />
                         {errors.checkIn && (
@@ -90,7 +90,7 @@ const GuestInfoForm = ({ hotel, room }: Props) => {
                             minDate={minDateTomorrow}
                             maxDate={maxDate}
                             placeholderText="Check-out Date"
-                            className="min-w-full rounded-sm bg-white p-2 focus:outline-none"
+                            className="min-w-full rounded-md bg-white p-2 focus:outline-none"
                             wrapperClassName="min-w-full"
                         />
 
@@ -99,7 +99,7 @@ const GuestInfoForm = ({ hotel, room }: Props) => {
                         )}
                     </div>
 
-                    <div className="flex justify-around gap-2 rounded-sm bg-white px-2 py-1">
+                    <div className="z bg-white rounded-md px-2 py-1">
                         <label className="flex items-center">
                             Adults:
                             <input
@@ -118,7 +118,7 @@ const GuestInfoForm = ({ hotel, room }: Props) => {
                             />
                         </label>
 
-                        <label className="flex items-center rounded-sm">
+                        <label className="flex items-center rounded-md">
                             Children:
                             <input
                                 className="w-[50px]  rounded p-1 font-bold focus:outline-none"

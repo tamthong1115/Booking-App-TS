@@ -96,7 +96,7 @@ const Detail = () => {
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-[2fr_1fr]">
                 <div className="whitespace-pre-line">{hotel.description}</div>
             </div>
-
+w
             <div>
                 <Room hotel={hotel} />
             </div>

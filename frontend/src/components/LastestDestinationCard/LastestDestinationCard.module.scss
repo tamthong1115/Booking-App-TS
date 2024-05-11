@@ -1,0 +1,126 @@
+.place-item {
+    position: relative;
+    margin: 12px 16px 0 0;
+    box-shadow: 0 2px 8px 0 rgba(26, 26, 26, 0.1);
+    border-radius: 8px;
+}
+
+.place-item:last-child {
+    margin-right: 0;
+}
+
+////////////////////////////////
+
+.place-img {
+    object-fit: cover;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    width: 100%;
+    height: 170px;
+    cursor: pointer;
+    object-position: center;
+}
+
+.place-info {
+    padding: 12px 8px 10px;
+}
+.place-name {
+    cursor: pointer;
+}
+
+.name {
+    font-size: 16px;
+    font-weight: 700;
+    overflow: hidden;
+    display: block;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    text-overflow: ellipsis;
+    color: #333;
+}
+
+.description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    padding: 2px 0;
+}
+
+.place-price {
+    font-size: 18px;
+    padding: 8px 0;
+    font-weight: 700;
+    color: #333;
+    text-align: left;
+}
+
+.place-like {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.icon {
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.rating {
+    display: flex;
+
+    justify-content: center;
+    font-size: 12px;
+    align-items: end;
+}
+
+.point {
+    background-color: rgb(126, 126, 237);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+}
+
+.sale-off {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 44px;
+    height: 40px;
+    text-align: center;
+    color: red;
+    font-weight: 500;
+    background-color: rgba(255, 216, 64, 0.94);
+    display: flex;
+    flex-direction: column;
+    line-height: 18px;
+    padding: 2px;
+    border-top-right-radius: inherit;
+
+    .percent {
+        font-size: 13px;
+    }
+
+    .label {
+        font-size: 10px;
+    }
+}
+
+.sale-off:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -7px;
+    border-width: 0px 22px 8px;
+    border-style: solid;
+    color: rgba(255, 216, 64, 0.94);
+    border-color: transparent currentColor transparent currentColor;
+}

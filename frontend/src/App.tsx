@@ -1,7 +1,7 @@
 import { Routes, BrowserRouter as Router, Route, Navigate } from "react-router-dom";
 import Layout from "./layouts/Layout";
-import Register from "./pages/Register";
-import SignIn from "./pages/SignIn";
+import Register from "./components/Register/Register.tsx";
+import SignIn from "./components/SignIn/SignIn.tsx";
 import AddHotel from "./pages/AddHotel";
 import { useAppContext } from "./context/AppContext";
 import MyHotels from "./pages/MyHotels";

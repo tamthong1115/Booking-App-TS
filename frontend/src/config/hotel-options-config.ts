@@ -26,3 +26,17 @@ export const hotelFacilities = [
   "Spa",
   "Fitness Center",
 ];
+
+
+
+export const roomTypes = [
+  "Single",
+  "Double",
+  "Triple",
+  "Quad",
+  "Queen",
+  "King",
+  "Twin",
+  "Double-double",
+  "Studio",
+];

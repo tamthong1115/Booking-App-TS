@@ -1,15 +1,17 @@
 import { AiFillStar } from "react-icons/ai";
 import * as apiClient from "../api-client";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import GuestInfoForm from "../forms/GuestInfoForm/GuestInfoForm";
 import LoadingComponent from "../components/Loading/Loading";
 import MapboxGL from "../components/Map/MapboxGL.tsx";
 import ReviewForm from "../forms/ReviewForm/ReviewForm.tsx";
 import Reviews from "../components/Review/Reviews.tsx";
 import { useState } from "react";
+import { useAppContext } from "../context/AppContext.tsx";
+import Room from "../components/Room/Room.tsx";
 
 const Detail = () => {
+    const { isAdmin } = useAppContext();
     const { hotelId } = useParams();
     const [isMapOpen, setIsMapOpen] = useState(false);
 
@@ -25,16 +27,30 @@ const Detail = () => {
 
     return (
         <div className="space-y-6">
-            <div>
-                <span className="flex">
-                    {Array.from({ length: hotel?.starRating }).map(() => (
-                        <AiFillStar className="fill-yellow-400" />
-                    ))}
-                </span>
-                <h1 className="text-3xl font-bold">{hotel.name}</h1>
-                <p className="text-lg font-semibold text-slate-600">{hotel.city + " " + hotel.country}</p>
-            </div>
+            <div className={"flex  justify-between"}>
+                <div>
+                    <span className="flex">
+                        {Array.from({ length: hotel?.starRating }).map(() => (
+                            <AiFillStar className="fill-yellow-400" />
+                        ))}
+                    </span>
+                    <h1 className="text-3xl font-bold">{hotel.name}</h1>
+                    <p className="text-lg font-semibold text-slate-600">{hotel.city + " " + hotel.country}</p>
+                </div>
 
+                {isAdmin && (
+                    <div className={"flex items-center"}>
+                        <span>
+                            <Link
+                                to={`/detail/${hotel._id}/add-room`}
+                                className="flex rounded bg-blue-600 p-2 text-xl font-bold text-white hover:bg-blue-500"
+                            >
+                                Add Rooms
+                            </Link>
+                        </span>
+                    </div>
+                )}
+            </div>
             <div className="flex justify-between gap-6">
                 <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
                     {hotel.imageUrls.map((url: string, index: number) => (
@@ -48,22 +64,24 @@ const Detail = () => {
                     ))}
                 </div>
 
-                <div
-                    className={"relative flex h-[200px] w-[400px] items-center justify-center rounded-md"}
-                    style={{
-                        backgroundImage: `url("/MapImage/img.png")`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                    }}
-                >
-                    <button
-                        onClick={() => setIsMapOpen(!isMapOpen)}
-                        className="absolute bottom-10 left-1/2 -translate-x-1/2 transform rounded-md border border-slate-300 bg-blue-600 p-2 text-white"
-                        style={{ width: "120px", height: "40px" }}
+                <div className={"flex items-end"}>
+                    <div
+                        className={"relative flex h-[200px] w-[250px] items-center justify-center rounded-md"}
+                        style={{
+                            backgroundImage: `url("/MapImage/img.png")`,
+                            backgroundRepeat: "no-repeat",
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                        }}
                     >
-                        Show on map
-                    </button>
+                        <button
+                            onClick={() => setIsMapOpen(!isMapOpen)}
+                            className="absolute bottom-10 left-1/2 -translate-x-1/2 transform rounded-md border border-slate-300 bg-blue-600 p-2 text-white"
+                            style={{ width: "120px", height: "40px" }}
+                        >
+                            Show on map
+                        </button>
+                    </div>
                 </div>
 
                 {isMapOpen && <MapboxGL hotel={hotel} isMapOpen={isMapOpen} onClose={() => setIsMapOpen(!isMapOpen)} />}
@@ -77,9 +95,10 @@ const Detail = () => {
 
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-[2fr_1fr]">
                 <div className="whitespace-pre-line">{hotel.description}</div>
-                <div className="h-fit">
-                    <GuestInfoForm hotel={hotel} />
-                </div>
+            </div>
+
+            <div>
+                <Room hotel={hotel} />
             </div>
 
             <div>

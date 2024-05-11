@@ -3,12 +3,13 @@ import Review from "../models/review";
 import Hotel from "../models/hotel";
 import CustomError from "../utils/ExpressError";
 import { Types } from "mongoose";
+import { BookingType } from "../../shared/types";
 
 export const postNewReview: RequestHandler = async (req, res, next) => {
   try {
     const { hotelId } = req.params;
 
-    const hotel = await Hotel.findById(hotelId);
+    const hotel = await Hotel.findById(hotelId).populate<{bookings:BookingType[]}>("bookings")
     if (!hotel) {
       return next(new CustomError("Hotel not found", 404));
     }
@@ -48,6 +49,7 @@ export const postNewReview: RequestHandler = async (req, res, next) => {
 export const getReviews: RequestHandler = async (req, res, next) => {
   try {
     const { hotelId } = req.params;
+    
     const hotel = await Hotel.findById(hotelId).populate("reviews");
 
     if (!hotel) {

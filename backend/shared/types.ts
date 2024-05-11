@@ -1,17 +1,29 @@
+import { Schema } from "mongoose";
+
 export type UserType = {
   _id: string;
   email: string;
   password: string;
   firstName: string;
   lastName: string;
-  phoneNumber?:string;
-  address?:string;
-  gender?:string;
-  birthday?:Date;
+  phoneNumber?: string;
+  address?: string;
+  gender?: string;
+  birthday?: Date;
+  nationality?: string;
   isAdmin: boolean;
 };
 
-export type HotelType = {
+export interface RoomType {
+  _id: string;
+  name: string;
+  roomType: string;
+  description: string;
+  pricePerNight: number;
+  isBooked: boolean;
+}
+
+export interface HotelType {
   _id: string;
   userId: string;
   name: string;
@@ -26,17 +38,18 @@ export type HotelType = {
   adultCount: number;
   childCount: number;
   facilities: string[];
-  pricePerNight: number;
   starRating: number;
   imagePublicIds: string[];
   imageUrls: string[];
   lastUpdated: Date;
-  bookings: BookingType[];
+  bookings: Schema.Types.ObjectId[];
   reviews: string[];
-};
+  rooms?: Schema.Types.ObjectId[];
+}
 
-export type BookingType = {
+export interface BookingType {
   _id: string;
+  roomId: string;
   userId: string;
   firstName: string;
   lastName: string;
@@ -46,7 +59,7 @@ export type BookingType = {
   checkIn: Date;
   checkOut: Date;
   totalCost: number;
-};
+}
 
 export type HotelSearchResponse = {
   data: HotelType[];

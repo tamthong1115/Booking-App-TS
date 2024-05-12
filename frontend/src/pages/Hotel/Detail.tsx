@@ -1,14 +1,15 @@
 import { AiFillStar } from "react-icons/ai";
-import * as apiClient from "../api-client";
 import { Link, useParams } from "react-router-dom";
 import { useQuery, useQueryClient } from "react-query";
-import LoadingComponent from "../components/Loading/Loading";
-import MapboxGL from "../components/Map/MapboxGL.tsx";
-import ReviewForm from "../forms/ReviewForm/ReviewForm.tsx";
-import Reviews from "../components/Review/Reviews.tsx";
+import LoadingComponent from "../../components/Loading/Loading.tsx";
+import MapboxGL from "../../components/Map/MapboxGL.tsx";
+import ReviewForm from "../../forms/ReviewForm/ReviewForm.tsx";
+import Reviews from "../../components/Review/Reviews.tsx";
 import { useState } from "react";
-import { useAppContext } from "../context/AppContext.tsx";
-import Room from "../components/Room/Room.tsx";
+import { useAppContext } from "../../context/AppContext.tsx";
+import Room from "../../components/Room/Room.tsx";
+import { fetchCurrentUser } from "../../ApiClient/api-users.ts";
+import { fetchHotelById } from "../../ApiClient/api-hotels.ts";
 
 const Detail = () => {
     const { isAdmin } = useAppContext();
@@ -20,11 +21,11 @@ const Detail = () => {
         data: hotel,
         isSuccess,
         isLoading,
-    } = useQuery("fetchMyHotelById", () => apiClient.fetchHotelById(hotelId as string), {
+    } = useQuery("fetchMyHotelById", () => fetchHotelById(hotelId as string), {
         enabled: !!hotelId, // This is to prevent the query from running when the hotelId is not available
     });
 
-    const { data: currentUser } = useQuery("fetchCurrentUser", apiClient.fetchCurrentUser);
+    const { data: currentUser } = useQuery("fetchCurrentUser", fetchCurrentUser);
 
     if (isLoading) {
         return LoadingComponent({ isLoading: true });

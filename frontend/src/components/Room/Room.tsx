@@ -1,27 +1,27 @@
-import {RoomType} from "../../../../backend/shared/types";
-import * as apiClient from "../../api-client";
-import {useQuery} from "react-query";
+import { RoomType } from "../../../../backend/shared/types";
+import { useQuery } from "react-query";
 import LoadingComponent from "../Loading/Loading";
 import RoomBooking from "./RoomBooking";
-import {useState} from "react";
-import {useParams} from "react-router-dom";
-import {HotelTypeFrontend} from "../../types/types.ts";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { HotelTypeFrontend } from "../../types/types.ts";
+import { getRooms } from "../../ApiClient/api-rooms.ts";
 
 type Props = {
     hotel: HotelTypeFrontend;
 };
 
-const Room = ({hotel}: Props) => {
-    const {hotelId} = useParams();
+const Room = ({ hotel }: Props) => {
+    const { hotelId } = useParams();
     const [isRoomBookingOpen, setIsRoomBookingOpen] = useState(false);
     const [openRoomId, setOpenRoomId] = useState<string | null>();
 
-    const {data: rooms, isLoading} = useQuery("getRooms", () => apiClient.getRooms(hotelId as string), {
+    const { data: rooms, isLoading } = useQuery("getRooms", () => getRooms(hotelId as string), {
         enabled: !!hotelId,
     });
 
     if (isLoading) {
-        return LoadingComponent({isLoading: true});
+        return LoadingComponent({ isLoading: true });
     }
 
     if (!rooms) {

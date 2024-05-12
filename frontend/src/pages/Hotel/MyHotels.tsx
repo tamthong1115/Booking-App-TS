@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
-import * as apiClient from "../../api-client.ts";
 import { useQuery } from "react-query";
 import { useAppContext } from "../../context/AppContext.tsx";
 import { BsBuilding, BsMap } from "react-icons/bs";
 import { BiHotel, BiStar } from "react-icons/bi";
 import DeleteHotelButton from "../../components/Button/DeleteHotelButton.tsx";
 import LoadingComponent from "../../components/Loading/Loading.tsx";
+import { fetchMyHotels } from "../../ApiClient/api-hotels.ts";
 
 const MyHotels = () => {
     const { showToast } = useAppContext();
-    const { data: hotelData, isLoading } = useQuery("fetchMyHotels", apiClient.fetchMyHotels, {
+    const { data: hotelData, isLoading } = useQuery("fetchMyHotels", fetchMyHotels, {
         onError: (error: Error) => {
             showToast({
                 message: error.message ? error.message : "Fetch hotels failed",

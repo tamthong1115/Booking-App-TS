@@ -1,9 +1,9 @@
 import { useQuery } from "react-query";
-import * as apiClient from "../api-client";
-import LoadingComponent from "../components/Loading/Loading.tsx";
+import LoadingComponent from "../../components/Loading/Loading.tsx";
+import { fetchCurrentUser } from "../../ApiClient/api-users.ts";
 
 const Profile = () => {
-    const { data: currentUser } = useQuery("fetchCurrentUser", apiClient.fetchCurrentUser);
+    const { data: currentUser } = useQuery("fetchCurrentUser", fetchCurrentUser);
 
     if (!currentUser) {
         return LoadingComponent({ isLoading: true });

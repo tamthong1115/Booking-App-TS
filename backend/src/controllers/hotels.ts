@@ -98,7 +98,7 @@ export const postCreatePaymentIntent: RequestHandler = async (req, res) => {
     const {hotelId, roomId} = req.params;
 
     const room = await Room.findById(roomId);
-    console.log(room);
+    // console.log(room);
 
     if (!room) {
         throw new CustomError("Room not found", 404);

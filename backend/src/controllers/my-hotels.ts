@@ -131,17 +131,17 @@ export const editHotel: RequestHandler = async (req, res, next) => {
                     limit: 1,
                 })
                 .send();
-            console.log(updatedHotel.city);
+            // console.log(updatedHotel.city);
 
             if (!response.body.features || response.body.features.length === 0) {
-                throw new Error("Geocoding failed: no results");
+                next(new Error("Geocoding failed: no results"));
             }
 
             if (
                 !response.body.features[0].geometry ||
                 !response.body.features[0].geometry.type
             ) {
-                throw new Error("Geocoding failed: missing geometry");
+                next(new Error("Geocoding failed: missing geometry"));
             }
             // console.log(response);
             updatedHotel.location = response.body.features[0].geometry;

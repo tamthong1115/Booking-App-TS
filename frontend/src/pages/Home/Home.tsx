@@ -1,5 +1,4 @@
 import { useQuery } from "react-query";
-import * as apiClient from "../../api-client.ts";
 import LatestDestinationCard from "../../components/LastestDestinationCard/LastestDestinationCard.tsx";
 import classNames from "classnames/bind";
 import styles from "./index.module.scss";
@@ -7,12 +6,13 @@ import styles from "./index.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import LatestDestinationCardPre from "../../components/LatestDestinationCardPre.tsx";
+import LatestDestinationCardPre from "../../components/LastestDestinationCard/LatestDestinationCardPre.tsx";
+import { fetchHotels } from "../../ApiClient/api-hotels.ts";
 
 const cx = classNames.bind(styles);
 
 const Home = () => {
-    const { data: hotels } = useQuery("fetchHotels", () => apiClient.fetchHotels());
+    const { data: hotels } = useQuery("fetchHotels", () => fetchHotels());
 
     const topRowHotels = hotels?.slice(0, 2) || [];
     const bottomRowHotels = hotels?.slice(2) || [];

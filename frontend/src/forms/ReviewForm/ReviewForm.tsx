@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "react-query";
-import * as apiClient from "../../api-client";
 import { useForm } from "react-hook-form";
 import { ReviewType, UserType } from "../../../../backend/shared/types";
 import { useAppContext } from "../../context/AppContext";
 import LoadingComponent from "../../components/Loading/Loading";
+import { postNewReview } from "../../ApiClient/api-reviews.ts";
 
 type Props = {
     hotelId: string;
@@ -13,7 +13,7 @@ type Props = {
 const ReviewForm = ({ hotelId, currentUser }: Props) => {
     const { showToast } = useAppContext();
     const queryClient = useQueryClient();
-    const { mutate, isLoading } = useMutation(apiClient.postNewReview, {
+    const { mutate, isLoading } = useMutation(postNewReview, {
         onSuccess: () => {
             showToast({ message: "Review Saved!", type: "SUCCESS" });
             queryClient.invalidateQueries("fetchReviews").then((r) => console.log(r));

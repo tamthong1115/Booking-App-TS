@@ -1,13 +1,12 @@
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
-import * as apiClient from "../../api-client";
-import { useAppContext } from "../../context/AppContext";
-import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../../context/AppContext.tsx";
+import { Link, useNavigate } from "react-router-dom";
+import * as userClient from "../../ApiClient/api-users.ts";
 
 import classNames from "classnames/bind";
 import styles from "./Register.module.scss";
-import { Link } from "react-router-dom";
-import Buttons from "../Buttons";
+import Buttons from "../../components/Buttons";
 
 const cx = classNames.bind(styles);
 
@@ -32,7 +31,7 @@ const Register = () => {
         mode: "onBlur", // trigger the validation when un-focus the input
     });
 
-    const { mutate } = useMutation(apiClient.register, {
+    const { mutate } = useMutation(userClient.register, {
         onSuccess: async () => {
             showToast({ message: "Registration Successful!", type: "SUCCESS" });
             await queryClient.invalidateQueries("validateToken"); // from isError AppContext

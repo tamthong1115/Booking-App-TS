@@ -1,13 +1,12 @@
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
-import * as apiClient from "../../api-client";
-import { useAppContext } from "../../context/AppContext";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useAppContext } from "../../context/AppContext.tsx";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import classNames from "classnames/bind";
 import styles from "./SignIn.module.scss";
-import { Link } from "react-router-dom";
-import Buttons from "../Buttons";
+import Buttons from "../../components/Buttons";
+import { signIn } from "../../ApiClient/api-users.ts";
 
 const cx = classNames.bind(styles);
 
@@ -29,7 +28,7 @@ const SignIn = () => {
         mode: "onBlur",
     });
 
-    const mutation = useMutation(apiClient.signIn, {
+    const mutation = useMutation(signIn, {
         onSuccess: async () => {
             showToast({ message: "Sign in Successful!", type: "SUCCESS" });
             await queryClient.invalidateQueries("validateToken"); // from isError AppContext

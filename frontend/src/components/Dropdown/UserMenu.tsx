@@ -3,13 +3,13 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useQuery } from "react-query";
-import * as apiClient from "../../api-client";
 import SignOutButton from "../Button/SignOutButton.tsx";
 import { Link } from "react-router-dom";
 import classNames from "classnames/bind";
 import styles from "./UserMenu.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey, faRightFromBracket, faUser } from "@fortawesome/free-solid-svg-icons";
+import { fetchCurrentUser } from "../../ApiClient/api-users.ts";
 
 const cx = classNames.bind(styles);
 
@@ -17,7 +17,7 @@ export default function UserMenu() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
-    const { data: user } = useQuery("fetchCurrentUser", () => apiClient.fetchCurrentUser());
+    const { data: user } = useQuery("fetchCurrentUser", () => fetchCurrentUser());
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);

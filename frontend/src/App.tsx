@@ -1,20 +1,20 @@
 import { Routes, BrowserRouter as Router, Route, Navigate } from "react-router-dom";
 import Layout from "./layouts/Layout";
-import Register from "./components/Register/Register.tsx";
-import SignIn from "./components/SignIn/SignIn.tsx";
-import AddHotel from "./pages/HotelAdmin/AddHotel.tsx";
+import Register from "./pages/Register/Register.tsx";
+import SignIn from "./pages/SignIn/SignIn.tsx";
+import AddHotel from "./pages/Hotel/AddHotel.tsx";
 import { useAppContext } from "./context/AppContext";
-import MyHotels from "./pages/HotelAdmin/MyHotels.tsx";
-import EditHotel from "./pages/HotelAdmin/EditHotel.tsx";
-import Search from "./pages/Search";
-import Detail from "./pages/Detail";
-import Booking from "./pages/Booking";
-import MyBookings from "./pages/MyBookings.tsx";
+import MyHotels from "./pages/Hotel/MyHotels.tsx";
+import EditHotel from "./pages/Hotel/EditHotel.tsx";
+import Search from "./pages/Search/Search.tsx";
+import Detail from "./pages/Hotel/Detail.tsx";
+import Booking from "./pages/Booking/Booking.tsx";
+import MyBookings from "./pages/Booking/MyBookings.tsx";
 import Home from "./pages/Home/Home.tsx";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Profile from "./components/Profile/Profile.tsx";
 import AboutUs from "./pages/AboutUs/AboutUs.tsx";
-import AddRoom from "./pages/HotelAdmin/AddRoom.tsx";
+import AddRoom from "./pages/Hotel/AddRoom.tsx";
 import ContactUs from "./pages/Contact/ContactUs.tsx";
 
 const App = () => {

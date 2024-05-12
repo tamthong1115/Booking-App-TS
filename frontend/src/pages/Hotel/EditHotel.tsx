@@ -1,8 +1,8 @@
 import { useMutation, useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
-import * as apiClient from "../../api-client.ts";
 import ManageHotelForm from "../../forms/ManageHotelForm/MangaHotelForm.tsx";
 import { useAppContext } from "../../context/AppContext.tsx";
+import { fetchMyHotelById, updateMyHotelById } from "../../ApiClient/api-hotels.ts";
 
 const EditHotel = () => {
     const { hotelId } = useParams();
@@ -10,11 +10,11 @@ const EditHotel = () => {
 
     const navigate = useNavigate();
 
-    const { data: hotel } = useQuery("fetchMyHotelById", () => apiClient.fetchMyHotelById(hotelId || ""), {
+    const { data: hotel } = useQuery("fetchMyHotelById", () => fetchMyHotelById(hotelId || ""), {
         enabled: !!hotelId, // only run when hotel valid
     });
 
-    const { mutate, isLoading } = useMutation(apiClient.updateMyHotelById, {
+    const { mutate, isLoading } = useMutation(updateMyHotelById, {
         onSuccess: () => {
             showToast({ message: "Hotel Saved!", type: "SUCCESS" });
             navigate("/my-hotels");

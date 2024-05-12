@@ -4,8 +4,9 @@ import { PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js"
 import { useSearchContext } from "../../context/SearchContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation } from "react-query";
-import * as apiClient from "../../api-client";
 import { useAppContext } from "../../context/AppContext.tsx";
+
+import { createRoomBooking } from "../../ApiClient/api-bookings.ts";
 
 type Props = {
     currentUser: UserType;
@@ -39,7 +40,7 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
 
     const navigate = useNavigate();
 
-    const { mutate, isLoading } = useMutation(apiClient.createRoomBooking, {
+    const { mutate, isLoading } = useMutation(createRoomBooking, {
         onSuccess: () => {
             showToast({ message: "Booking Saved!", type: "SUCCESS" });
             navigate("/my-bookings");

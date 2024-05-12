@@ -1,5 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import * as apiClient from "../../api-client.ts";
 import LoadingComponent from "../Loading/Loading.tsx";
 import classNames from "classnames/bind";
 import styles from "./Profile.module.scss";
@@ -8,6 +7,7 @@ import { UserType } from "../../../../backend/shared/types.ts";
 import { useAppContext } from "../../context/AppContext.tsx";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import { fetchCurrentUser, updateUser } from "../../ApiClient/api-users.ts";
 
 const cx = classNames.bind(styles);
 
@@ -28,9 +28,9 @@ const Profile = () => {
         address: false,
     });
 
-    const { data: currentUser, isLoading } = useQuery("fetchCurrentUser", apiClient.fetchCurrentUser);
+    const { data: currentUser, isLoading } = useQuery("fetchCurrentUser", fetchCurrentUser);
 
-    const { mutate, isLoading: isLoadingUpdate } = useMutation(apiClient.updateUser, {
+    const { mutate, isLoading: isLoadingUpdate } = useMutation(updateUser, {
         onSuccess: () => {
             showToast({ message: "User updated!", type: "SUCCESS" });
             queryClient.invalidateQueries("fetchCurrentUser").then((r) => console.log(r));

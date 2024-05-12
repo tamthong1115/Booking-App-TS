@@ -1,8 +1,8 @@
 import React, { ChangeEvent } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import * as apiClient from "../../api-client";
 import { useAppContext } from "../../context/AppContext";
+import { postNewContactUs } from "../../ApiClient/api-client.ts";
 
 const InputSideWrapper = styled.form`
     height: auto;
@@ -98,7 +98,7 @@ const InputSide = () => {
         setButtonLoading(true);
 
         try {
-            await apiClient.postNewContactUs({ name, phone, email, message });
+            await postNewContactUs({ name, phone, email, message });
             showToast({ message: "Message sent successfully", type: "SUCCESS" });
             navigate("/contact-us");
         } catch (error) {

@@ -1,4 +1,5 @@
-import {HotelTypeFrontend} from "../../types/types.ts";
+import { HotelTypeFrontend } from "../../types/types.ts";
+import React from "react";
 
 type Props = {
     checkIn: Date;
@@ -10,13 +11,13 @@ type Props = {
 };
 
 const BookingDetailsSummary: React.FC<Props> = ({
-                                                    checkIn,
-                                                    checkOut,
-                                                    adultCount,
-                                                    childCount,
-                                                    numberOfNights,
-                                                    hotel,
-                                                }) => {
+    checkIn,
+    checkOut,
+    adultCount,
+    childCount,
+    numberOfNights,
+    hotel,
+}) => {
     return (
         <div className="grid h-fit gap-4 rounded-lg border border-slate-300 p-5">
             <h2 className="text-xl font-bold">Your Booking Detail</h2>

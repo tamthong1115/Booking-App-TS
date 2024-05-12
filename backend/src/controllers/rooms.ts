@@ -6,7 +6,7 @@ import { RoomType } from "../../shared/types";
 export const addNewRoom: RequestHandler = async (req, res, next) => {
   try {
     const { hotelId } = req.body;
-    console.log(hotelId);
+    // console.log(hotelId);
 
     const hotel = await Hotel.findById(hotelId).populate<{ rooms: RoomType[] }>(
       "rooms"

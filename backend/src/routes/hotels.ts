@@ -27,6 +27,6 @@ router.post(
     postCreatePaymentIntent
 );
 
-router.post("/:hotelId/bookings", verifyTokenUser, postBooking);
+router.post("/:hotelId/:roomId/bookings", verifyTokenUser, postBooking);
 
 export default router;

@@ -24,7 +24,7 @@ export const createPaymentIntent = async (
     return response.json();
 };
 export const createRoomBooking = async (formData: BookingFormData) => {
-    const response = await fetch(`${API_BASE_URL}/api/hotels/${formData.hotelId}/bookings`, {
+    const response = await fetch(`${API_BASE_URL}/api/hotels/${formData.hotelId}/${formData.roomId}/bookings`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

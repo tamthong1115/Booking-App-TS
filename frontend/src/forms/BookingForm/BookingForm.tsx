@@ -1,12 +1,13 @@
 import { useForm } from "react-hook-form";
 import { PaymentIntentResponse, UserType } from "../../../../backend/shared/types";
-import { PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useSearchContext } from "../../context/SearchContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation } from "react-query";
 import { useAppContext } from "../../context/AppContext.tsx";
 
 import { createRoomBooking } from "../../ApiClient/api-bookings.ts";
+import { StripeCardElement } from "@stripe/stripe-js";
 
 type Props = {
     currentUser: UserType;
@@ -27,7 +28,6 @@ export type BookingFormData = {
     paymentIntentId: string;
 };
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 const BookingForm = ({ currentUser, paymentIntent }: Props) => {
     const stripe = useStripe();
@@ -40,14 +40,15 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
 
     const navigate = useNavigate();
 
-    const { mutate, isLoading } = useMutation(createRoomBooking, {
+    const { mutate : bookRoom, isLoading } = useMutation(createRoomBooking, {
         onSuccess: () => {
             showToast({ message: "Booking Saved!", type: "SUCCESS" });
             navigate("/my-bookings");
         },
-        onError: (error) => {
+        onError: (error: Error) => {
             console.error(error);
-            showToast({ message: "Error saving booking", type: "ERROR" });
+            showToast({ message: error.message || "Error saving booking", type: "ERROR" });
+            navigate(`/detail/${hotelId}`);
         },
     });
 
@@ -73,18 +74,17 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
             return;
         }
 
-        const result = await stripe.confirmPayment({
-            elements,
-            redirect: "if_required",
-            confirmParams: {
-                return_url: `${API_BASE_URL}/my-bookings`,
+        const result = await stripe.confirmCardPayment(paymentIntent.clientSecret, {
+            payment_method: {
+              card: elements.getElement(CardElement) as StripeCardElement,
             },
-        });
-
-        if (result.paymentIntent?.status === "succeeded") {
-            mutate({ ...formData, paymentIntentId: result.paymentIntent.id });
-        }
-    };
+          });
+      
+          if (result.paymentIntent?.status === "succeeded") {
+            bookRoom({ ...formData, paymentIntentId: result.paymentIntent.id });
+          }
+        };
+      
 
     return (
         <form
@@ -129,7 +129,7 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
 
             <div className="space-y-2">
                 <h3 className="text-xl font-semibold">Payment Details</h3>
-                <PaymentElement id="payment-element" className="rounded-md border p-2 text-sm" />
+                <CardElement id="payment-element" className="rounded-md border p-2 text-sm" />
             </div>
 
             <button

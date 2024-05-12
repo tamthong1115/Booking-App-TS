@@ -27,10 +27,6 @@ const Booking = () => {
         }
     }, [search.checkIn, search.checkOut]); // re-run when checkIn or checkOut changes
 
-    /*
-    use useQuery instead of useMutation because we are only fetching data 
-    and not modifying any data.
-    */
     const { data: paymentIntentData } = useQuery(
         "createPaymentIntent",
         () => createPaymentIntent(hotelId as string, roomId as string, numberOfNights.toString()),
@@ -46,6 +42,7 @@ const Booking = () => {
     const { data: currentUser } = useQuery("fetchCurrentUser", fetchCurrentUser);
 
     if (!hotel) return LoadingComponent({ isLoading: true });
+    // console.log(paymentIntentData)
 
     return (
         <div className="grid gap-3 md:grid-cols-[1fr_2fr]">

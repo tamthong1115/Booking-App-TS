@@ -85,9 +85,9 @@ const SignIn = () => {
                         </label>
                         <div className={cx("form-aside")}>
                             <div className={cx("help")}>
-                                <a href="" className={cx("help-link", "forgot")}>
+                                <Link to="/forget-password" className={cx("help-link", "forgot")}>
                                     Forgot password
-                                </a>
+                                </Link>
                                 <span className={cx("separate")}></span>
                                 <a href="" className={cx("help-link")}>
                                     Need help

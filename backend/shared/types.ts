@@ -9,6 +9,7 @@ export type UserType = {
     gender?: string;
     birthday?: Date;
     nationality?: string;
+    emailVerified: boolean;
     isAdmin: boolean;
 };
 

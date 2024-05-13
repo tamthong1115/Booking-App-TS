@@ -23,3 +23,76 @@ export const postNewContactUs = async (formData: ContactUsFormData) => {
 
     return response.json();
 };
+
+
+// verify-email/:token
+export const verifyEmail = async (token: string) => {
+    const response = await fetch(`${API_BASE_URL}/api/auth/verify-email/${token}`);
+
+    if (!response.ok) {
+        throw new Error("Error verifying email");
+    }
+
+    return response.json();
+}
+
+// resend email verification
+export const resendEmailVerification = async (email: string) => {
+    const response = await fetch(`${API_BASE_URL}/api/auth/resend-email-verification`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+    });
+
+    if (!response.ok) {
+        throw new Error("Error resending email verification");
+    }
+
+    return response.json();
+}
+
+// forget-password
+type ForgetPasswordFormData = {
+    email: string;
+};
+
+export const sendPasswordMail = async (data: ForgetPasswordFormData) => {
+    const response = await fetch(`${API_BASE_URL}/api/auth/forget-password`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+        throw new Error("Error sending email");
+    }
+
+    return response.json();
+}
+
+// reset-password
+type ResetPasswordFormData = {
+    password: string;
+    confirmPassword: string;
+    token: string;
+};
+
+export const resetPassword = async (data: ResetPasswordFormData) => {
+    const response = await fetch(`${API_BASE_URL}/api/auth/reset-password`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+        throw new Error("Error resetting password");
+    }
+
+    return response.json();
+}

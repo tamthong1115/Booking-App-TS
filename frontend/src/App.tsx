@@ -16,6 +16,9 @@ import Profile from "./components/Profile/Profile.tsx";
 import AboutUs from "./pages/AboutUs/AboutUs.tsx";
 import AddRoom from "./pages/Hotel/AddRoom.tsx";
 import ContactUs from "./pages/Contact/ContactUs.tsx";
+import VerifyEmail from "./pages/Register/VerifyEmail.tsx";
+import ForgetPassword from "./pages/SignIn/ForgetPassword.tsx";
+import ResetPassword from "./pages/SignIn/ResetPassword.tsx";
 
 const App = () => {
     const { isLoggedIn } = useAppContext();
@@ -82,6 +85,33 @@ const App = () => {
                     element={
                         <Layout>
                             <SignIn />
+                        </Layout>
+                    }
+                />
+
+                <Route
+                    path="/forget-password"
+                    element={
+                        <Layout>
+                            <ForgetPassword />
+                        </Layout>
+                    }
+                />
+
+                <Route
+                    path="/reset-password/:token"
+                    element={
+                        <Layout>
+                            <ResetPassword />
+                        </Layout>
+                    }
+                />
+
+                <Route
+                    path="/verify-email/:token"
+                    element={
+                        <Layout>
+                            <VerifyEmail />
                         </Layout>
                     }
                 />

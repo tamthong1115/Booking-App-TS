@@ -1,43 +1,43 @@
 .user {
-    display: flex;
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-    align-items: center;
-    height: 40px;
-    padding: 0 4px;
-    margin-left: 20px;
-    border-radius: 4px;
+  display: flex;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  align-items: center;
+  height: 40px;
+  padding: 0 4px;
+  margin-left: 20px;
+  border-radius: 4px;
 
-    &:hover {
-        background-color: #1a4fa0;
-    }
+  &:hover {
+    background-color: #1D4ED8;
+  }
 }
 
 .user-avatar {
-    margin-right: 8px;
-    height: 32px;
-    width: 32px;
-    border: 2px solid orange;
-    border-radius: 50%;
+  margin-right: 8px;
+  height: 32px;
+  width: 32px;
+  border: 2px solid orange;
+  border-radius: 50%;
 }
 
 .avatar {
-    border-radius: 50%;
-    -o-object-fit: cover;
-    object-fit: cover;
-    width: 100%; 
-    height: 100%;
+  border-radius: 50%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .user-name {
-    color: white;
-    font-weight: 600;
+  color: white;
+  font-weight: 600;
 }
 
 
 .icon {
-    color: #666;
-    padding: 4px;
-    margin-right: 12px;
+  color: #666;
+  padding: 4px;
+  margin-right: 12px;
 }

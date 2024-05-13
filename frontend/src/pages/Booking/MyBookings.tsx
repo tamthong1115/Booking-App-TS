@@ -41,20 +41,33 @@ const MyBookings = () => {
                         </div>
                     </div>
                     {hotel.bookings.map((booking) => (
-                        <div>
+                        <div className={"flex justify-between"}>
                             <div>
-                                <span className={"mr-2 font-bold"}>Dates:</span>
-                                <span>
-                                    {new Date(booking.checkIn).toDateString()} -{" "}
-                                    {new Date(booking.checkOut).toDateString()}
-                                </span>
+                                <div>
+                                    <span className={"mr-2 font-bold"}>Dates:</span>
+                                    <span>
+                                        {new Date(booking.checkIn).toDateString()} -{" "}
+                                        {new Date(booking.checkOut).toDateString()}
+                                    </span>
+                                </div>
+                                <div>
+                                    <span className={"mr-2 font-bold"}>Guest:</span>
+                                    <span>
+                                        {booking.adultCount} adults, {booking.childCount} children
+                                    </span>
+                                </div>
+
+                                <div>
+                                    <span className={"mr-2 font-bold"}>Total:</span>
+                                    <span>${booking.totalCost}</span>
+                                </div>
                             </div>
-                            <div>
-                                <span className={"mr-2 font-bold"}>Guest:</span>
-                                <span>
-                                    {booking.adultCount} adults, {booking.childCount} children
-                                </span>
-                            </div>
+                            
+                            {new Date(booking.checkOut) < new Date() ? (
+                                <div className="text-red-500">Expired</div>
+                            ) : (
+                                <div className="text-green-500">Active</div>
+                            )}
                         </div>
                     ))}
                 </div>

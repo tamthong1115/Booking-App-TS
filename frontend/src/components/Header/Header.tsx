@@ -4,47 +4,31 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 import UserMenu from "../Dropdown/UserMenu.tsx";
+import styles from "./Header.module.scss";
+import classNames from "classnames/bind";
+
+const cx = classNames.bind(styles);
 
 const Header = () => {
     const { isLoggedIn } = useAppContext();
-    const { isAdmin } = useAppContext();
     return (
         <div>
-            <div className="container mx-auto flex justify-between">
-                <span className="text-3xl font-bold tracking-tight text-white">
+            <div className={cx("header")}>
+                <span className={cx("logo")}>
                     <Link to="/">Booking.com</Link>
                 </span>
 
-                <div className="ml-80 flex">
-                    <button className=" ml-6 flex  h-8 cursor-pointer items-center rounded-md bg-transparent px-4 py-2 text-white hover:bg-blue-700">
-                        <FontAwesomeIcon className="text-lg" icon={faBell} />
-                    </button>
-                    <Link to="/contact-us">
-                        <button className=" ml-6 flex  h-8 cursor-pointer items-center rounded-md bg-transparent px-4 py-2 text-white hover:bg-blue-700">
-                            <FontAwesomeIcon className="text-lg " icon={faCircleQuestion} />
+                <span className={cx("right")}>
+                    <div className=" flex">
+                        <button className="  flex  h-8 cursor-pointer items-center rounded-md bg-transparent px-4 py-2 text-white hover:bg-blue-700">
+                            <FontAwesomeIcon className="text-lg" icon={faBell} />
                         </button>
-                    </Link>
-                </div>
-
-                <span className="flex space-x-4">
-                    {isLoggedIn && (
-                        <Link
-                            to="/my-bookings"
-                            className="flex items-center rounded px-3 font-bold text-white hover:bg-blue-700"
-                        >
-                            My Bookings
+                        <Link to="/contact-us">
+                            <button className="  flex  h-8 cursor-pointer items-center rounded-md bg-transparent px-4 py-2 text-white hover:bg-blue-700">
+                                <FontAwesomeIcon className="text-lg " icon={faCircleQuestion} />
+                            </button>
                         </Link>
-                    )}
-                    {isAdmin && (
-                        <>
-                            <Link
-                                to="/my-hotels"
-                                className="flex items-center rounded px-3 font-bold text-white hover:bg-blue-700"
-                            >
-                                My Hotels
-                            </Link>
-                        </>
-                    )}
+                    </div>
 
                     {isLoggedIn ? (
                         <UserMenu />

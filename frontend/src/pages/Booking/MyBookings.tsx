@@ -18,10 +18,10 @@ const MyBookings = () => {
     }
 
     return (
-        <div className="space-y-5">
+        <div className="space-y-5 pl-40 pr-40">
             <h1 className="text-3xl font-bold">My Bookings</h1>
             {hotels.map((hotel) => (
-                <div className="lg:gird-cols-[1fr_3fr] grid grid-cols-1 gap-4 rounded-lg border border-slate-300 p-8">
+                <div className="lg:gird-cols-[1fr_3fr]  grid grid-cols-1 gap-4 rounded-lg border border-slate-300 p-8">
                     <div className="lg:h-[250px] lg:w-full">
                         <Link to={`/detail/${hotel._id}`}>
                             <img
@@ -41,7 +41,7 @@ const MyBookings = () => {
                         </div>
                     </div>
                     {hotel.bookings.map((booking) => (
-                        <div className={"flex justify-between"}>
+                        <div className={"flex justify-between rounded border p-5"}>
                             <div>
                                 <div>
                                     <span className={"mr-2 font-bold"}>Dates:</span>
@@ -62,12 +62,14 @@ const MyBookings = () => {
                                     <span>${booking.totalCost}</span>
                                 </div>
                             </div>
-                            
-                            {new Date(booking.checkOut) < new Date() ? (
-                                <div className="text-red-500">Expired</div>
-                            ) : (
-                                <div className="text-green-500">Active</div>
-                            )}
+
+                            <div className="flex items-center">
+                                {new Date(booking.checkOut) < new Date() ? (
+                                    <div className=" text-2xl font-semibold text-red-500">Expired</div>
+                                ) : (
+                                    <div className="text-2xl font-semibold text-green-500">Active</div>
+                                )}
+                            </div>
                         </div>
                     ))}
                 </div>

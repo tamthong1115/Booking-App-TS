@@ -5,7 +5,7 @@ import LoadingComponent from "../../components/Loading/Loading.tsx";
 import MapboxGL from "../../components/Map/MapboxGL.tsx";
 import ReviewForm from "../../forms/ReviewForm/ReviewForm.tsx";
 import Reviews from "../../components/Review/Reviews.tsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppContext } from "../../context/AppContext.tsx";
 import Room from "../../components/Room/Room.tsx";
 import { fetchCurrentUser } from "../../ApiClient/api-users.ts";
@@ -26,6 +26,10 @@ const Detail = () => {
     });
 
     const { data: currentUser } = useQuery("fetchCurrentUser", fetchCurrentUser);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     if (isLoading) {
         return LoadingComponent({ isLoading: true });

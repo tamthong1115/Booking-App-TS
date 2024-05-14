@@ -1,3 +1,7 @@
+.introduce-hotel {
+  position: relative;
+}
+
 .inner {
   display: flex;
   padding: 50px 0;
@@ -55,9 +59,7 @@
   }
 }
 
-.introduce-hotel {
-  position: relative;
-}
+
 
 .introduce-img {
   width: 100%;
@@ -67,7 +69,7 @@
 
 .introduce-info {
   top: 50%;
-  right: 0;
+  right: 10%;
   position: absolute;
   display: flex;
   padding: 20px;

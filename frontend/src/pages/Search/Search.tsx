@@ -1,6 +1,6 @@
 import { useSearchContext } from "../../context/SearchContext.tsx";
 import { useQuery } from "react-query";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchResultsCard from "../../components/Search/SearchResultsCard.tsx";
 import Pagination from "../../components/Pagination/Pagination.tsx";
 import StarRatingFilter from "../../components/Search/StarRatingFilter.tsx";
@@ -32,6 +32,11 @@ const Search = () => {
         maxPrice: selectedPrice?.toString(),
         sortOption,
     };
+
+    // scroll to top on page change
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [page]);
 
     const { data: hotelData, isLoading } = useQuery(["searchHotels", searchParams], () => {
         return searchHotels(searchParams);
@@ -72,7 +77,7 @@ const Search = () => {
     return (
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-[250px_1fr]">
             <div className="sticky top-10 h-fit rounded-lg border border-slate-300 p-5">
-                <div className="space-y-6 md:hidden sm:hidden">
+                <div className="space-y-6 sm:hidden md:hidden">
                     <h3 className="border-b border-slate-300 pb-5 text-lg font-semibold">Filter by:</h3>
                     <StarRatingFilter selectedStars={selectedStars} onChange={handleStarsChange} />
 

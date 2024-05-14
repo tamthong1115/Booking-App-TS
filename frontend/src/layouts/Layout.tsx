@@ -12,7 +12,7 @@ const Layout = ({ children }: Props) => {
     return (
         <div className="flex min-h-screen flex-col">
             <div className=" bg-indigo-400 pb-12 ">
-                <div className="py-4">
+                <div className="container mx-auto py-4">
                     <Header />
                 </div>
                 <Hero />

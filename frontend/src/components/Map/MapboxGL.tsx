@@ -66,7 +66,7 @@ const MapboxGL = ({hotel, isMapOpen, onClose}: MapboxGLProps) => {
             .setLngLat([lng, lat])
             .setPopup(new mapboxgl.Popup().setHTML(`<h1>${hotel.name}</h1>`))
             .addTo(map.current);
-    }, [hotel, lat, lng, zoom]);
+    }, [hotel, isMapOpen, lat, lng, zoom]);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {

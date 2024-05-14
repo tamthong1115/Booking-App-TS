@@ -34,16 +34,18 @@ export const searchHotels: RequestHandler = async (req, res) => {
     // console.log(req.query);
     // console.log(query);
 
-    let sortOption = {};
+    // let sortOption = {};
+    let sortStarRating = 0;
+    let sortPrice = 0;
     switch (req.query.sortOption) {
       case "starRating":
-        sortOption = { starRating: "desc" };
+        sortStarRating = -1;
         break;
       case "pricePerNightAsc":
-        sortOption = { pricePerNight: "asc" };
+        sortPrice = 1;
         break;
       case "pricePerNightDesc":
-        sortOption = { pricePerNight: "desc" };
+        sortPrice = -1;
         break;
     }
 
@@ -52,13 +54,30 @@ export const searchHotels: RequestHandler = async (req, res) => {
       req.query.page ? req.query.page.toString() : "1"
     );
     const skip = (pageNumber - 1) * pageSize;
-    const hotels = await Hotel.find(query)
-      .sort(sortOption)
-      .skip(skip)
-      .limit(pageSize)
+    const allHotels = await Hotel.find(query)
+      // .sort(sortOption)
+      // .skip(skip)
+      // .limit(pageSize)
       .populate<{ rooms: RoomType[] }>("rooms")
       .populate<{ bookings: BookingType[] }>("bookings")
-      .populate("reviews");
+      .populate("reviews")
+      .exec(); // exec() is used to return a promise
+
+    const roomMinPrice = (rooms: RoomType[]) => {
+      return Math.min(...rooms.map((room) => room.pricePerNight));
+    };
+
+    if (sortPrice !== 0) {
+      allHotels.sort((a, b) => {
+        return sortPrice * (roomMinPrice(a.rooms) - roomMinPrice(b.rooms));
+      });
+    } else if (sortStarRating !== 0) {
+      allHotels.sort((a, b) => {
+        return sortStarRating * (a.starRating - b.starRating);
+      });
+    }
+
+    const hotels = allHotels.slice(skip, skip + pageSize);
 
     const total = await Hotel.countDocuments(query);
 

@@ -16,6 +16,7 @@ import {
 
 const router = express.Router();
 
+// /api/auth/login
 router.post("/login", loginValidator, postLogin);
 router.post("/register", registerValidator, postRegister);
 router.get("/verify-email/:token", getVerifyEmail);

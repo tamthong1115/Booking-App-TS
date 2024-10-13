@@ -3,6 +3,8 @@ import { RegisterFormData } from "../pages/Register/Register.tsx";
 import { SignInFormData } from "../pages/SignIn/SignIn.tsx";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+
+
 export const fetchCurrentUser = async (): Promise<UserType> => {
     const response = await fetch(`${API_BASE_URL}/api/users/me`, {
         credentials: "include",
@@ -46,7 +48,7 @@ export const register = async (formData: RegisterFormData) => {
 export const signIn = async (formData: SignInFormData) => {
     const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: "POST",
-        credentials: "include",
+        credentials: "include", // send any cookies along with req
         headers: {
             "Content-Type": "application/json",
         },

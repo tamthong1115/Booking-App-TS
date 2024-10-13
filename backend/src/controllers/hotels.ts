@@ -31,8 +31,23 @@ export const searchHotels: RequestHandler = async (req, res) => {
   try {
     const query = constructSearchQuery(req.query);
 
-    // console.log(req.query);
-    // console.log(query);
+    /*
+    console.log(req.query);
+    console.log("break")
+    console.log(query);
+    {
+  destination: '',
+  checkIn: '2024-05-15T01:12:11.354Z',
+  checkOut: '2024-05-16T01:12:11.354Z',
+  adultCount: '1',
+  childCount: '0',
+  page: '1',
+  maxPrice: '',
+  sortOption: ''
+}
+break
+{ adultCount: { '$gte': 1 }, childCount: { '$gte': 0 } }
+    */
 
     // let sortOption = {};
     let sortStarRating = 0;

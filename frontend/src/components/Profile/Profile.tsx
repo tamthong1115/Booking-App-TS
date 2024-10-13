@@ -71,6 +71,7 @@ const Profile = () => {
                     </button>
                 </div>
             </div>
+
             <div>
                 <div className={cx("info")}>
                     <p>Name</p>
@@ -86,7 +87,7 @@ const Profile = () => {
                                         currentUser.firstName = e.target.value;
                                     }}
                                 />
-                            </div>
+                            </div>P
 
                             <div className="flex flex-col">
                                 <label>Last Name</label>

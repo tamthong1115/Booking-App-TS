@@ -28,7 +28,6 @@ export type BookingFormData = {
     paymentIntentId: string;
 };
 
-
 const BookingForm = ({ currentUser, paymentIntent }: Props) => {
     const stripe = useStripe();
     const elements = useElements();
@@ -40,7 +39,7 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
 
     const navigate = useNavigate();
 
-    const { mutate : bookRoom, isLoading } = useMutation(createRoomBooking, {
+    const { mutate: bookRoom, isLoading } = useMutation(createRoomBooking, {
         onSuccess: () => {
             showToast({ message: "Booking Saved!", type: "SUCCESS" });
             navigate("/my-bookings");
@@ -76,15 +75,14 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
 
         const result = await stripe.confirmCardPayment(paymentIntent.clientSecret, {
             payment_method: {
-              card: elements.getElement(CardElement) as StripeCardElement,
+                card: elements.getElement(CardElement) as StripeCardElement,
             },
-          });
-      
-          if (result.paymentIntent?.status === "succeeded") {
+        });
+
+        if (result.paymentIntent?.status === "succeeded") {
             bookRoom({ ...formData, paymentIntentId: result.paymentIntent.id });
-          }
-        };
-      
+        }
+    };
 
     return (
         <form

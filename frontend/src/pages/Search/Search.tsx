@@ -88,6 +88,7 @@ const Search = () => {
                     <PriceFilter selectedPrice={selectedPrice} onChange={(value?: number) => setSelectedPrice(value)} />
                 </div>
             </div>
+            
             <div className="flex flex-col gap-5 rounded-lg bg-gray-100 p-8">
                 <div className="flex items-center justify-between">
                     <span className="text-xl font-bold">

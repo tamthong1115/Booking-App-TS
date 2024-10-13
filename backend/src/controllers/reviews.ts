@@ -2,7 +2,6 @@ import { RequestHandler } from "express";
 import Review from "../models/review";
 import Hotel from "../models/hotel";
 import CustomError from "../utils/ExpressError";
-import { Types } from "mongoose";
 import { BookingType } from "../../shared/types";
 
 export const postNewReview: RequestHandler = async (req, res, next) => {

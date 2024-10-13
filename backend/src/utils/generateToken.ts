@@ -24,7 +24,7 @@ const generateToken = (res: Response, userId: string, isAdmin: boolean): string 
 
     res.cookie("auth_token", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: process.env.NODE_ENV === "production", // cookie will only be set in https in production
         maxAge: 86400000,
     });
 

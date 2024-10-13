@@ -1,12 +1,11 @@
 import express from "express";
-import { authenticationAdmin } from "../middlewares/auth";
 import { addNewRoom, getRooms } from "../controllers/rooms";
-
+import roleMiddleware from "../middlewares/roleMiddleware";
 const router = express.Router();
 
 router.get("/:hotelId", getRooms);
 
 // /api/hotels/:hotelId/rooms
-router.post("/", authenticationAdmin, addNewRoom);
+router.post("/", roleMiddleware(["admin"]), addNewRoom);
 
 export default router;

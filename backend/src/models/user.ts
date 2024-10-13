@@ -13,7 +13,8 @@ const userSchema = new mongoose.Schema<UserType>({
   birthday: { type: Date, required: false },
   nationality: { type: String, required: false },
   emailVerified: { type: Boolean, required: true, default: false },
-  isAdmin: { type: Boolean, required: true, default: false },
+  // isAdmin: { type: Boolean, required: true, default: false },
+  roles: [{ type: String, required: true, default: "user" }],
 });
 
 // encrypt password

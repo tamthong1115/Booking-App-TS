@@ -148,9 +148,9 @@ export const postLogin = async (req: Request, res: Response) => {
         .json({ message: "Email or password is incorrect" });
     }
 
-    generateToken(res, user.id, user.isAdmin);
+    generateToken(res, user.id);
 
-    res.status(200).json({ userId: user._id, isAdmin: user.isAdmin });
+    res.status(200).json({ userId: user._id });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Something went wrong" });
@@ -213,9 +213,7 @@ export const postResetPassword = async (req: Request, res: Response) => {
   const { token, password, confirmPassword } = req.body;
 
   try {
-    if (password !== confirmPassword
-
-    ) {
+    if (password !== confirmPassword) {
       return res.status(400).json({ message: "Passwords do not match" });
     }
 
@@ -241,6 +239,23 @@ export const postResetPassword = async (req: Request, res: Response) => {
 
 export const getValidateToken = (req: Request, res: Response) => {
   res.status(200).send({ userId: req.userId });
+};
+
+export const getRoles = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findById(req.userId);
+
+    console.log(req.userId)
+    console.log(user);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(user.roles);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
 };
 
 export const postLogout = (req: Request, res: Response) => {

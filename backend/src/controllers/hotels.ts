@@ -150,7 +150,7 @@ export const postCreatePaymentIntent: RequestHandler = async (req, res) => {
     metadata: {
       hotelId,
       roomId,
-      userId: req.userId,
+      userId: req.userId ?? '',
     },
   });
 

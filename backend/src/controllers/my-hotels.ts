@@ -49,6 +49,10 @@ export const postNewHotel: RequestHandler = async (req, res, next) => {
              take id from req.userId (not req.body) b.c the
              userId has validated by token before add it to req
             */
+        if (!req.userId) {
+            throw new ExpressError("User ID is missing", 400);
+        }
+        
         newHotel.userId = req.userId;
 
         const hotel = new Hotel(newHotel);

@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Toast from "../components/Toast/Toast.tsx";
 import { useQuery } from "react-query";
 import { loadStripe, Stripe } from "@stripe/stripe-js";
-import { validateTokenAdmin, validateTokenUser } from "../ApiClient/api-users.ts";
+import { validateTokenUser, getUserRoles } from "../ApiClient/api-users.ts";
 
 const STRIPE_PUBLIC_KEY = (import.meta.env.VITE_STRIPE_PUBLIC_KEY as string) || "";
 
@@ -14,7 +14,8 @@ type ToastMessage = {
 type AppContext = {
     showToast: (toastMessage: ToastMessage) => void;
     isLoggedIn: boolean;
-    isAdmin: boolean;
+    roles: string[];
+    setRoles: React.Dispatch<React.SetStateAction<string[]>>;
     stripePromise: Promise<Stripe | null>;
 };
 
@@ -24,14 +25,20 @@ const stripePromise = loadStripe(STRIPE_PUBLIC_KEY);
 
 export const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [toast, setToast] = useState<ToastMessage | undefined>(undefined);
+    const [roles, setRoles] = useState<string[]>([]);
 
     const { isError } = useQuery("validateToken", validateTokenUser, {
         retry: false,
     });
 
-    const { isError: isAdmin } = useQuery("validateTokenAdmin", validateTokenAdmin, {
-        retry: false,
-    });
+    useEffect(() => {
+        const fetchRoles = async () => {
+            const userRoles = await getUserRoles();
+            setRoles(userRoles);
+        };
+
+        fetchRoles();
+    }, []);
 
     return (
         <AppContext.Provider
@@ -40,7 +47,8 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
                     setToast(toastMessage);
                 },
                 isLoggedIn: !isError,
-                isAdmin: !isAdmin,
+                roles,
+                setRoles,
                 stripePromise,
             }}
         >
@@ -52,5 +60,8 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
 
 export const useAppContext = () => {
     const context = useContext(AppContext);
+    if (context === undefined) {
+        throw new Error("useAppContext must be used within a AppContextProvider");
+    }
     return context as AppContext;
 };

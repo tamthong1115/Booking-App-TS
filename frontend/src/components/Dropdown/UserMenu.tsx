@@ -10,15 +10,12 @@ import styles from "./UserMenu.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey, faRightFromBracket, faUser } from "@fortawesome/free-solid-svg-icons";
 import { fetchCurrentUser } from "../../ApiClient/api-users.ts";
-import { useAppContext } from "../../context/AppContext.tsx";
 
 const cx = classNames.bind(styles);
 
 export default function UserMenu() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
-
-    const { isAdmin } = useAppContext();
 
     const { data: user } = useQuery("fetchCurrentUser", () => fetchCurrentUser());
 
@@ -28,6 +25,8 @@ export default function UserMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const isAdmin = user?.roles.includes("admin");
 
     return (
         <div>
@@ -66,14 +65,14 @@ export default function UserMenu() {
                     <FontAwesomeIcon className={cx("icon")} icon={faKey} />
                     <Link to="/my-bookings">My Bookings</Link>
                 </MenuItem>
+
                 {isAdmin && (
                     <MenuItem onClick={handleClose}>
                         <FontAwesomeIcon className={cx("icon")} icon={faKey} />
-                        <>
-                            <Link to="/my-hotels">My Hotels</Link>
-                        </>
+                        <Link to="/my-hotels">My Hotels</Link>
                     </MenuItem>
                 )}
+
                 <MenuItem>
                     <FontAwesomeIcon className={cx("icon")} icon={faRightFromBracket} />
                     <SignOutButton />

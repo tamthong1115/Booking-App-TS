@@ -69,16 +69,7 @@ export const validateTokenUser = async () => {
     }
     return response.json();
 };
-export const validateTokenAdmin = async () => {
-    const response = await fetch(`${API_BASE_URL}/api/auth/validate-token-admin`, {
-        credentials: "include",
-    });
 
-    if (!response.ok) {
-        throw new Error("Token Invalid");
-    }
-    return response.json();
-};
 export const signOut = async () => {
     const response = await fetch(`${API_BASE_URL}/api/auth/logout`, {
         credentials: "include",
@@ -88,4 +79,17 @@ export const signOut = async () => {
     if (!response.ok) {
         throw new Error("Error during sign out!");
     }
+};
+
+
+// getUserRoles
+export const getUserRoles = async () => {
+    const response = await fetch(`${API_BASE_URL}/api/auth/roles`, {
+        credentials: "include",
+    });
+
+    if (!response.ok) {
+        throw new Error("Error fetching user roles");
+    }
+    return response.json();
 };

@@ -1,11 +1,10 @@
-import express, {RequestHandler} from "express";
-import {verifyTokenUser} from "../middlewares/auth";
-import {getBookings} from "../controllers/booking";
+import express, { RequestHandler } from "express";
+import  verifyTokenUser  from "../middlewares/verifyTokenUser";
+import { getBookings } from "../controllers/booking";
 
-const router = express.Router()
-
+const router = express.Router();
 
 // /api/my-bookings
-router.get('/', verifyTokenUser, getBookings)
+router.get("/", verifyTokenUser, getBookings);
 
-export default router
+export default router;

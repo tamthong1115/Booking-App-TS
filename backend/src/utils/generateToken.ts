@@ -7,15 +7,14 @@ import jwt from "jsonwebtoken";
  *
  * @param {Response} res - The Express response object where the JWT will be set as a cookie.
  * @param {string} userId - The ID of the user for whom the token is being generated.
- * @param {boolean} isAdmin - A boolean indicating whether the user is an admin or not.
  *
  * @returns {string} - The generated JWT.
  *
  * @throws {Error} - Throws an error if the JWT generation fails.
  */
-const generateToken = (res: Response, userId: string, isAdmin: boolean): string => {
+const generateToken = (res: Response, userId: string): string => {
     const token = jwt.sign(
-        {userId: userId, isAdmin: isAdmin},
+        {userId: userId},
         process.env.JWT_SECRET_KEY as string,
         {
             expiresIn: "1d",

@@ -9,6 +9,7 @@ interface ProtectedRouteProps {
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRoles = [] }) => {
     const { isLoggedIn, roles } = useAppContext();
 
+
     const hasRequiredRoles = requiredRoles.every((role) => roles.includes(role));
 
     return isLoggedIn && hasRequiredRoles ? <Outlet /> : <Navigate to="/" />;

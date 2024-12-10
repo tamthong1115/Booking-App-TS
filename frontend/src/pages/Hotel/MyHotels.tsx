@@ -33,7 +33,7 @@ const MyHotels = () => {
     return (
         <div className="space-y-5">
             <span className="flex justify-between">
-                <h1 className="text-3xl font-bold">My Hotels</h1>
+                <h1 className="text-3xl font-bold">Admin Hotels</h1>
                 <Link
                     to="/add-hotel"
                     className="flex rounded bg-blue-600 p-2 text-xl font-bold text-white hover:bg-blue-500"

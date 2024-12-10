@@ -26,12 +26,25 @@ const Home = () => {
             <div className="">
                 <div className={cx("inner")}>
                     <div className={cx("inner-img")}>
-                        <img src="https://tnhotel.id.vn/wp-content/uploads/2024/04/1-768x1365.png" alt="Experience" />
+                        <img
+                            src="https://www.bayhotelhcm.com/wp-content/uploads/elementor/thumbs/Facade.min_-qdaspquzk8az6ikd3jhzjda00rs2991dlkq3xtzvjk.jpg"
+                            alt="Experience"
+                        />
                     </div>
-                    <div className={cx("inner-img")}>
-                        <img src="https://tnhotel.id.vn/wp-content/uploads/2024/04/2-768x1365.png" alt="Experience" />
+                    <div className={`h-auto w-full flex flex-col justify-between`}>
+                        <div className={cx("inner-img")}>
+                            <img src="/MapImage/a1.jpg" alt="Experience" />
+                        </div>
+                        <hr className="h-2 w-[95%] border-black border-double   " />
+                        <div className={cx("inner-img")}>
+                            <img
+                                src="https://q-xx.bstatic.com/xdata/images/hotel/max500/279961082.jpg?k=1c66acfa58efd5e43b3641f0229dd82af721bb8a99d1a3611ce8a30e5ba2d8f5&o="
+                                alt="Experience"
+                            />
+                        </div>
                     </div>
-                    <div>
+
+                    <div className={`rounded-2xl bg-gray-200 p-4 shadow-xl  `}>
                         <div>
                             <FontAwesomeIcon className={cx("inner-icon")} icon={faStar} />
                             <FontAwesomeIcon className={cx("inner-icon")} icon={faStar} />

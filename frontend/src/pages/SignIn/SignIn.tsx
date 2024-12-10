@@ -32,7 +32,7 @@ const SignIn = () => {
         onSuccess: async () => {
             showToast({ message: "Sign in Successful!", type: "SUCCESS" });
             await queryClient.invalidateQueries("validateToken"); // from isError AppContext
-            console.dir(location.state);
+            // console.dir(location.state);
             navigate(location.state?.from?.pathname || "/");
         },
         onError: (error: Error) => {

@@ -65,7 +65,7 @@ const Profile = () => {
                     <button className={cx("user-avatar")}>
                         <img
                             className={cx("avatar")}
-                            src="https://th.bing.com/th/id/OIP.AlCmTPXExOup34O4RxOZmAHaEK?w=261&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+                            src="https://media.gettyimages.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=gi&k=20&c=tC514mTG014_uspJnEeJeKrQDiBY2N9GFYKPqwmtBuo="
                             alt="Avatar"
                         />
                     </button>
@@ -87,8 +87,8 @@ const Profile = () => {
                                         currentUser.firstName = e.target.value;
                                     }}
                                 />
-                            </div>P
-
+                            </div>
+                            P
                             <div className="flex flex-col">
                                 <label>Last Name</label>
                                 <input

@@ -59,6 +59,7 @@ export const signIn = async (formData: SignInFormData) => {
         throw new Error(body.message);
     }
 };
+
 export const validateTokenUser = async () => {
     const response = await fetch(`${API_BASE_URL}/api/auth/validate-token`, {
         credentials: "include", // send any cookies along with req

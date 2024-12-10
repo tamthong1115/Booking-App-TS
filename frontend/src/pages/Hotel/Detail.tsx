@@ -12,7 +12,7 @@ import { fetchCurrentUser } from "../../ApiClient/api-users.ts";
 import { fetchHotelById } from "../../ApiClient/api-hotels.ts";
 
 const Detail = () => {
-    const { isAdmin } = useAppContext();
+    const { roles } = useAppContext();
     const { hotelId } = useParams();
     const [isMapOpen, setIsMapOpen] = useState(false);
     const queryClient = useQueryClient();
@@ -54,7 +54,7 @@ const Detail = () => {
                     <p className="text-lg font-semibold text-slate-600">{hotel.city + " " + hotel.country}</p>
                 </div>
 
-                {isAdmin && (
+                {roles.includes("admin") && (
                     <div className={"flex items-center"}>
                         <span>
                             <Link

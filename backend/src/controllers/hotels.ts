@@ -31,7 +31,8 @@ export const searchHotels: RequestHandler = async (req, res) => {
   try {
     const query = constructSearchQuery(req.query);
 
-    /*
+    /*export const searchHotels: RequestHandler = async (req, res) => {
+
     console.log(req.query);
     console.log("break")
     console.log(query);

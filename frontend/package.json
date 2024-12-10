@@ -27,6 +27,7 @@
     "ldrs": "^1.0.1",
     "mapbox-gl": "^3.3.0",
     "normalize.css": "^8.0.1",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-datepicker": "^6.6.0",
     "react-dom": "^18.2.0",
@@ -40,6 +41,7 @@
   },
   "devDependencies": {
     "@types/mapbox-gl": "^3.1.0",
+    "@types/prop-types": "^15.7.14",
     "@types/react": "^18.2.56",
     "@types/react-datepicker": "^6.2.0",
     "@types/react-dom": "^18.2.19",

@@ -51,7 +51,7 @@ const SignIn = () => {
                     <div className={cx("header-title")}>
                         <h1 className={cx("heading")}>Sign In</h1>
                         <Link to="/register">
-                            <h4 className={cx("switch-btn")}>Sign Up</h4>
+                            <h4 className={cx("switch-btn")}>Register</h4>
                         </Link>
                     </div>
                     <form className="flex flex-col gap-5" onSubmit={onSubmit}>

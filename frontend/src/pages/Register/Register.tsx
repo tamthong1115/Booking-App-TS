@@ -53,7 +53,7 @@ const Register = () => {
         <div className={cx("form-register")}>
             <form className="flex flex-col gap-5" onSubmit={onSubmit}>
                 <div className={cx("header-title")}>
-                    <h1 className={cx("heading")}>Create new an account</h1>
+                    <h1 className={cx("heading")}>Create an Account</h1>
                     <Link to="/sign-in">
                         <h4 className={cx("switch-btn")}>Sign In</h4>
                     </Link>

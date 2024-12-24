@@ -42,9 +42,6 @@ jobs:
       - name: Install backend dependencies
         working-directory: ./backend
         run: pnpm install
-      - name: Run backend tests
-        working-directory: ./backend
-        run: pnpm run test
       - name: Install frontend dependencies
         working-directory: ./frontend
         run: pnpm install

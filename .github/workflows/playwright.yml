@@ -5,7 +5,8 @@ on:
   pull_request:
     branches: [main, master]
 jobs:
-  test:
+  playwright-test:
+    environment: testing
     timeout-minutes: 60
     runs-on: ubuntu:24.04
     steps:
@@ -26,10 +27,17 @@ jobs:
           echo "MAPBOX_SECRET_TOKEN=${{ secrets.MAPBOX_SECRET_TOKEN }}" >> ./backend/.env
           echo "MONGODB_TEST_CONNECTION_STRING=${{ secrets.MONGODB_TEST_CONNECTION_STRING }}" >> ./backend/.env
           echo "STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}" >> ./backend/.env
+          echo "API_PORT=${{ vars.API_PORT }}" >> ./backend/.env
+          echo "WEB_URL=${{ vars.WEB_URL }}" >> ./backend/.env
+          echo "FRONTEND_URL=${{ vars.FRONTEND_URL }}" >> ./backend/.env
       - name: Create frontend .env file
         run: |
           echo "VITE_MAPBOX_SECRET_TOKEN=${{ secrets.VITE_MAPBOX_SECRET_TOKEN }}" >> ./frontend/.env
           echo "VITE_STRIPE_PUBLIC_KEY=${{ secrets.VITE_STRIPE_PUBLIC_KEY }}" >> ./frontend/.env
+          echo "VITE_API_BASE_URL=${{ vars.VITE_API_BASE_URL }}" >> ./frontend/.env
+      - name: Create e2e-tests .env file
+        run: |
+          echo "E2E_BASE_URL=${{ vars.E2E_BASE_URL }}" >> ./e2e-tests/.env
       - name: Install backend dependencies
         working-directory: ./backend
         run: pnpm install

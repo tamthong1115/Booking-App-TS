@@ -26,6 +26,3 @@ jobs:
       - name: Run frontend linter
         working-directory: ./frontend
         run: pnpm run lint
-      - name: Run frontend tests
-        working-directory: ./frontend
-        run: pnpm run dev

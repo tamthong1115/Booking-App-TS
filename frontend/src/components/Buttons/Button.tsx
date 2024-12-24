@@ -1,6 +1,6 @@
-import styles from './Button.module.scss';
-import PropTypes from 'prop-types';
-import classNames from 'classnames/bind';
+import styles from "./Button.module.scss";
+import PropTypes from "prop-types";
+import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
@@ -15,7 +15,7 @@ function Button({
     rounded = false,
     ...passProps
 }) {
-    const Component = 'button';
+    const Component = "button";
 
     const props = {
         ...passProps,
@@ -23,15 +23,13 @@ function Button({
 
     if (disabled) {
         Object.keys(props).forEach((key) => {
-            if (key.startsWith('on') && typeof props[key] === 'function') {
+            if (key.startsWith("on") && typeof props[key] === "function") {
                 delete props[key];
             }
         });
     }
 
-    
-
-    const classes = cx('wrapper', {
+    const classes = cx("wrapper", {
         text,
         primary,
         search,
@@ -42,10 +40,7 @@ function Button({
         rounded,
     });
 
-    return (
-        <Component className={classes} {...props}>
-        </Component>
-    );
+    return <Component className={classes} {...props}></Component>;
 }
 
 Button.propTypes = {

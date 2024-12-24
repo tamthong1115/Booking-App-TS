@@ -1,8 +1,8 @@
 import React from "react";
 import react from "react-dom";
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
-import {HotelTypeFrontend} from "../../types/types.ts";
+import { HotelTypeFrontend } from "../../types/types.ts";
 
 type MapboxGLProps = {
     hotel: HotelTypeFrontend;
@@ -30,7 +30,7 @@ const MAP_STYLE: React.CSSProperties = {
     zIndex: 1001,
 };
 
-const MapboxGL = ({hotel, isMapOpen, onClose}: MapboxGLProps) => {
+const MapboxGL = ({ hotel, isMapOpen, onClose }: MapboxGLProps) => {
     mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_SECRET_TOKEN as string;
     const mapContainer = useRef<HTMLDivElement | null>(null);
     const map = useRef<mapboxgl.Map | null>(null);
@@ -85,9 +85,9 @@ const MapboxGL = ({hotel, isMapOpen, onClose}: MapboxGLProps) => {
 
     return react.createPortal(
         <div>
-            <div style={OVERLAY_STYLES}/>
+            <div style={OVERLAY_STYLES} />
             <div ref={modalContentRef} style={MAP_STYLE} className="rounded-md">
-                <div ref={mapContainer} className={"h-full w-full rounded-xl"}/>
+                <div ref={mapContainer} className={"h-full w-full rounded-xl"} />
             </div>
         </div>,
         document.getElementById("portal") as HTMLElement,

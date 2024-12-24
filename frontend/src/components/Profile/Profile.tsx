@@ -81,7 +81,7 @@ const Profile = () => {
                                 <label>First Name</label>
                                 <input
                                     type="text"
-                                    className={" rounded border border-black px-2 py-1 font-normal"}
+                                    className={"rounded border border-black px-2 py-1 font-normal"}
                                     defaultValue={currentUser.firstName}
                                     onChange={(e) => {
                                         currentUser.firstName = e.target.value;
@@ -93,7 +93,7 @@ const Profile = () => {
                                 <label>Last Name</label>
                                 <input
                                     type="text"
-                                    className={" rounded border border-black px-2 py-1 font-normal"}
+                                    className={"rounded border border-black px-2 py-1 font-normal"}
                                     defaultValue={currentUser.lastName}
                                     onChange={(e) => {
                                         currentUser.lastName = e.target.value;
@@ -129,7 +129,7 @@ const Profile = () => {
                     {isEditing.phoneNumber ? (
                         <input
                             type="text"
-                            className={" rounded border border-black px-2 py-1 font-normal"}
+                            className={"rounded border border-black px-2 py-1 font-normal"}
                             defaultValue={currentUser.phoneNumber}
                             onChange={(e) => {
                                 currentUser.phoneNumber = e.target.value;
@@ -156,7 +156,7 @@ const Profile = () => {
                     {isEditing.birthday ? (
                         <input
                             type="date"
-                            className={" w-1/5 rounded border border-black px-2 py-1 font-normal"}
+                            className={"w-1/5 rounded border border-black px-2 py-1 font-normal"}
                             defaultValue={currentUser.birthday?.toString()}
                             value={gender}
                             onChange={(e) => {
@@ -188,7 +188,7 @@ const Profile = () => {
                     {isEditing.nationality ? (
                         <input
                             type="text"
-                            className={" rounded border border-black px-2 py-1 font-normal"}
+                            className={"rounded border border-black px-2 py-1 font-normal"}
                             defaultValue={currentUser.nationality}
                             onChange={(e) => {
                                 currentUser.nationality = e.target.value;
@@ -254,7 +254,7 @@ const Profile = () => {
                     {isEditing.address ? (
                         <input
                             type="text"
-                            className={" rounded border border-black px-2 py-1 font-normal"}
+                            className={"rounded border border-black px-2 py-1 font-normal"}
                             defaultValue={currentUser.address}
                             onChange={(e) => {
                                 currentUser.address = e.target.value;

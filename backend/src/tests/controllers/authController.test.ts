@@ -106,7 +106,7 @@ describe("Auth Controller", () => {
         const user = {
             _id: new ObjectId("6758568606af36ec0859304e"),
             email: "test@test.com",
-            password: "password"
+            password: "Password!1"
         }
         const req = {
             body: {email: user.email, password: user.password},

@@ -217,8 +217,6 @@ export const postResetPassword = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Passwords do not match" });
     }
 
-    console.log(password);
-
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY || "");
     const user = await User.findById((decoded as JwtPayload).userId);
 
@@ -245,8 +243,8 @@ export const getRoles = async (req: Request, res: Response) => {
   try {
     const user = await User.findById(req.userId);
 
-    console.log(req.userId)
-    console.log(user);
+    // console.log(req.userId)
+    // console.log(user);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }

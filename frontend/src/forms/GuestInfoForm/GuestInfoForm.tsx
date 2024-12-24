@@ -104,7 +104,7 @@ const GuestInfoForm = ({ hotel, room }: Props) => {
                         <label className="flex items-center">
                             Adults:
                             <input
-                                className="w-[50px]  rounded p-1 font-bold focus:outline-none"
+                                className="w-[50px] rounded p-1 font-bold focus:outline-none"
                                 type="number"
                                 min={1}
                                 max={hotel.adultCount || 10}
@@ -122,7 +122,7 @@ const GuestInfoForm = ({ hotel, room }: Props) => {
                         <label className="flex items-center rounded-md">
                             Children:
                             <input
-                                className="w-[50px]  rounded p-1 font-bold focus:outline-none"
+                                className="w-[50px] rounded p-1 font-bold focus:outline-none"
                                 type="number"
                                 min={0}
                                 max={hotel.childCount || 10}
@@ -136,11 +136,11 @@ const GuestInfoForm = ({ hotel, room }: Props) => {
                         )}
                     </div>
                     {isLoggedIn ? (
-                        <button className="h-full rounded bg-blue-600 p-2 text-xl font-bold text-white hover:bg-blue-500 ">
+                        <button className="h-full rounded bg-blue-600 p-2 text-xl font-bold text-white hover:bg-blue-500">
                             Book Now
                         </button>
                     ) : (
-                        <button className="h-full rounded bg-blue-600 p-2 text-xl font-bold text-white hover:bg-blue-500 ">
+                        <button className="h-full rounded bg-blue-600 p-2 text-xl font-bold text-white hover:bg-blue-500">
                             Sign in to book
                         </button>
                     )}

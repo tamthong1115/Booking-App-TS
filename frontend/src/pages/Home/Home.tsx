@@ -31,11 +31,11 @@ const Home = () => {
                             alt="Experience"
                         />
                     </div>
-                    <div className={`h-auto w-full flex flex-col justify-between`}>
+                    <div className={`flex h-auto w-full flex-col justify-between`}>
                         <div className={cx("inner-img")}>
                             <img src="/MapImage/a1.jpg" alt="Experience" />
                         </div>
-                        <hr className="h-2 w-[95%] border-black border-double   " />
+                        <hr className="h-2 w-[95%] border-double border-black" />
                         <div className={cx("inner-img")}>
                             <img
                                 src="https://q-xx.bstatic.com/xdata/images/hotel/max500/279961082.jpg?k=1c66acfa58efd5e43b3641f0229dd82af721bb8a99d1a3611ce8a30e5ba2d8f5&o="
@@ -44,7 +44,7 @@ const Home = () => {
                         </div>
                     </div>
 
-                    <div className={`rounded-2xl bg-gray-200 p-4 shadow-xl  `}>
+                    <div className={`rounded-2xl bg-gray-200 p-4 shadow-xl`}>
                         <div>
                             <FontAwesomeIcon className={cx("inner-icon")} icon={faStar} />
                             <FontAwesomeIcon className={cx("inner-icon")} icon={faStar} />

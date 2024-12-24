@@ -30,7 +30,7 @@ const DeleteReviewButton: React.FC<Props> = ({ hotelId, reviewId }) => {
 
     return (
         <button
-            className=" flex h-[50px] w-[70px] items-center rounded bg-red-600  p-2 font-bold text-white hover:bg-red-500"
+            className="flex h-[50px] w-[70px] items-center rounded bg-red-600 p-2 font-bold text-white hover:bg-red-500"
             onClick={handleDelete}
         >
             Delete

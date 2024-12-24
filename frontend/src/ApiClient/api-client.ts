@@ -24,7 +24,6 @@ export const postNewContactUs = async (formData: ContactUsFormData) => {
     return response.json();
 };
 
-
 // verify-email/:token
 export const verifyEmail = async (token: string) => {
     const response = await fetch(`${API_BASE_URL}/api/auth/verify-email/${token}`);
@@ -34,7 +33,7 @@ export const verifyEmail = async (token: string) => {
     }
 
     return response.json();
-}
+};
 
 // resend email verification
 export const resendEmailVerification = async (email: string) => {
@@ -51,7 +50,7 @@ export const resendEmailVerification = async (email: string) => {
     }
 
     return response.json();
-}
+};
 
 // forget-password
 type ForgetPasswordFormData = {
@@ -72,7 +71,7 @@ export const sendPasswordMail = async (data: ForgetPasswordFormData) => {
     }
 
     return response.json();
-}
+};
 
 // reset-password
 type ResetPasswordFormData = {
@@ -95,4 +94,4 @@ export const resetPassword = async (data: ResetPasswordFormData) => {
     }
 
     return response.json();
-}
+};

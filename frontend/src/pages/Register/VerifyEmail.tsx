@@ -18,8 +18,8 @@ const VerifyEmail = () => {
     }
 
     return (
-        <div className="flex min-h-full items-center justify-center ">
-            <div className=" text-center">
+        <div className="flex min-h-full items-center justify-center">
+            <div className="text-center">
                 <div className="pb-10 text-xl font-semibold">{data?.message}</div>
                 <button
                     className="rounded border-slate-300 bg-blue-500 p-4 text-2xl hover:bg-blue-700"

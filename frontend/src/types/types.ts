@@ -19,8 +19,7 @@ export interface RoomType {
     description: string;
     pricePerNight: number;
     isBooked: boolean;
-  }
-  
+}
 
 export interface HotelTypeFrontend {
     _id: string;
@@ -46,12 +45,11 @@ export interface HotelTypeFrontend {
     rooms?: RoomType[];
 }
 
-
 export type HotelSearchResponseFrontEnd = {
     data: HotelTypeFrontend[];
     pagination: {
-      total: number;
-      page: number;
-      pages: number;
+        total: number;
+        page: number;
+        pages: number;
     };
-  };
+};

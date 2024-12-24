@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import Toast from "../components/Toast/Toast.tsx";
 import { useQuery } from "react-query";
 import { loadStripe, Stripe } from "@stripe/stripe-js";
@@ -15,10 +15,9 @@ type AppContext = {
     showToast: (toastMessage: ToastMessage) => void;
     isLoggedIn: boolean;
     roles: string[];
-    setRoles: React.Dispatch<React.SetStateAction<string[]>>;
     stripePromise: Promise<Stripe | null>;
     loading: boolean;
-    authLoading: boolean;
+    roleLoading: boolean;
 };
 
 const AppContext = React.createContext<AppContext | undefined>(undefined);
@@ -27,24 +26,20 @@ const stripePromise = loadStripe(STRIPE_PUBLIC_KEY);
 
 export const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [toast, setToast] = useState<ToastMessage | undefined>(undefined);
-    const [roles, setRoles] = useState<string[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
-    const { isError, isLoading: authLoading } = useQuery("validateToken", validateTokenUser, {
+    const {
+        data: user,
+        isError,
+        isLoading: authLoading,
+    } = useQuery("validateToken", validateTokenUser, {
         retry: false,
         onSettled: () => setLoading(false),
     });
 
-    useEffect(() => {
-        const fetchRoles = async () => {
-            setLoading(true);
-            const userRoles = await getUserRoles();
-            setRoles(userRoles);
-            setLoading(false);
-        };
-
-        fetchRoles();
-    }, [isError]);
+    const { data: userRoles, isLoading: roleLoading } = useQuery("userRoles", getUserRoles, {
+        enabled: !!user,
+    });
 
     return (
         <AppContext.Provider
@@ -53,11 +48,10 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
                     setToast(toastMessage);
                 },
                 isLoggedIn: !isError,
-                roles,
-                setRoles,
+                roles: userRoles || [],
                 stripePromise,
-                loading,
-                authLoading,
+                loading: loading || authLoading,
+                roleLoading,
             }}
         >
             {/* {loading && <LoadingComponent isLoading={loading} />} */}

@@ -1,13 +1,13 @@
-import React, {useEffect, useRef} from "react";
+import React, { useEffect, useRef } from "react";
 import react from "react-dom";
-import {RoomType} from "../../../../backend/shared/types";
+import { RoomType } from "../../../../backend/shared/types";
 import GuestInfoForm from "../../forms/GuestInfoForm/GuestInfoForm";
-import {AiFillStar} from "react-icons/ai";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faXmark} from "@fortawesome/free-solid-svg-icons";
+import { AiFillStar } from "react-icons/ai";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
 import styles from "./Room.module.scss";
-import {HotelTypeFrontend} from "../../types/types.ts";
+import { HotelTypeFrontend } from "../../types/types.ts";
 
 const cx = classNames.bind(styles);
 
@@ -40,7 +40,7 @@ const MODAL_STYLE: React.CSSProperties = {
     zIndex: 1001,
 };
 
-const RoomBooking = ({hotel, room, isRoomBookingOpen, onClose}: Props) => {
+const RoomBooking = ({ hotel, room, isRoomBookingOpen, onClose }: Props) => {
     const modalContentRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -75,9 +75,9 @@ const RoomBooking = ({hotel, room, isRoomBookingOpen, onClose}: Props) => {
             <div style={OVERLAY_STYLES}></div>
             <div style={MODAL_STYLE} ref={modalContentRef}>
                 <div className="">
-                    <div className="flex justify-end ">
+                    <div className="flex justify-end">
                         <FontAwesomeIcon
-                            className="rounded-md px-3 py-2   hover:bg-gray-100"
+                            className="rounded-md px-3 py-2 hover:bg-gray-100"
                             icon={faXmark}
                             onClick={onClose}
                         />
@@ -86,15 +86,15 @@ const RoomBooking = ({hotel, room, isRoomBookingOpen, onClose}: Props) => {
                         <div>
                             <h1 className="my-4 text-3xl font-bold">{room.name} room</h1>
                             <span className="flex">
-                                {Array.from({length: hotel?.starRating}).map(() => (
-                                    <AiFillStar className="fill-yellow-400"/>
+                                {Array.from({ length: hotel?.starRating }).map(() => (
+                                    <AiFillStar className="fill-yellow-400" />
                                 ))}
                             </span>
                         </div>
                     </div>
 
                     <div className="flex justify-between">
-                        <div className="lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-0 col-span-8 mt-8 grid gap-4">
+                        <div className="sm:grid-cols-0 col-span-8 mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                             {hotel.imageUrls.map((url: string, index: number) => (
                                 <div key={index} className="h-[100px]">
                                     <img
@@ -107,7 +107,7 @@ const RoomBooking = ({hotel, room, isRoomBookingOpen, onClose}: Props) => {
                         </div>
 
                         <div className="col-span-4">
-                            <GuestInfoForm hotel={hotel} room={room}/>
+                            <GuestInfoForm hotel={hotel} room={room} />
                         </div>
                     </div>
                     <div className={cx("description")}>

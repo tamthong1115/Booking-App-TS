@@ -10,6 +10,7 @@ import { useAppContext } from "../../context/AppContext.tsx";
 import Room from "../../components/Room/Room.tsx";
 import { fetchCurrentUser } from "../../ApiClient/api-users.ts";
 import { fetchHotelById } from "../../ApiClient/api-hotels.ts";
+import DeleteHotelButton from "../../components/Button/DeleteHotelButton.tsx";
 
 const Detail = () => {
     const { roles } = useAppContext();
@@ -43,7 +44,7 @@ const Detail = () => {
 
     return (
         <div className="space-y-6">
-            <div className={"flex  justify-between"}>
+            <div className={"flex justify-between"}>
                 <div>
                     <span className="flex">
                         {Array.from({ length: hotel?.starRating }).map(() => (
@@ -63,6 +64,19 @@ const Detail = () => {
                             >
                                 Add Rooms
                             </Link>
+                        </span>
+
+                        <span className="ml-4">
+                            <Link
+                                to={`/edit-hotel/${hotel._id}`}
+                                className="flex rounded bg-blue-600 p-2 text-xl font-bold text-white hover:bg-blue-500"
+                            >
+                                View Details
+                            </Link>
+                        </span>
+
+                        <span className="ml-4">
+                            <DeleteHotelButton hotelId={hotel._id} />
                         </span>
                     </div>
                 )}

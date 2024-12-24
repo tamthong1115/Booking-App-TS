@@ -1,0 +1,28 @@
+name: Frontend CI/CD
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  frontend-test:
+    timeout-minutes: 60
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+      - name: Install pnpm
+        run: npm install -g pnpm
+      - name: Create .env file
+        run: |
+          echo "VITE_MAPBOX_SECRET_TOKEN=${{ secrets.VITE_MAPBOX_SECRET_TOKEN }}" >> ./frontend/.env
+          echo "VITE_STRIPE_PUBLIC_KEY=${{ secrets.VITE_STRIPE_PUBLIC_KEY }}" >> ./frontend/.env
+      - name: Install frontend dependencies
+        working-directory: ./frontend
+        run: pnpm install
+      - name: Run frontend linter
+        working-directory: ./frontend
+        run: pnpm run lint

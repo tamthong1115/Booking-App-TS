@@ -4,7 +4,6 @@ import { SignInFormData } from "../pages/SignIn/SignIn.tsx";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
-
 export const fetchCurrentUser = async (): Promise<UserType> => {
     const response = await fetch(`${API_BASE_URL}/api/users/me`, {
         credentials: "include",
@@ -81,7 +80,6 @@ export const signOut = async () => {
         throw new Error("Error during sign out!");
     }
 };
-
 
 // getUserRoles
 export const getUserRoles = async () => {

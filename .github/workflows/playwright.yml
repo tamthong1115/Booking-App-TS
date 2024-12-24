@@ -8,23 +8,6 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu:24.04
-    env:
-      BOOKING_EMAIL: ${{ secrets.BOOKING_EMAIL }}
-      BOOKING_EMAIL_PASSWORD: ${{ secrets.BOOKING_EMAIL_PASSWORD }}
-      CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
-      CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
-      CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
-      JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
-      MAPBOX_SECRET_TOKEN: ${{ secrets.MAPBOX_SECRET_TOKEN }}
-      MONGODB_CONNECTION_STRING: ${{ secrets.MONGODB_CONNECTION_STRING }}
-      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-      VITE_MAPBOX_SECRET_TOKEN: ${{ secrets.VITE_MAPBOX_SECRET_TOKEN }}
-      VITE_STRIPE_PUBLIC_KEY: ${{ secrets.VITE_STRIPE_PUBLIC_KEY }}
-      API_PORT: ${{ variables.API_PORT }}
-      FRONTEND_URL: ${{ variables.FRONTEND_URL }}
-      VITE_API_BASE_URL: ${{ variables.VITE_API_BASE_URL }}
-      WEB_URL: ${{ variables.WEB_URL }}
-      E2E_BASE_URL: ${{ variables.E2E_BASE_URL }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -32,6 +15,21 @@ jobs:
           node-version: "20.x"
       - name: Install pnpm
         run: npm install -g pnpm
+      - name: Create backend .env file
+        run: |
+          echo "BOOKING_EMAIL=${{ secrets.BOOKING_EMAIL }}" >> ./backend/.env
+          echo "BOOKING_EMAIL_PASSWORD=${{ secrets.BOOKING_EMAIL_PASSWORD }}" >> ./backend/.env
+          echo "CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY }}" >> ./backend/.env
+          echo "CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }}" >> ./backend/.env
+          echo "CLOUDINARY_CLOUD_NAME=${{ secrets.CLOUDINARY_CLOUD_NAME }}" >> ./backend/.env
+          echo "JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}" >> ./backend/.env
+          echo "MAPBOX_SECRET_TOKEN=${{ secrets.MAPBOX_SECRET_TOKEN }}" >> ./backend/.env
+          echo "MONGODB_TEST_CONNECTION_STRING=${{ secrets.MONGODB_TEST_CONNECTION_STRING }}" >> ./backend/.env
+          echo "STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}" >> ./backend/.env
+      - name: Create frontend .env file
+        run: |
+          echo "VITE_MAPBOX_SECRET_TOKEN=${{ secrets.VITE_MAPBOX_SECRET_TOKEN }}" >> ./frontend/.env
+          echo "VITE_STRIPE_PUBLIC_KEY=${{ secrets.VITE_STRIPE_PUBLIC_KEY }}" >> ./frontend/.env
       - name: Install backend dependencies
         working-directory: ./backend
         run: pnpm install

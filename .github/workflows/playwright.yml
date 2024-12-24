@@ -19,18 +19,18 @@ jobs:
         run: npm install -g pnpm
       - name: Create backend .env file
         run: |
-          echo "BOOKING_EMAIL=${{ secrets.BOOKING_EMAIL }}" >> ./backend/.env
-          echo "BOOKING_EMAIL_PASSWORD=${{ secrets.BOOKING_EMAIL_PASSWORD }}" >> ./backend/.env
-          echo "CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY }}" >> ./backend/.env
-          echo "CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }}" >> ./backend/.env
-          echo "CLOUDINARY_CLOUD_NAME=${{ secrets.CLOUDINARY_CLOUD_NAME }}" >> ./backend/.env
-          echo "JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}" >> ./backend/.env
-          echo "MAPBOX_SECRET_TOKEN=${{ secrets.MAPBOX_SECRET_TOKEN }}" >> ./backend/.env
-          echo "MONGODB_TEST_CONNECTION_STRING=${{ secrets.MONGODB_TEST_CONNECTION_STRING }}" >> ./backend/.env
-          echo "STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}" >> ./backend/.env
-          echo "API_PORT=${{ vars.API_PORT }}" >> ./backend/.env
-          echo "WEB_URL=${{ vars.WEB_URL }}" >> ./backend/.env
-          echo "FRONTEND_URL=${{ vars.FRONTEND_URL }}" >> ./backend/.env
+          echo "BOOKING_EMAIL=${{ secrets.BOOKING_EMAIL }}" >> ./backend/.env.e2e
+          echo "BOOKING_EMAIL_PASSWORD=${{ secrets.BOOKING_EMAIL_PASSWORD }}" >> ./backend/.env.e2e
+          echo "CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY }}" >> ./backend/.env.e2e
+          echo "CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }}" >> ./backend/.env.e2e
+          echo "CLOUDINARY_CLOUD_NAME=${{ secrets.CLOUDINARY_CLOUD_NAME }}" >> ./backend/.env.e2e
+          echo "JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}" >> ./backend/.env.e2e
+          echo "MAPBOX_SECRET_TOKEN=${{ secrets.MAPBOX_SECRET_TOKEN }}" >> ./backend/.env.e2e
+          echo "MONGODB_TEST_CONNECTION_STRING=${{ secrets.MONGODB_TEST_CONNECTION_STRING }}" >> ./backend/.env.e2e
+          echo "STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}" >> ./backend/.env.e2e
+          echo "API_PORT=${{ vars.API_PORT }}" >> ./backend/.env.e2e
+          echo "WEB_URL=${{ vars.WEB_URL }}" >> ./backend/.env.e2e
+          echo "FRONTEND_URL=${{ vars.FRONTEND_URL }}" >> ./backend/.env.e2e
       - name: Create frontend .env file
         run: |
           echo "VITE_MAPBOX_SECRET_TOKEN=${{ secrets.VITE_MAPBOX_SECRET_TOKEN }}" >> ./frontend/.env

@@ -57,9 +57,6 @@ jobs:
       - name: Run Backend for E2E tests
         working-directory: ./backend
         run: pnpm run e2e & sleep 10
-      - name: Run Frontend tests
-        working-directory: ./frontend
-        run: pnpm run dev
       - name: Run E2E tests
         working-directory: ./e2e-tests
         run: npx playwright test

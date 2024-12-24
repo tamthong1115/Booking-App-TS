@@ -1,5 +1,3 @@
-import { Schema } from "mongoose";
-
 
 export type UserType = {
   _id: string;

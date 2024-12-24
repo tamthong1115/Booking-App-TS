@@ -21,7 +21,7 @@ const MyBookings = () => {
         <div className="space-y-5 pl-40 pr-40">
             <h1 className="text-3xl font-bold">My Bookings</h1>
             {hotels.map((hotel) => (
-                <div className="lg:gird-cols-[1fr_3fr]  grid grid-cols-1 gap-4 rounded-lg border border-slate-300 p-8">
+                <div className="lg:gird-cols-[1fr_3fr] grid grid-cols-1 gap-4 rounded-lg border border-slate-300 p-8">
                     <div className="lg:h-[250px] lg:w-full">
                         <Link to={`/detail/${hotel._id}`}>
                             <img
@@ -65,7 +65,7 @@ const MyBookings = () => {
 
                             <div className="flex items-center">
                                 {new Date(booking.checkOut) < new Date() ? (
-                                    <div className=" text-2xl font-semibold text-red-500">Expired</div>
+                                    <div className="text-2xl font-semibold text-red-500">Expired</div>
                                 ) : (
                                     <div className="text-2xl font-semibold text-green-500">Active</div>
                                 )}

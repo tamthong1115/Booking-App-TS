@@ -43,7 +43,7 @@ const Detail = () => {
 
     return (
         <div className="space-y-6">
-            <div className={"flex  justify-between"}>
+            <div className={"flex justify-between"}>
                 <div>
                     <span className="flex">
                         {Array.from({ length: hotel?.starRating }).map(() => (

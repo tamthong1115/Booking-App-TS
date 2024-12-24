@@ -32,6 +32,7 @@ const ResetPassword = () => {
             showToast({ message: "Password reset OK", type: "SUCCESS" });
             navigate("/sign-in");
         } catch (error) {
+            console.error("ResetPassword error:", error);
             showToast({ message: "Error resetting password", type: "ERROR" });
         }
     };

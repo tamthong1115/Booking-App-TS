@@ -1,9 +1,11 @@
 import {test, expect} from "@playwright/test";
 
-const UI_URL = "http://localhost:5173";
+// const UI_URL = "http://localhost:5173";
 
 test("allow user to sign in", async ({page}) => {
-    await page.goto(UI_URL);
+    // await page.goto(UI_URL);
+    // redirect to base url
+    await page.goto("/");
 
     // get sign in button
     await page.getByRole("link", {name: "Sign In"}).click();
@@ -27,7 +29,8 @@ test("allow user to register", async ({page}) => {
         Math.floor(Math.random() * 900000) + 100000
     }@test.com`;
 
-    await page.goto(UI_URL);
+    // await page.goto(UI_URL);
+    await page.goto("/");
 
     await page.getByRole("link", {name: "Sign In"}).click();
     await page.getByRole("link", {name: "Register"}).nth(1).click();

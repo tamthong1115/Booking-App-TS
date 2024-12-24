@@ -4,18 +4,18 @@ import { Link } from "react-router-dom";
 
 function Footer() {
     return (
-        <div className="mt-20 rounded-lg bg-indigo-400 text-white ">
+        <div className="mt-20 rounded-lg bg-indigo-400 text-white">
             <div className="grid grid-cols-1 gap-8 p-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
                 <div>
                     <h3 className="mb-4 text-xl font-semibold">CUSTOMER CARE</h3>
                     <div className="text-sm">
-                        <a href="#" className="mb-2 block ">
+                        <a href="#" className="mb-2 block">
                             Help Center
                         </a>
-                        <a href="#" className="mb-2 block ">
+                        <a href="#" className="mb-2 block">
                             Contact
                         </a>
-                        <a href="#" className="mb-2 block ">
+                        <a href="#" className="mb-2 block">
                             Partner
                         </a>
                     </div>
@@ -23,13 +23,13 @@ function Footer() {
                 <div>
                     <h3 className="mb-4 text-xl font-semibold">INTRODUCE</h3>
                     <div className="text-sm">
-                        <a href="#" className="mb-2 block ">
+                        <a href="#" className="mb-2 block">
                             Introduce
                         </a>
-                        <a href="#" className="mb-2 block ">
+                        <a href="#" className="mb-2 block">
                             Terms of use
                         </a>
-                        <a href="#" className="mb-2 block ">
+                        <a href="#" className="mb-2 block">
                             Privacy Policy
                         </a>
                     </div>
@@ -37,16 +37,16 @@ function Footer() {
                 <div>
                     <h3 className="mb-4 text-xl font-semibold">NAVIGATE</h3>
                     <div className="text-sm">
-                        <Link className="mb-2  flex items-center " to="/">
+                        <Link className="mb-2 flex items-center" to="/">
                             Home
                         </Link>
-                        <Link className="mb-2  flex items-center " to="/my-bookings">
+                        <Link className="mb-2 flex items-center" to="/my-bookings">
                             My bookings
                         </Link>
-                        <Link className="mb-2  flex items-center " to="/about-us">
+                        <Link className="mb-2 flex items-center" to="/about-us">
                             About
                         </Link>
-                        <Link className="mb-2  flex items-center " to="/contact-us">
+                        <Link className="mb-2 flex items-center" to="/contact-us">
                             Contact
                         </Link>
                     </div>
@@ -54,15 +54,15 @@ function Footer() {
                 <div>
                     <h3 className="mb-4 text-xl font-semibold">FOLLOWING</h3>
                     <div className="text-sm">
-                        <a href="#" className="mb-2 block flex items-center ">
+                        <a href="#" className="mb-2 block flex items-center">
                             <FontAwesomeIcon className="mr-2 text-lg" icon={faFacebook} />
                             Facebook
                         </a>
-                        <a href="#" className="mb-2 block flex items-center ">
+                        <a href="#" className="mb-2 block flex items-center">
                             <FontAwesomeIcon className="mr-2 text-lg" icon={faInstagram} />
                             Instagram
                         </a>
-                        <a href="#" className="mb-2 block flex items-center ">
+                        <a href="#" className="mb-2 block flex items-center">
                             <FontAwesomeIcon className="mr-2 text-lg" icon={faTiktok} />
                             Tiktok
                         </a>
@@ -71,9 +71,9 @@ function Footer() {
                 <div>
                     <h3 className="mb-4 text-xl font-semibold">ADDRESS</h3>
                     <div className="text-sm">
-                        <p className="mb-2 ">253/6, Ward 11, District 2, City. Ho Chi Minh</p>
-                        <p className="mb-2 ">0984 777 666</p>
-                        <p className="mb-2 ">bookingTS@gmail.com</p>
+                        <p className="mb-2">253/6, Ward 11, District 2, City. Ho Chi Minh</p>
+                        <p className="mb-2">0984 777 666</p>
+                        <p className="mb-2">bookingTS@gmail.com</p>
                     </div>
                 </div>
             </div>

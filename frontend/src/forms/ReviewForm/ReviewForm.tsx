@@ -50,7 +50,7 @@ const ReviewForm = ({ hotelId, currentUser }: Props) => {
                 <div className="flex w-full flex-col p-8 lg:w-1/3">
                     <p className="ml-6 text-lg uppercase text-yellow-500">REVIEW</p>
                     <p className="my-4 text-3xl leading-relaxed md:text-5xl md:leading-snug">Leave us a feedback!</p>
-                    <p className="text-sm leading-snug  text-opacity-100 md:text-base">
+                    <p className="text-sm leading-snug text-opacity-100 md:text-base">
                         Please provide your valuable feedback and something something ...
                     </p>
                 </div>
@@ -68,8 +68,7 @@ const ReviewForm = ({ hotelId, currentUser }: Props) => {
                                                 </label>
 
                                                 <textarea
-                                                    className="w-full rounded border-0 bg-gray-300 px-3 py-3 text-sm
-                    text-gray-800 placeholder-black shadow outline-none focus:bg-gray-400"
+                                                    className="w-full rounded border-0 bg-gray-300 px-3 py-3 text-sm text-gray-800 placeholder-black shadow outline-none focus:bg-gray-400"
                                                     {...register("comment", { required: true })}
                                                 />
                                             </div>
@@ -82,8 +81,7 @@ const ReviewForm = ({ hotelId, currentUser }: Props) => {
                                                     type="number"
                                                     min={1}
                                                     max={5}
-                                                    className="w-full rounded border-0 bg-gray-300 px-3 py-3 text-sm
-                          text-gray-800 placeholder-black shadow outline-none focus:bg-gray-400"
+                                                    className="w-full rounded border-0 bg-gray-300 px-3 py-3 text-sm text-gray-800 placeholder-black shadow outline-none focus:bg-gray-400"
                                                     {...register("rating", {
                                                         required: true,
                                                         min: 1,

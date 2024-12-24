@@ -56,6 +56,10 @@ app.get("*", (req: Request, res: Response) => {
 // Error handling middleware
 app.use(ExpressHandler);
 
-app.listen(8080, () => {
-  console.log(`Server running on http://localhost:${8080}`);
+app.listen(process.env.API_PORT, () => {
+  try {
+    console.log(`Server is running on port ${process.env.API_PORT}`);
+  } catch (err) {
+    console.log(err);
+  }
 });

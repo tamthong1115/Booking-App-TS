@@ -21,6 +21,7 @@ const ForgetPassword = () => {
             await sendPasswordMail(data);
             showToast({ message: "Check your email to reset password", type: "SUCCESS" });
         } catch (error) {
+            console.error("ForgetPassword error:", error);
             showToast({ message: "Error sending email", type: "ERROR" });
         }
     };

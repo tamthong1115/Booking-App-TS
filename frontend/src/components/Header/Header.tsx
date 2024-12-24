@@ -19,13 +19,13 @@ const Header = () => {
                 </span>
 
                 <span className={cx("right")}>
-                    <div className=" flex">
-                        <button className="  flex  h-8 cursor-pointer items-center rounded-md bg-transparent px-4 py-2 text-white hover:bg-blue-700">
+                    <div className="flex">
+                        <button className="flex h-8 cursor-pointer items-center rounded-md bg-transparent px-4 py-2 text-white hover:bg-blue-700">
                             <FontAwesomeIcon className="text-lg" icon={faBell} />
                         </button>
                         <Link to="/contact-us">
-                            <button className="  flex  h-8 cursor-pointer items-center rounded-md bg-transparent px-4 py-2 text-white hover:bg-blue-700">
-                                <FontAwesomeIcon className="text-lg " icon={faCircleQuestion} />
+                            <button className="flex h-8 cursor-pointer items-center rounded-md bg-transparent px-4 py-2 text-white hover:bg-blue-700">
+                                <FontAwesomeIcon className="text-lg" icon={faCircleQuestion} />
                             </button>
                         </Link>
                     </div>
@@ -42,7 +42,7 @@ const Header = () => {
                             </Link>
                             <Link
                                 to="/register"
-                                className=" flex h-8 items-center rounded-sm bg-white px-3 font-medium text-blue-600 hover:bg-gray-100 md:mr-2 md:max-w-none"
+                                className="flex h-8 items-center rounded-sm bg-white px-3 font-medium text-blue-600 hover:bg-gray-100 md:mr-2 md:max-w-none"
                             >
                                 Register
                             </Link>

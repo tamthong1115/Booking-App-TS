@@ -72,7 +72,7 @@ const SearchBar = () => {
                 <label className="flex items-center gap-2 rounded-md bg-white px-2 py-1">
                     Adults:
                     <input
-                        className="w-full  p-1 font-bold focus:outline-none "
+                        className="w-full p-1 font-bold focus:outline-none"
                         type="number"
                         min={1}
                         max={20}
@@ -84,7 +84,7 @@ const SearchBar = () => {
                 <label className="flex items-center rounded-lg">
                     Children:
                     <input
-                        className="w-full  p-1 font-bold focus:outline-none "
+                        className="w-full p-1 font-bold focus:outline-none"
                         type="number"
                         min={0}
                         max={20}
@@ -132,12 +132,12 @@ const SearchBar = () => {
                 {destination === "" ? (
                     <button
                         disabled
-                        className="h-full w-2/3 rounded-lg bg-blue-400 p-2 text-xl font-bold text-white hover:bg-blue-600 "
+                        className="h-full w-2/3 rounded-lg bg-blue-400 p-2 text-xl font-bold text-white hover:bg-blue-600"
                     >
                         Search
                     </button>
                 ) : (
-                    <button className="h-full w-2/3 rounded-lg bg-blue-400 p-2 text-xl font-bold text-white hover:bg-blue-600 ">
+                    <button className="h-full w-2/3 rounded-lg bg-blue-400 p-2 text-xl font-bold text-white hover:bg-blue-600">
                         Search
                     </button>
                 )}

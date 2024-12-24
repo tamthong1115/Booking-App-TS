@@ -18,7 +18,7 @@ const Booking = () => {
     const { hotelId, roomId } = useParams();
 
     const [numberOfNights, setNumberOfNights] = useState<number>(0);
- 
+
     useEffect(() => {
         if (search.checkIn && search.checkOut) {
             const nights = Math.abs(search.checkOut.getTime() - search.checkIn.getTime()) / (1000 * 60 * 60 * 24) || 1;

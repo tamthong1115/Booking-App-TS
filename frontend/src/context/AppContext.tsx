@@ -41,7 +41,6 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
         enabled: !!user,
     });
 
-    12;
     return (
         <AppContext.Provider
             value={{
@@ -49,7 +48,7 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
                     setToast(toastMessage);
                 },
                 isLoggedIn: !isError,
-                roles: userRoles,
+                roles: userRoles || [],
                 stripePromise,
                 loading: loading || authLoading,
                 roleLoading,

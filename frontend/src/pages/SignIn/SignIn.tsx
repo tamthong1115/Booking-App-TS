@@ -45,8 +45,8 @@ const SignIn = () => {
     });
 
     return (
-        <div className=" flex flex-col items-center justify-center px-3 py-4 lg:py-0">
-            <div className=" w-full rounded-lg shadow-lg sm:max-w-md md:mt-0 xl:p-0">
+        <div className="flex flex-col items-center justify-center px-3 py-4 lg:py-0">
+            <div className="w-full rounded-lg shadow-lg sm:max-w-md md:mt-0 xl:p-0">
                 <div className="space-y-4 p-6 sm:p-8 md:space-y-6">
                     <div className={cx("header-title")}>
                         <h1 className={cx("heading")}>Sign In</h1>

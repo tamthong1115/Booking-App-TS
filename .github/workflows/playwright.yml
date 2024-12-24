@@ -1,0 +1,62 @@
+name: E2E Testing
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu:24.04
+    env:
+      BOOKING_EMAIL: ${{ secrets.BOOKING_EMAIL }}
+      BOOKING_EMAIL_PASSWORD: ${{ secrets.BOOKING_EMAIL_PASSWORD }}
+      CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+      CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+      CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+      JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+      MAPBOX_SECRET_TOKEN: ${{ secrets.MAPBOX_SECRET_TOKEN }}
+      MONGODB_CONNECTION_STRING: ${{ secrets.MONGODB_CONNECTION_STRING }}
+      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+      VITE_MAPBOX_SECRET_TOKEN: ${{ secrets.VITE_MAPBOX_SECRET_TOKEN }}
+      VITE_STRIPE_PUBLIC_KEY: ${{ secrets.VITE_STRIPE_PUBLIC_KEY }}
+      API_PORT: ${{ variables.API_PORT }}
+      FRONTEND_URL: ${{ variables.FRONTEND_URL }}
+      VITE_API_BASE_URL: ${{ variables.VITE_API_BASE_URL }}
+      WEB_URL: ${{ variables.WEB_URL }}
+      E2E_BASE_URL: ${{ variables.E2E_BASE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+      - name: Install backend dependencies
+        working-directory: ./backend
+        run: pnpm install
+      - name: Run backend tests
+        working-directory: ./backend
+        run: pnpm run test
+      - name: Install frontend dependencies
+        working-directory: ./frontend
+        run: pnpm install
+      - name: Install playwright dependencies
+        working-directory: ./e2e-tests
+        run: pnpm install
+      - name: Install Playwright Browsers
+        working-directory: ./e2e-tests
+        run: npx playwright install --with-deps
+      - name: Run Backend for E2E tests
+        working-directory: ./backend
+        run: pnpm run e2e & sleep 10
+      - name: Run Frontend tests
+        working-directory: ./frontend
+        run: pnpm run dev
+      - name: Run E2E tests
+        working-directory: ./e2e-tests
+        run: npx playwright test
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30

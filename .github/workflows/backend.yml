@@ -1,0 +1,32 @@
+name: Backend CI/CD
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  backend-test:
+    timeout-minutes: 60
+    runs-on: ubuntu-24.04
+    env:
+      BOOKING_EMAIL: ${{ secrets.BOOKING_EMAIL }}
+      BOOKING_EMAIL_PASSWORD: ${{ secrets.BOOKING_EMAIL_PASSWORD }}
+      CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+      CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+      CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+      JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+      MAPBOX_SECRET_TOKEN: ${{ secrets.MAPBOX_SECRET_TOKEN }}
+      MONGODB_CONNECTION_STRING: ${{ secrets.MONGODB_CONNECTION_STRING }}
+      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+      - name: Install backend dependencies
+        working-directory: ./backend
+        run: pnpm install
+      - name: Run backend tests
+        working-directory: ./backend
+        run: pnpm run test

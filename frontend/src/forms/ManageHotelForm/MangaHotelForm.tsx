@@ -12,6 +12,7 @@ export type HotelFormData = {
     city: string;
     country: string;
     description: string;
+    pricePerNight: number;
     type: string;
     starRating: number;
     facilities: string[];
@@ -34,7 +35,6 @@ const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
     });
     const { handleSubmit, reset } = formMethods;
 
-
     // reset the form when the hotel prop changes
     useEffect(() => {
         reset(hotel);
@@ -51,6 +51,7 @@ const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
         formData.append("city", formDataJson.city);
         formData.append("country", formDataJson.country);
         formData.append("description", formDataJson.description);
+        formData.append("pricePerNight", formDataJson.pricePerNight.toString());
         formData.append("type", formDataJson.type);
         formData.append("starRating", formDataJson.starRating.toString());
         formData.append("adultCount", formDataJson.adultCount.toString());
@@ -62,7 +63,7 @@ const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
 
         if (formDataJson.imageUrls) {
             formDataJson.imageUrls.forEach((url, index) => {
-                formData.append(`imageUrls[${index}]`, url);    
+                formData.append(`imageUrls[${index}]`, url);
             });
         }
 

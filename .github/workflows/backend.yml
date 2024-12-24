@@ -24,6 +24,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20.x"
+      - name: Install pnpm
+        run: npm install -g pnpm
       - name: Install backend dependencies
         working-directory: ./backend
         run: pnpm install

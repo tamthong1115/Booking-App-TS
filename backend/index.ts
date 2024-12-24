@@ -30,10 +30,14 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const allowCors = [
+  process.env.FRONTEND_URL as string,
+  process.env.DOMAIN_DEPLOYMENT_URL as string,
+];
 // allow req from another port
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL, // only accept url from frontend
+    origin: allowCors,
     credentials: true,
   })
 );

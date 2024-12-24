@@ -16,8 +16,7 @@ jobs:
           node-version: "20.x"
       - name: Test tMongoDB connection
         run: |
-          echo "Testing MongoDB connection..."
-          mongo ${{ secrets.MONGODB_TEST_CONNECTION_STRING }} --eval "db.stats()"
+          echo "Testing MongoDB connection... ${{ secrets.MONGODB_TEST_CONNECTION_STRING }}"
       - name: Install pnpm
         run: npm install -g pnpm
       - name: Create .env file

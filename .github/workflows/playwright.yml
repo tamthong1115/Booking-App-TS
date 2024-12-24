@@ -4,10 +4,12 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+
 jobs:
-  test:
+  playwright-test:
+    environment: testing
     timeout-minutes: 60
-    runs-on: ubuntu:24.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -17,25 +19,29 @@ jobs:
         run: npm install -g pnpm
       - name: Create backend .env file
         run: |
-          echo "BOOKING_EMAIL=${{ secrets.BOOKING_EMAIL }}" >> ./backend/.env
-          echo "BOOKING_EMAIL_PASSWORD=${{ secrets.BOOKING_EMAIL_PASSWORD }}" >> ./backend/.env
-          echo "CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY }}" >> ./backend/.env
-          echo "CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }}" >> ./backend/.env
-          echo "CLOUDINARY_CLOUD_NAME=${{ secrets.CLOUDINARY_CLOUD_NAME }}" >> ./backend/.env
-          echo "JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}" >> ./backend/.env
-          echo "MAPBOX_SECRET_TOKEN=${{ secrets.MAPBOX_SECRET_TOKEN }}" >> ./backend/.env
-          echo "MONGODB_TEST_CONNECTION_STRING=${{ secrets.MONGODB_TEST_CONNECTION_STRING }}" >> ./backend/.env
-          echo "STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}" >> ./backend/.env
+          echo "BOOKING_EMAIL=${{ secrets.BOOKING_EMAIL }}" >> ./backend/.env.e2e
+          echo "BOOKING_EMAIL_PASSWORD=${{ secrets.BOOKING_EMAIL_PASSWORD }}" >> ./backend/.env.e2e
+          echo "CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY }}" >> ./backend/.env.e2e
+          echo "CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }}" >> ./backend/.env.e2e
+          echo "CLOUDINARY_CLOUD_NAME=${{ secrets.CLOUDINARY_CLOUD_NAME }}" >> ./backend/.env.e2e
+          echo "JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}" >> ./backend/.env.e2e
+          echo "MAPBOX_SECRET_TOKEN=${{ secrets.MAPBOX_SECRET_TOKEN }}" >> ./backend/.env.e2e
+          echo "MONGODB_TEST_CONNECTION_STRING=${{ secrets.MONGODB_TEST_CONNECTION_STRING }}" >> ./backend/.env.e2e
+          echo "STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}" >> ./backend/.env.e2e
+          echo "API_PORT=${{ vars.API_PORT }}" >> ./backend/.env.e2e
+          echo "WEB_URL=${{ vars.WEB_URL }}" >> ./backend/.env.e2e
+          echo "FRONTEND_URL=${{ vars.FRONTEND_URL }}" >> ./backend/.env.e2e
       - name: Create frontend .env file
         run: |
           echo "VITE_MAPBOX_SECRET_TOKEN=${{ secrets.VITE_MAPBOX_SECRET_TOKEN }}" >> ./frontend/.env
           echo "VITE_STRIPE_PUBLIC_KEY=${{ secrets.VITE_STRIPE_PUBLIC_KEY }}" >> ./frontend/.env
+          echo "VITE_API_BASE_URL=${{ vars.VITE_API_BASE_URL }}" >> ./frontend/.env
+      - name: Create e2e-tests .env file
+        run: |
+          echo "E2E_BASE_URL=${{ vars.E2E_BASE_URL }}" >> ./e2e-tests/.env
       - name: Install backend dependencies
         working-directory: ./backend
         run: pnpm install
-      - name: Run backend tests
-        working-directory: ./backend
-        run: pnpm run test
       - name: Install frontend dependencies
         working-directory: ./frontend
         run: pnpm install
@@ -48,9 +54,9 @@ jobs:
       - name: Run Backend for E2E tests
         working-directory: ./backend
         run: pnpm run e2e & sleep 10
-      - name: Run Frontend tests
+      - name: Run Frontend for E2E tests
         working-directory: ./frontend
-        run: pnpm run dev
+        run: pnpm run dev & sleep 10
       - name: Run E2E tests
         working-directory: ./e2e-tests
         run: npx playwright test

@@ -14,6 +14,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20.x"
+      - name: Test MongoDB connection
+        run: |
+          echo "Testing MongoDB connection..."
+          mongo ${{ secrets.MONGODB_CONNECTION_STRING }} --eval "db.stats()"
       - name: Install pnpm
         run: npm install -g pnpm
       - name: Create .env file

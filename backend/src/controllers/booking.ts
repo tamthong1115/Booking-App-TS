@@ -1,7 +1,7 @@
-import {RequestHandler} from "express";
+import { RequestHandler } from "express";
 import CustomError from "../utils/ExpressError";
 import Hotel from "../models/hotel";
-import {BookingType} from "../../shared/types";
+import { BookingType } from "../../shared/types";
 
 export const getBookings: RequestHandler = async (req, res, next) => {
     try {
@@ -13,17 +13,12 @@ export const getBookings: RequestHandler = async (req, res, next) => {
         });
 
         const result = hotels.map((hotel) => {
-            const userBookings = hotel.bookings?.filter(
-                (booking) => booking.userId === req.userId
-            );
+            const userBookings = hotel.bookings?.filter((booking) => booking.userId === req.userId);
 
             if (!userBookings || userBookings.length === 0) return null;
 
             // Sort the bookings by check-out date in descending order
-            userBookings?.sort(
-                (a, b) =>
-                    new Date(a.checkOut).getTime() - new Date(b.checkOut).getTime()
-            );
+            userBookings?.sort((a, b) => new Date(a.checkOut).getTime() - new Date(b.checkOut).getTime());
 
             const hotelWithUserBookings = {
                 ...hotel.toObject(),

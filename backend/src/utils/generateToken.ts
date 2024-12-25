@@ -1,6 +1,5 @@
-import {Response} from "express";
+import { Response } from "express";
 import jwt from "jsonwebtoken";
-
 
 /**
  * This function generates a JSON Web Token (JWT) for a user and sets it as a cookie in the response object.
@@ -13,13 +12,9 @@ import jwt from "jsonwebtoken";
  * @throws {Error} - Throws an error if the JWT generation fails.
  */
 const generateToken = (res: Response, userId: string): string => {
-    const token = jwt.sign(
-        {userId: userId},
-        process.env.JWT_SECRET_KEY as string,
-        {
-            expiresIn: "1d",
-        }
-    );
+    const token = jwt.sign({ userId: userId }, process.env.JWT_SECRET_KEY as string, {
+        expiresIn: "1d",
+    });
 
     res.cookie("auth_token", token, {
         httpOnly: true,

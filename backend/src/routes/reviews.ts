@@ -1,10 +1,6 @@
 import express from "express";
-import verifyTokenUser  from "../middlewares/verifyTokenUser";
-import {
-  deleteReview,
-  getReviews,
-  postNewReview,
-} from "../controllers/reviews";
+import verifyTokenUser from "../middlewares/verifyTokenUser";
+import { deleteReview, getReviews, postNewReview } from "../controllers/reviews";
 
 const router = express.Router({ mergeParams: true });
 

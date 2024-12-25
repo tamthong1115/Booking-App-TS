@@ -30,7 +30,11 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const allowCors = [process.env.FRONTEND_URL as string, process.env.DOMAIN_DEPLOYMENT_URL as string];
+const allowCors = [
+    process.env.FRONTEND_URL as string,
+    process.env.DOMAIN_DEPLOYMENT_URL as string,
+    `http://localhost:${process.env.API_PORT}`,
+];
 // allow req from another port
 app.use(
     cors({

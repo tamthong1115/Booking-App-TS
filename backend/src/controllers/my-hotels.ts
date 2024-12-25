@@ -1,10 +1,10 @@
-import {RequestHandler} from "express";
+import { RequestHandler } from "express";
 import cloudinary from "cloudinary";
 import ExpressError from "../utils/ExpressError";
 import Hotel from "../models/hotel";
-import {HotelType} from "../../types/typesBackend";
+import { HotelType } from "../../types/typesBackend";
 import mbxGeocoding from "@mapbox/mapbox-sdk/services/geocoding";
-import {uploadImages} from "../utils/upload-images";
+import { uploadImages } from "../utils/upload-images";
 import "dotenv/config";
 
 const geocodingClient = mbxGeocoding({
@@ -31,9 +31,7 @@ export const postNewHotel: RequestHandler = async (req, res, next) => {
         const imageUploadResults = await uploadImages(imageFiles, newHotel.name);
         // add urls image to hotel
         newHotel.imageUrls = imageUploadResults.map((result) => result.secure_url);
-        newHotel.imagePublicIds = imageUploadResults.map(
-            (result) => result.publicId
-        );
+        newHotel.imagePublicIds = imageUploadResults.map((result) => result.publicId);
 
         // get coordinates from mapbox
         const response = await geocodingClient
@@ -67,7 +65,7 @@ export const postNewHotel: RequestHandler = async (req, res, next) => {
 
 export const getHotels: RequestHandler = async (req, res, next) => {
     try {
-        const hotels = await Hotel.find().sort({lastUpdated: -1});
+        const hotels = await Hotel.find().sort({ lastUpdated: -1 });
         res.json(hotels);
     } catch (error) {
         console.log(error);
@@ -83,7 +81,7 @@ export const getOneHotel: RequestHandler = async (req, res) => {
         });
         res.json(hotel);
     } catch (error) {
-        res.status(500).json({message: "Error fetching hotels"});
+        res.status(500).json({ message: "Error fetching hotels" });
     }
 };
 
@@ -98,16 +96,14 @@ export const editHotel: RequestHandler = async (req, res, next) => {
         });
 
         if (!hotelBefore) {
-            return res.status(404).json({message: "Hotel not found"});
+            return res.status(404).json({ message: "Hotel not found" });
         }
 
         // Find images to delete
         let deletedImages: string[] = [];
 
         if (updatedHotel.imageUrls) {
-            deletedImages = hotelBefore.imageUrls.filter(
-                (publicId) => !updatedHotel.imageUrls.includes(publicId)
-            );
+            deletedImages = hotelBefore.imageUrls.filter((publicId) => !updatedHotel.imageUrls.includes(publicId));
         } else {
             deletedImages = hotelBefore.imageUrls;
         }
@@ -118,23 +114,17 @@ export const editHotel: RequestHandler = async (req, res, next) => {
 
         if (deletedImagesPublicIds.length > 0) {
             // Delete images from Cloudinary
-            await cloudinary.v2.api.delete_resources(
-                deletedImagesPublicIds,
-                function (error, result) {
-                    if (error) {
-                        console.error("Error deleting images:", error);
-                    } else {
-                        console.log("Images deleted:", result);
-                    }
+            await cloudinary.v2.api.delete_resources(deletedImagesPublicIds, function (error, result) {
+                if (error) {
+                    console.error("Error deleting images:", error);
+                } else {
+                    console.log("Images deleted:", result);
                 }
-            );
+            });
         }
 
         // updated geometry
-        if (
-            updatedHotel.city !== hotelBefore.city ||
-            updatedHotel.country !== hotelBefore.country
-        ) {
+        if (updatedHotel.city !== hotelBefore.city || updatedHotel.country !== hotelBefore.country) {
             const response = await geocodingClient
                 .forwardGeocode({
                     query: `${updatedHotel.city}, ${updatedHotel.country}`,
@@ -147,10 +137,7 @@ export const editHotel: RequestHandler = async (req, res, next) => {
                 next(new Error("Geocoding failed: no results"));
             }
 
-            if (
-                !response.body.features[0].geometry ||
-                !response.body.features[0].geometry.type
-            ) {
+            if (!response.body.features[0].geometry || !response.body.features[0].geometry.type) {
                 next(new Error("Geocoding failed: missing geometry"));
             }
             // console.log(response);
@@ -162,11 +149,11 @@ export const editHotel: RequestHandler = async (req, res, next) => {
                 _id: req.params.hotelId.toString(),
             },
             updatedHotel,
-            {new: true}
+            { new: true },
         );
 
         if (!hotel) {
-            return res.status(200).json({message: "Hotel not found"});
+            return res.status(200).json({ message: "Hotel not found" });
         }
         // console.log(hotel.location);
 
@@ -175,8 +162,7 @@ export const editHotel: RequestHandler = async (req, res, next) => {
 
         const imageUploadResults = await uploadImages(files, updatedHotel.name);
 
-        const updatedImageUrls =
-            imageUploadResults.map((result) => result.secure_url) || [];
+        const updatedImageUrls = imageUploadResults.map((result) => result.secure_url) || [];
 
         hotel.imageUrls = [...updatedImageUrls, ...(updatedHotel.imageUrls || [])];
 
@@ -194,24 +180,21 @@ export const deleteHotel: RequestHandler = async (req, res) => {
         });
 
         if (!hotel) {
-            return res.status(404).json({message: "Hotel not found"});
+            return res.status(404).json({ message: "Hotel not found" });
         }
 
         // Delete images from Cloudinary
-        await cloudinary.v2.api.delete_resources(
-            hotel.imagePublicIds,
-            function (error, result) {
-                if (error) {
-                    console.error("Error deleting images:", error);
-                } else {
-                    console.log("Images deleted:", result);
-                }
+        await cloudinary.v2.api.delete_resources(hotel.imagePublicIds, function (error, result) {
+            if (error) {
+                console.error("Error deleting images:", error);
+            } else {
+                console.log("Images deleted:", result);
             }
-        );
+        });
 
-        res.status(200).json({message: "Hotel deleted"});
+        res.status(200).json({ message: "Hotel deleted" });
     } catch (error) {
-        res.status(500).json({message: "Error deleting hotel"});
+        res.status(500).json({ message: "Error deleting hotel" });
     }
 };
 

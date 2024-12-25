@@ -1,20 +1,17 @@
 import express from "express";
 import {
-  getRoles,
-  getValidateToken,
-  getVerifyEmail,
-  postForgetPassword,
-  postLogin,
-  postLogout,
-  postRegister,
-  postResetPassword,
+    getRoles,
+    getValidateToken,
+    getVerifyEmail,
+    postForgetPassword,
+    postLogin,
+    postLogout,
+    postRegister,
+    postResetPassword,
 } from "../controllers/auth";
 import verifyTokenUser from "../middlewares/verifyTokenUser";
 import roleMiddleware from "../middlewares/roleMiddleware";
-import {
-  loginValidator,
-  registerValidator,
-} from "./validation/schemas/authSchemas";
+import { loginValidator, registerValidator } from "./validation/schemas/authSchemas";
 
 const router = express.Router();
 
@@ -31,10 +28,10 @@ router.get("/validate-token", verifyTokenUser, getValidateToken);
 router.get("/roles", verifyTokenUser, getRoles);
 
 router.get(
-  "/validate-token-role/:role",
-  verifyTokenUser,
-  (req, res, next) => roleMiddleware([req.params.role])(req, res, next),
-  getValidateToken
+    "/validate-token-role/:role",
+    verifyTokenUser,
+    (req, res, next) => roleMiddleware([req.params.role])(req, res, next),
+    getValidateToken,
 );
 
 router.post("/logout", postLogout);

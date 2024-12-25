@@ -1,4 +1,4 @@
-import cloudinary, {UploadApiResponse} from "cloudinary";
+import cloudinary, { UploadApiResponse } from "cloudinary";
 
 /**
  * This function is used to upload images to a cloud storage service (Cloudinary).
@@ -14,24 +14,19 @@ import cloudinary, {UploadApiResponse} from "cloudinary";
  */
 export const uploadImages = async (
     imageFiles: Express.Multer.File[],
-    hotelName?: string
-): Promise<{ secure_url: string; publicId: string; }[]> => {
+    hotelName?: string,
+): Promise<{ secure_url: string; publicId: string }[]> => {
     const uploadPromises = imageFiles.map(async (image) => {
-        const uploadResult = await new Promise<UploadApiResponse | undefined>(
-            (resolve, reject) => {
-                cloudinary.v2.uploader
-                    .upload_stream(
-                        {resource_type: "image", folder: `/hotels/${hotelName}`},
-                        (error, uploadResult) => {
-                            if (error) {
-                                reject(error);
-                            }
-                            return resolve(uploadResult);
-                        }
-                    )
-                    .end(image.buffer);
-            }
-        );
+        const uploadResult = await new Promise<UploadApiResponse | undefined>((resolve, reject) => {
+            cloudinary.v2.uploader
+                .upload_stream({ resource_type: "image", folder: `/hotels/${hotelName}` }, (error, uploadResult) => {
+                    if (error) {
+                        reject(error);
+                    }
+                    return resolve(uploadResult);
+                })
+                .end(image.buffer);
+        });
         if (uploadResult) {
             return {
                 secure_url: uploadResult.secure_url,

@@ -16,9 +16,9 @@ import connectToDatabase from "./src/utils/connectToDatabase";
 import { v2 as cloudinary } from "cloudinary";
 
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 connectToDatabase();
@@ -30,16 +30,13 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const allowCors = [
-  process.env.FRONTEND_URL as string,
-  process.env.DOMAIN_DEPLOYMENT_URL as string,
-];
+const allowCors = [process.env.FRONTEND_URL as string, process.env.DOMAIN_DEPLOYMENT_URL as string];
 // allow req from another port
 app.use(
-  cors({
-    origin: allowCors,
-    credentials: true,
-  })
+    cors({
+        origin: allowCors,
+        credentials: true,
+    }),
 );
 
 app.use(express.static(path.join(__dirname, "../../frontend/dist")));
@@ -54,16 +51,16 @@ app.use("/api/hotels/:hotelId/rooms", roomRoutes);
 app.use("/api/email", emailRoutes);
 
 app.get("*", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
+    res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
 });
 
 // Error handling middleware
 app.use(ExpressHandler);
 
 app.listen(process.env.API_PORT, () => {
-  try {
-    console.log(`Server is running on port ${process.env.API_PORT}`);
-  } catch (err) {
-    console.log(err);
-  }
+    try {
+        console.log(`Server is running on port ${process.env.API_PORT}`);
+    } catch (err) {
+        console.log(err);
+    }
 });

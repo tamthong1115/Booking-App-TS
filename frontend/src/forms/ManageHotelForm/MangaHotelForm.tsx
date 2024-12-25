@@ -12,7 +12,6 @@ export type HotelFormData = {
     city: string;
     country: string;
     description: string;
-    pricePerNight: number;
     type: string;
     starRating: number;
     facilities: string[];
@@ -35,15 +34,16 @@ const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
     });
     const { handleSubmit, reset } = formMethods;
 
-    // reset the form when the hotel prop changes
+    // Reset form when hotel changes
     useEffect(() => {
         reset(hotel);
     }, [hotel, reset]);
 
     const onSubmit = handleSubmit((formDataJson: HotelFormData) => {
-        // create new FormData and call API
+        // Use FormData to send files and form data
         const formData = new FormData();
-        // if in edit mode add the id to the request
+
+        // Edit mode
         if (hotel) {
             formData.append("hotelId", hotel._id);
         }
@@ -51,7 +51,6 @@ const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
         formData.append("city", formDataJson.city);
         formData.append("country", formDataJson.country);
         formData.append("description", formDataJson.description);
-        formData.append("pricePerNight", formDataJson.pricePerNight.toString());
         formData.append("type", formDataJson.type);
         formData.append("starRating", formDataJson.starRating.toString());
         formData.append("adultCount", formDataJson.adultCount.toString());
@@ -77,10 +76,11 @@ const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
             formData.append("imageFiles", imageFile);
         });
 
-        // call the onSave function passed from the parent component
+        // Call parent component's onSave function
         onSave(formData);
     });
-    // child component can access FormProvider
+
+    // FormProvider provides form methods to all child components
     return (
         <div>
             <FormProvider {...formMethods}>

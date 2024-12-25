@@ -1,11 +1,11 @@
 import { useMutation } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import ManageRoomForm, { RoomFormData } from "../../forms/RoomForm/RoomForm.tsx";
-import { useAppContext } from "../../context/AppContext.tsx";
 import { addNewRoom } from "../../ApiClient/api-rooms.ts";
+import { useToast } from "../../context/ToastContext.tsx";
 
 const AddRoom = () => {
-    const { showToast } = useAppContext();
+    const { showToast } = useToast();
     const { hotelId } = useParams();
     const navigate = useNavigate();
 

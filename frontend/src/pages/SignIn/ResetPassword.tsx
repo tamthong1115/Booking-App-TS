@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { resetPassword } from "../../ApiClient/api-client";
-import { useAppContext } from "../../context/AppContext";
 import { useNavigate, useParams } from "react-router-dom";
+import { useToast } from "../../context/ToastContext";
 
 type ResetPasswordFormData = {
     password: string;
@@ -10,7 +10,7 @@ type ResetPasswordFormData = {
 };
 
 const ResetPassword = () => {
-    const { showToast } = useAppContext();
+    const { showToast } = useToast();
     const { token } = useParams<{ token: string }>();
     const navigate = useNavigate();
 

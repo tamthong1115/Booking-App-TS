@@ -1,15 +1,15 @@
 import { useMutation, useQueryClient } from "react-query";
-import { useAppContext } from "../../context/AppContext";
 import LoadingComponent from "../Loading/Loading";
 import { useNavigate } from "react-router-dom";
 import { deleteHotelById } from "../../ApiClient/api-hotels.ts";
+import { useToast } from "../../context/ToastContext.tsx";
 
 type Props = {
     hotelId: string;
 };
 
 const DeleteHotelButton = ({ hotelId }: Props) => {
-    const { showToast } = useAppContext();
+    const { showToast } = useToast();
     const navigate = useNavigate();
     const queryClient = useQueryClient();
 

@@ -1,18 +1,17 @@
 import React, { useContext, useState } from "react";
-import Toast from "../components/Toast/Toast.tsx";
 import { useQuery } from "react-query";
 import { loadStripe, Stripe } from "@stripe/stripe-js";
 import { validateTokenUser, getUserRoles } from "../ApiClient/api-users.ts";
+import { ToastProvider } from "./ToastContext.tsx";
 // import LoadingComponent from "../components/Loading/Loading.tsx";
 const STRIPE_PUBLIC_KEY = (import.meta.env.VITE_STRIPE_PUBLIC_KEY as string) || "";
 
-type ToastMessage = {
-    message: string;
-    type: "SUCCESS" | "ERROR";
-};
+// type ToastMessage = {
+//     message: string;
+//     type: "SUCCESS" | "ERROR";
+// };
 
 type AppContext = {
-    showToast: (toastMessage: ToastMessage) => void;
     isLoggedIn: boolean;
     roles: string[];
     stripePromise: Promise<Stripe | null>;
@@ -25,7 +24,6 @@ const AppContext = React.createContext<AppContext | undefined>(undefined);
 const stripePromise = loadStripe(STRIPE_PUBLIC_KEY);
 
 export const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
-    const [toast, setToast] = useState<ToastMessage | undefined>(undefined);
     const [loading, setLoading] = useState<boolean>(true);
 
     const {
@@ -44,9 +42,6 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
     return (
         <AppContext.Provider
             value={{
-                showToast: (toastMessage) => {
-                    setToast(toastMessage);
-                },
                 isLoggedIn: !isError,
                 roles: userRoles || [],
                 stripePromise,
@@ -54,9 +49,7 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
                 roleLoading,
             }}
         >
-            {/* {loading && <LoadingComponent isLoading={loading} />} */}
-            {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(undefined)} />}
-            {children}
+            <ToastProvider>{children}</ToastProvider>
         </AppContext.Provider>
     );
 };

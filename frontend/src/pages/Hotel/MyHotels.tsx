@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
-import { useAppContext } from "../../context/AppContext.tsx";
 import { BsBuilding, BsMap } from "react-icons/bs";
 import { BiHotel, BiStar } from "react-icons/bi";
 import DeleteHotelButton from "../../components/Button/DeleteHotelButton.tsx";
 import LoadingComponent from "../../components/Loading/Loading.tsx";
 import { fetchMyHotels } from "../../ApiClient/api-hotels.ts";
+import { useToast } from "../../context/ToastContext.tsx";
 
 const MyHotels = () => {
-    const { showToast } = useAppContext();
+    const { showToast } = useToast();
     const { data: hotelData, isLoading } = useQuery("fetchMyHotels", fetchMyHotels, {
         onError: (error: Error) => {
             showToast({
@@ -60,9 +60,6 @@ const MyHotels = () => {
                                 <BsBuilding className="mr-1" />
                                 {hotel.type}
                             </div>
-                            {/*<div className="flex items-center rounded-sm border border-slate-300 p-3">*/}
-                            {/*  <BiMoney className="mr-1" />${hotel.rooms.pricePerNight} per night*/}
-                            {/*</div>*/}
                             <div className="flex items-center rounded-sm border border-slate-300 p-3">
                                 <BiHotel className="mr-1" />
                                 {hotel.adultCount} adults, {hotel.childCount} children

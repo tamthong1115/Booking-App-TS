@@ -1,11 +1,11 @@
 import { useMutation } from "react-query";
 import ManageHotelForm from "../../forms/ManageHotelForm/MangaHotelForm.tsx";
-import { useAppContext } from "../../context/AppContext.tsx";
 import { useNavigate } from "react-router-dom";
 import { addMyHotel } from "../../ApiClient/api-hotels.ts";
+import { useToast } from "../../context/ToastContext.tsx";
 
 const AddHotel = () => {
-    const { showToast } = useAppContext();
+    const { showToast } = useToast();
     const navigate = useNavigate();
 
     const { mutate, isLoading } = useMutation(addMyHotel, {

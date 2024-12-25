@@ -4,10 +4,10 @@ import classNames from "classnames/bind";
 import styles from "./Profile.module.scss";
 import { useState } from "react";
 import { UserType } from "../../../../backend/shared/types.ts";
-import { useAppContext } from "../../context/AppContext.tsx";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { fetchCurrentUser, updateUser } from "../../ApiClient/api-users.ts";
+import { useToast } from "../../context/ToastContext.tsx";
 
 const cx = classNames.bind(styles);
 
@@ -15,7 +15,7 @@ const Profile = () => {
     const [gender, setGender] = useState("");
 
     const queryClient = useQueryClient();
-    const { showToast } = useAppContext();
+    const { showToast } = useToast();
 
     const [isEditing, setIsEditing] = useState({
         name: false,

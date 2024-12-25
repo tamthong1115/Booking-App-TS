@@ -1,8 +1,8 @@
 import React, { ChangeEvent } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useAppContext } from "../../context/AppContext";
 import { postNewContactUs } from "../../ApiClient/api-client.ts";
+import { useToast } from "../../context/ToastContext.tsx";
 
 const InputSideWrapper = styled.form`
     height: auto;
@@ -70,7 +70,7 @@ const LoadingButton = styled.button`
 `;
 
 const InputSide = () => {
-    const { showToast } = useAppContext();
+    const { showToast } = useToast();
     const [name, setName] = React.useState("");
     const [email, setEmail] = React.useState("");
     const [phone, setPhone] = React.useState("");

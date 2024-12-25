@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
-import { useAppContext } from "../../context/AppContext.tsx";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import classNames from "classnames/bind";
 import styles from "./SignIn.module.scss";
 import Buttons from "../../components/Buttons";
 import { signIn } from "../../ApiClient/api-users.ts";
+import { useToast } from "../../context/ToastContext.tsx";
 
 const cx = classNames.bind(styles);
 
@@ -16,7 +16,7 @@ export type SignInFormData = {
 };
 const SignIn = () => {
     const queryClient = useQueryClient();
-    const { showToast } = useAppContext();
+    const { showToast } = useToast();
     const navigate = useNavigate();
 
     const location = useLocation();

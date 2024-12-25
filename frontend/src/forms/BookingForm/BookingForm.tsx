@@ -4,10 +4,10 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useSearchContext } from "../../context/SearchContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation } from "react-query";
-import { useAppContext } from "../../context/AppContext.tsx";
 
 import { createRoomBooking } from "../../ApiClient/api-bookings.ts";
 import { StripeCardElement } from "@stripe/stripe-js";
+import { useToast } from "../../context/ToastContext.tsx";
 
 type Props = {
     currentUser: UserType;
@@ -35,7 +35,7 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
     const search = useSearchContext();
     const { hotelId, roomId } = useParams();
 
-    const { showToast } = useAppContext();
+    const { showToast } = useToast();
 
     const navigate = useNavigate();
 

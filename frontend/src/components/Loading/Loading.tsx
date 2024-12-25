@@ -9,7 +9,7 @@ export default function LoadingComponent({ isLoading }: PageSectionProps) {
     const renderLoadingState = () => {
         if (isLoading) {
             return (
-                <div className="flex h-screen">
+                <div>
                     <l-tail-chase size="100" speed="1.75" color="black"></l-tail-chase>{" "}
                 </div>
             );
@@ -17,9 +17,5 @@ export default function LoadingComponent({ isLoading }: PageSectionProps) {
         return null;
     };
 
-    return (
-        <div className="flex min-h-screen items-center justify-center" aria-live="polite" aria-busy={isLoading}>
-            {renderLoadingState()}
-        </div>
-    );
+    return <div aria-busy={isLoading}>{renderLoadingState()}</div>;
 }

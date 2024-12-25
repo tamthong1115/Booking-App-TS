@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "react-query";
 import { useForm } from "react-hook-form";
 import { ReviewType, UserType } from "../../../../backend/shared/types";
-import { useAppContext } from "../../context/AppContext";
 import LoadingComponent from "../../components/Loading/Loading";
 import { postNewReview } from "../../ApiClient/api-reviews.ts";
+import { useToast } from "../../context/ToastContext.tsx";
 
 type Props = {
     hotelId: string;
@@ -11,7 +11,7 @@ type Props = {
 };
 
 const ReviewForm = ({ hotelId, currentUser }: Props) => {
-    const { showToast } = useAppContext();
+    const { showToast } = useToast();
     const queryClient = useQueryClient();
     const { mutate, isLoading } = useMutation(postNewReview, {
         onSuccess: () => {

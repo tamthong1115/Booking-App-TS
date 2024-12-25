@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { postLogin, postRegister } from "../../controllers/auth";
 import { Request, Response } from "express";
-import nodemailer, { createTransport, SendMailOptions } from "nodemailer";
+import nodemailer from "nodemailer";
 import { randomUUID } from "node:crypto";
 import User from "../../models/user";
 import connectToDatabase from "../../utils/connectToDatabase";

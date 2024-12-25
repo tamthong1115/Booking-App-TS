@@ -64,7 +64,7 @@ const Home = () => {
                                 destination for everyone when choosing where to stay in your destinations.
                             </p>
                             <p className={cx("inner-text")}>
-                                Whether you're looking for a relaxing beach holiday, a city adventure or a cultural
+                                Whether you&apos;re looking for a relaxing beach holiday, a city adventure or a cultural
                                 travel experience, we have everything to suit your needs. Start your journey today with
                                 us!
                             </p>

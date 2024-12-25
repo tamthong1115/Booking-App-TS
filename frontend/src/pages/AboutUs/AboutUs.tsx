@@ -38,7 +38,7 @@ const AboutUs = () => {
                             experiences.{" "}
                         </p>
                         <p className={cx("inner-text")}>
-                            Whether you're looking for a relaxing beach holiday, a city adventure or a cultural travel
+                            Whether you&apos;re looking for a relaxing beach holiday, a city adventure or a cultural travel
                             experience, we have everything to suit your needs. Start your journey today with us!{" "}
                         </p>
                     </div>
@@ -73,7 +73,7 @@ const AboutUs = () => {
 
             <div>
                 <h1 className={cx("experience")}>
-                    TN Hotel Brings You the Best Experience at Vietnam's Leading Hotels
+                    TN Hotel Brings You the Best Experience at Vietnam&apos;s Leading Hotels
                 </h1>
                 <div className={cx("experience-inner")}>
                     <div className={cx("experience-box")}>
@@ -110,7 +110,7 @@ const AboutUs = () => {
                         <p>
                             Discover many attractive offers when booking online with us! Enjoy special rates, up to 50%
                             off for early bookings, free gifts like breakfast, spa services, or gift cards, and more!
-                            Don't miss the chance to experience a memorable vacation with our great deals. Book today to
+                            Don&apos;t miss the chance to experience a memorable vacation with our great deals. Book today to
                             receive these exclusive offers!
                         </p>
                     </div>

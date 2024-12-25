@@ -62,7 +62,6 @@ const RoomBooking = ({ hotel, room, isRoomBookingOpen, onClose }: Props) => {
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
             if (modalContentRef.current) {
-                // eslint-disable-next-line react-hooks/exhaustive-deps
                 modalContentRef.current.removeEventListener("mousedown", handleClickInside);
             }
         };

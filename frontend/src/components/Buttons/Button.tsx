@@ -53,6 +53,7 @@ Button.propTypes = {
     onClick: PropTypes.func,
     text: PropTypes.bool,
     primary: PropTypes.bool,
+    search: PropTypes.bool,
     outline: PropTypes.bool,
     small: PropTypes.bool,
     large: PropTypes.bool,

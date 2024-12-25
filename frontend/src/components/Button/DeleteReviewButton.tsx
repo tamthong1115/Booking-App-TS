@@ -1,8 +1,8 @@
 import React from "react";
 import { useMutation, useQueryClient } from "react-query";
-import { useAppContext } from "../../context/AppContext";
 import LoadingComponent from "../Loading/Loading";
 import { deleteReview } from "../../ApiClient/api-reviews.ts";
+import { useToast } from "../../context/ToastContext.tsx";
 
 type Props = {
     hotelId: string;
@@ -10,7 +10,7 @@ type Props = {
 };
 
 const DeleteReviewButton: React.FC<Props> = ({ hotelId, reviewId }) => {
-    const { showToast } = useAppContext();
+    const { showToast } = useToast();
     const queryClient = useQueryClient();
     const { mutate, isLoading } = useMutation(() => deleteReview(hotelId, reviewId), {
         onSuccess: () => {

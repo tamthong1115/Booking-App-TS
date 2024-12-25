@@ -1,12 +1,12 @@
 import { useMutation, useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import ManageHotelForm from "../../forms/ManageHotelForm/MangaHotelForm.tsx";
-import { useAppContext } from "../../context/AppContext.tsx";
 import { fetchMyHotelById, updateMyHotelById } from "../../ApiClient/api-hotels.ts";
+import { useToast } from "../../context/ToastContext.tsx";
 
 const EditHotel = () => {
     const { hotelId } = useParams();
-    const { showToast } = useAppContext();
+    const { showToast } = useToast();
 
     const navigate = useNavigate();
 

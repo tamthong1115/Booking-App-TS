@@ -7,7 +7,6 @@ const hotelSchema = Joi.object({
   country: Joi.string().required(),
   description: Joi.string().required(),
   type: Joi.string().required(),
-  pricePerNight: Joi.number().required().min(0),
   // facilities: Joi.array().required(),
 });
 

@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
-import { useAppContext } from "../../context/AppContext";
 import { sendPasswordMail } from "../../ApiClient/api-client";
+import { useToast } from "../../context/ToastContext";
 
 type ForgetPasswordFormData = {
     email: string;
 };
 
 const ForgetPassword = () => {
-    const { showToast } = useAppContext();
+    const { showToast } = useToast();
 
     const {
         register,

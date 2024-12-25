@@ -9,7 +9,6 @@ import {
 import multer from "multer";
 import roleMiddleware from "../middlewares/roleMiddleware";
 import { body } from "express-validator";
-// import { hotelValidator } from "./validation/schemas/hotelSchems";
 
 const router = express.Router();
 const storage = multer.memoryStorage();
@@ -31,10 +30,6 @@ router.post(
     body("country").notEmpty().withMessage("Country is required"),
     body("description").notEmpty().withMessage("Description is required"),
     body("type").notEmpty().withMessage("Hotel type is required"),
-    body("pricePerNight")
-      .notEmpty()
-      .isNumeric()
-      .withMessage("Price per night is required and must be a number"),
     body("facilities")
       .notEmpty()
       .isArray()

@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
-import { useAppContext } from "../../context/AppContext.tsx";
 import { Link } from "react-router-dom";
 import * as userClient from "../../ApiClient/api-users.ts";
 
 import classNames from "classnames/bind";
 import styles from "./Register.module.scss";
 import Buttons from "../../components/Buttons";
+import { useToast } from "../../context/ToastContext.tsx";
 
 const cx = classNames.bind(styles);
 
@@ -21,7 +21,7 @@ export type RegisterFormData = {
 const Register = () => {
     const queryClient = useQueryClient();
     // const navigate = useNavigate();
-    const { showToast } = useAppContext();
+    const { showToast } = useToast();
     const {
         register,
         watch,

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "react-query";
-import { useAppContext } from "../../context/AppContext.tsx";
 import { signOut } from "../../ApiClient/api-users.ts";
+import { useToast } from "../../context/ToastContext.tsx";
 // import MenuUser from "../MenuUser/MenuUser.tsx";
 // import classNames from "classnames/bind";
 // import styles from "./index.module.scss";
@@ -10,7 +10,7 @@ import { signOut } from "../../ApiClient/api-users.ts";
 
 const SignOutButton = () => {
     const queryClient = useQueryClient();
-    const { showToast } = useAppContext();
+    const { showToast } = useToast();
 
     const mutation = useMutation(signOut, {
         onSuccess: async () => {
